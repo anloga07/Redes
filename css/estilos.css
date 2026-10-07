@@ -1,0 +1,27 @@
+/* input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-size: smaller;
+    color: brown;
+} */
+input[type="text"] {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    font-size: smaller;
+    color: brown;
+}
+h6 {
+    font-size: 1.2em;
+    color: #333;
+    margin: 10px 0;
+}
+div {
+ 
+   
+}
