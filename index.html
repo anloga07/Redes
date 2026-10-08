@@ -3,94 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" media="screen" href="normalize.css"  > 
+    <link rel="stylesheet" type="text/css" media="screen" href="css/normalize.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/estilos.css"  >    
+    <link rel="stylesheet" type="text/css" href="./css/estilos.css">
     <title>Redes IP</title>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-                <!-- <h1 class="text-center">Redes IP</h1> -->
                 <!-- BARRA DE MENÚ -->
                 <nav class="navbar navbar-expand-lg bg-body-tertiary">
                     <div class="container-fluid">
-                      <!-- <a class="navbar-brand" href="#">Redes IP</a> -->
-                      <img src="img/logo.jpg" class="img-fluid rounded-circle" width="50px" alt="Redes IP">
-                      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                      </button>
-                      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <!--   < class="nav-item"> -->
-                            <a class="nav-link active" aria-current="page" onclick="cargarInicio(event)">Inicio</a>
-                            
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link" href="https://platzi.com/clases/2225-redes/35586-clases-de-redes/" target="_blank">Teoria</a>
-                          </li>
-                          <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                              Herramientas
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#" onclick="cargarClases(event)">Clases</a></li>
-                              <li><a class="dropdown-item" href="#" onclick="cargarSubneting(event)">Subneting</a></li>
-                              <li><hr class="dropdown-divider"></li>
-                              <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        <img src="img/logo.jpg" class="img-fluid rounded-circle" width="50" alt="Redes IP">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="#" onclick="cargarInicio(event)">Inicio</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="https://platzi.com/clases/2225-redes/35586-clases-de-redes/" target="_blank">Teoria</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Herramientas
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="cargarClases(event)">Clases</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="cargarSubneting(event)">Subneting</a></li>
+                                    </ul>
+                                </li>
                             </ul>
-                          </li>
-                          <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                          </li>
-                        </ul>
-                        <form class="d-flex" role="search">
-                          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                          <button class="btn btn-outline-success" type="submit">Search</button>
-                        </form>
-                      </div>
+                        </div>
                     </div>
-                  </nav>
-            </div>  
-        </div>
-        <div class="row">
-            <div  class="col-12 ">
-                <p> </p>
+                </nav>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <p></p>
+            </div>
+        </div>
+        <!-- Contenido inicial: se sustituye por los fragmentos (inicio, clases, subneting) -->
         <div class="row" id="cuerpo">
             <div class="col-lg-3">
-            <img src="img/4-clases-de-redes.webp" width="400px" class="img-fluid  " alt="Redes IP">
-        </div>
-            <div class="col-lg-6 " style="text-align: justify">
+                <img src="img/4-clases-de-redes.webp" width="400" class="img-fluid" alt="Redes IP">
+            </div>
+            <div class="col-lg-6" style="text-align: justify">
                 <p>Las redes IP son un conjunto de protocolos y estándares utilizados para conectar dispositivos en una red de computadoras. Estas redes permiten la comunicación entre dispositivos a través de direcciones IP únicas, lo que las hace fundamentales en la infraestructura de Internet.</p>
-                <p>Se basan en la arquitectura de capas, divididas en siete capas principales: capa física, capa enlace de datos, capa de red, capa de transporte, capa de sesión, capa de presentación y capa de aplicación. Cada capa tiene un propósito específico en la comunicación y procesamiento de datos.</p >
-                <p>Utilizan direcciones IP para identificar y enrutar los datos entre los dispositivos de la red. Estas direcciones IP se representan como una secuencia de cuatro números separados por puntos, como "                <p>Las redes IP utilizan direcciones IP para identificar y enrutar los datos entre los dispositivos de la red. Estas direcciones IP se representan como una secuencia de cuatro números separados por puntos, como "IP_ADDRESS". Cada dirección IP es única y se asigna a cada dispositivo en la red.</p>
-                <p>También utilizan en una amplia variedad de aplicaciones, desde la comunicación en línea hasta el envío de correo electrónico y la transferencia de archivos. Además, las redes IP también se utilizan para proteger la integridad y confidencialidad de los datos transmitidos a través de la red.</p>
+                <p>Se basan en la arquitectura de capas, divididas en siete capas principales: capa física, capa enlace de datos, capa de red, capa de transporte, capa de sesión, capa de presentación y capa de aplicación. Cada capa tiene un propósito específico en la comunicación y procesamiento de datos.</p>
+                <p>Utilizan direcciones IP para identificar y enrutar los datos entre los dispositivos de la red. Estas direcciones IP se representan como una secuencia de cuatro números separados por puntos, como <code>192.168.1.1</code>. Cada dirección IP es única y se asigna a cada dispositivo en la red.</p>
+                <p>También se utilizan en una amplia variedad de aplicaciones, desde la comunicación en línea hasta el envío de correo electrónico y la transferencia de archivos. Además, las redes IP también se utilizan para proteger la integridad y confidencialidad de los datos transmitidos a través de la red.</p>
             </div>
         </div>
-        <div class="row">       
-            <div class="col-12 ">
-
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12 ">  
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">     
-                <p>----</p>
-            </div>
-        </div>  
     </div>
-</div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="redes.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="redes.js"></script>
 </body>
 </html>
