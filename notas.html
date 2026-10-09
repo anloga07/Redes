@@ -1,0 +1,17 @@
+<div class="vista-notas">
+    <div class="container">
+        <h1>Gestor de Notas</h1>
+
+        <div id="formulario">
+            <input type="text" id="titulo" placeholder="Título de la nota" required>
+            <textarea id="contenido" placeholder="Contenido de la nota" rows="4" required></textarea>
+            <input type="datetime-local" id="fecha" placeholder="Fecha realización" required>
+            <button onclick="guardarNota()">Guardar Nota</button>
+            <button id="btn-cargar" onclick="cargarNotas()">Ver Notas</button>
+            <!-- CREAR BOTONES PARA MOSTRAR Y OCULTAR LAS NOTAS. CUANDO UN BOTÓN SE MUESTRA, EL OTRO SE OCULTA. -->
+        </div>
+
+        <h2>Mis Notas</h2>
+        <div id="lista-notas"></div>
+    </div>
+</div>

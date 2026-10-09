@@ -1,0 +1,39 @@
+<div class="vista-pass">
+    <div class="container">
+        <h2>🔐 Generador de Contraseñas</h2>
+
+        <!-- Controles -->
+        <label>Longitud:
+            <input type="number" id="length" min="4" max="50" value="12">
+        </label>
+        <label><input type="checkbox" id="includeLetters" checked> Incluir letras</label>
+        <label><input type="checkbox" id="includeNumbers" checked> Incluir números</label>
+        <label><input type="checkbox" id="includeSymbols" checked> Incluir símbolos</label>
+
+        <!-- Botones -->
+        <button id="generateBtn">Generar Contraseña</button>
+        <div class="result" id="passwordResult">Aquí aparecerá tu contraseña</div>
+
+        <!-- Login -->
+        <label>Login asociado:
+            <input type="text" id="login" placeholder="ej: usuario@email.com">
+        </label>
+        <button id="saveBtn">Guardar Contraseña</button>
+
+        <!-- Tabla -->
+        <div class="saved">
+            <h3>Contraseñas Guardadas</h3>
+            <table id="savedTable">
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Contraseña</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <small class="text-muted">Las contraseñas se guardan solo en este navegador (localStorage); no las uses para cuentas reales.</small>
+        </div>
+    </div>
+</div>

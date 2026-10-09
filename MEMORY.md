@@ -1,20 +1,20 @@
 # MEMORY.md
 
 ## Project Overview
-Static educational site about IP networks (Redes IP). Pure HTML/CSS/JS — no build step, no package manager, no framework, no tests, no CI.
+Static educational site about IP networks (Redes IP) plus classroom tools (generador de contraseñas, tareas, notas, agenda). Pure HTML/CSS/JS — no build step, no package manager, no framework, no tests, no CI. Must be served over HTTP (`python -m http.server`): navigation uses `fetch()` and breaks on `file://`.
 
 ## Architecture
-- `index.html` is the **only real entry point**. Contains the Bootstrap navbar and a `#cuerpo` div with the default (inicio) content.
-- `inicio.html`, `clases.html`, and `subneting.html` are **pure-markup fragments**, not standalone pages (no doctype/head/body). They are loaded into `#cuerpo` via `fetch()` in `redes.js` (`cargarInicio`, `cargarClases`, `cargarSubneting` → shared `cargarFragmento`). Opening them directly in a browser will not work as intended.
-- `redes.js` holds **all** logic: conversion helpers (`ipAInt`, `intAIP`, `prefijoAMascara`), IP class detection (`verClase`, returns `null` on invalid input), subneting calculators (`calculaConMascara`, `calculaConRedes`, `calculaConHosts`), tutor breakdown (`generarDesgloseTutor`), page loading, and live IP validation. There are no other JS files or modules.
-- Subneting is **classful**: only classes A/B/C, masks must be contiguous and ≥ the class default mask, at least 2 host bits are required. All subnet listings use 32-bit arithmetic (no manual carry).
+- `index.html` is the **only real entry point** and the only place with `<link>`/`<script>` tags (Bootstrap CDN + `scripts/*.js` + `css/*.css`).
+- `inicio.html`, `clases.html`, `subneting.html`, `pass.html`, `tareas.html`, `notas.html`, `agenda.html` are **pure-markup fragments** (no doctype/head/body/link/script) injected into `#cuerpo` by `cargarFragmento()` in `scripts/redes.js`.
+- **Key gotcha:** `<script>` tags injected with `innerHTML` never execute. That is why `cargarFragmento()` calls `inicializarFragmento(archivo)` after injection, which runs the per-fragment init function: `iniciarPass()`, `iniciarTareas()`, `cargarNotas()`, plus `prepararValidacionIP()`. New fragment with JS → register it there.
+- Tool scripts must not run DOM code at load time (elements do not exist yet). Inline `onclick` handlers in fragments need their functions to stay global.
+- `scripts/`: `redes.js` (IP utilities, class detection, subneting calculators, tutor mode, loaders), `scriptpass.js`, `scriptTareas.js`, `notas.js`.
+- **Persistence:** the tools save data in `localStorage` as JSON — keys `contrasenas` (`[{login, password}]`), `tareas` (`[{id, texto, completada}]`) and `notas`. Pattern: `leerX()`/`escribirX()` helpers with `try/catch` (private mode/quota), init function reloads from storage and repaints after every mutation. Stored passwords are plain text in the browser (classroom use only — noted in the UI). Rendering uses `createElement`/`textContent`, never `innerHTML` with user data (password charset contains `<`/`>`).
+- `css/`: `normalize.css`, `estilos.css` (global) + `stylepass.css`, `tareas.css`, `notas.css` scoped under `.vista-pass` / `.vista-tareas` / `.vista-notas` (their fragment wrapper) so `body`/`button`/`input`/`.container` rules don't leak site-wide.
+- Subneting is **classful**: classes A/B/C only, contiguous masks ≥ the class default, at least 2 host bits. Listings use 32-bit arithmetic (no manual carry).
 
 ## Dependencies
-- Bootstrap 5.3.8 and Bootstrap Icons are loaded from CDN. jQuery is not used.
-- `css/normalize.css` and `css/estilos.css` are local, referenced from `index.html`.
-
-## Running
-Open `index.html` in a browser, or serve the folder with any static server (e.g. `python -m http.server`). There is no dev server or build command.
+- Bootstrap 5.3.8 and Bootstrap Icons from CDN. jQuery is not used.
 
 ## Conventions
 - All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.

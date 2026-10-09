@@ -339,12 +339,31 @@ function generarDesgloseTutor(ip, mascara) {
 
 function cargarFragmento(archivo) {
     fetch(archivo)
-        .then(response => response.text())
+        .then(response => {
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            return response.text();
+        })
         .then(data => {
             document.getElementById('cuerpo').innerHTML = data;
-            prepararValidacionIP();
+            inicializarFragmento(archivo);
         })
         .catch(error => console.error('Error:', error));
+}
+
+// Los <script> incluidos en un fragmento inyectado con innerHTML NO se
+// ejecutan, así que cada herramienta se inicializa aquí, después de cargarla.
+function inicializarFragmento(archivo) {
+    prepararValidacionIP();
+
+    const inicializadores = {
+        'pass.html': 'iniciarPass',
+        'tareas.html': 'iniciarTareas',
+        'notas.html': 'cargarNotas'
+    };
+    const nombre = inicializadores[archivo];
+    if (nombre && typeof window[nombre] === 'function') {
+        window[nombre]();
+    }
 }
 
 function cargarSubneting(event) {
@@ -361,6 +380,26 @@ function cargarClases(event) {
     event.preventDefault();
     cargarFragmento('clases.html');
 }
+
+function passGenerator(event) {
+    event.preventDefault();
+    cargarFragmento('pass.html');
+}
+function tareas(event) {
+    event.preventDefault();
+    cargarFragmento('tareas.html');  
+}
+
+function notas(event) {
+    event.preventDefault();
+    cargarFragmento('notas.html'); 
+}
+
+function agenda(event) {
+    event.preventDefault();
+    cargarFragmento('agenda.html'); //agenda.html aun no esta creada
+}
+
 
 // ===== FORMULARIOS =====
 

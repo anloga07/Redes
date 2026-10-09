@@ -7,6 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" type="text/css" href="./css/estilos.css">
+    <link rel="stylesheet" type="text/css" href="./css/stylepass.css">
+    <link rel="stylesheet" type="text/css" href="./css/tareas.css">
+    <link rel="stylesheet" type="text/css" href="./css/notas.css">
     <title>Redes IP</title>
 </head>
 <body>
@@ -30,11 +33,22 @@
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Herramientas
+                                        Direcciones IP
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#" onclick="cargarClases(event)">Clases</a></li>
                                         <li><a class="dropdown-item" href="#" onclick="cargarSubneting(event)">Subneting</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Herramientas
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#" onclick="passGenerator(event)">PassGenerator</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="tareas(event)">Tareas</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="notas(event)">Notas</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="agenda(event)">Agenda</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -48,7 +62,7 @@
                 <p></p>
             </div>
         </div>
-        <!-- Contenido inicial: se sustituye por los fragmentos (inicio, clases, subneting) -->
+        <!-- Contenido inicial: se sustituye por los fragmentos (inicio, clases, subneting y herramientas) -->
         <div class="row" id="cuerpo">
             <div class="col-lg-3">
                 <img src="img/4-clases-de-redes.webp" width="400" class="img-fluid" alt="Redes IP">
@@ -62,6 +76,9 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-    <script src="redes.js"></script>
+    <script src="./scripts/redes.js"></script>
+    <script src="./scripts/scriptpass.js"></script>
+    <script src="./scripts/scriptTareas.js"></script>
+    <script src="./scripts/notas.js"></script>
 </body>
 </html>
