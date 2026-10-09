@@ -1,16 +1,49 @@
-input[type="text"] {
-    background-color: #f0f0f0;
-    border: 1px solid #ccc;
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    box-sizing: border-box;
-    font-size: smaller;
-    color: brown;
+/* ==========================================================================
+   Layout general del sitio "Redes IP".
+   Los tokens y componentes compartidos viven en css/tema.css.
+   Aquí solo la maqueta: navbar, inicio, pie y estilos de la agenda.
+   ========================================================================== */
+
+/* --- Marca de la barra de navegación --- */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
 }
 
-h6 {
-    font-size: 1.2em;
-    color: #333;
-    margin: 10px 0;
+.navbar-brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid var(--red-border);
+  box-shadow: 0 0 14px var(--red-accent-soft);
+}
+
+/* --- Imágenes de contenido --- */
+.hero img {
+  border-radius: var(--red-radius);
+  border: 1px solid var(--red-border);
+  box-shadow: var(--red-shadow);
+}
+
+/* --- Cabecera de sección --- */
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+/* --- Pie de página --- */
+.site-footer {
+  margin-top: 2.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--red-border);
+}
+
+/* --- Agenda (fragmento provisional) --- */
+.vista-agenda .panel {
+  padding: 3rem 2rem;
 }

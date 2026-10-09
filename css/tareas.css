@@ -1,70 +1,61 @@
-/* Reglas con scope .vista-tareas para no afectar al resto del sitio */
-
-.vista-tareas {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
-
-.vista-tareas #taskInput {
-    padding: 10px;
-    font-size: 1em;
-    margin-right: 10px;
-}
-
-.vista-tareas #addTaskButton {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.vista-tareas #taskList {
-    margin-top: 20px;
-}
-
+/* Estilos del Gestor de Tareas (scope .vista-tareas)
+   El panel y el formulario vienen del tema (css/tema.css). */
 .vista-tareas .taskItem {
-    background-color: #f4f4f4;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.6rem;
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-left: 3px solid var(--red-accent);
+  border-radius: var(--red-radius);
+}
+
+.vista-tareas .taskItem > span {
+  flex: 1 1 100%;
 }
 
 .vista-tareas .taskItem.completed {
-    background-color: #d4edda;
-    text-decoration: line-through;
+  border-left-color: var(--red-success);
+  opacity: 0.85;
 }
 
-.vista-tareas .deleteButton,
+.vista-tareas .taskItem.completed > span {
+  text-decoration: line-through;
+  color: var(--red-muted);
+}
+
+.vista-tareas .toggleButton,
 .vista-tareas .editButton,
-.vista-tareas .toggleButton {
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
+.vista-tareas .deleteButton {
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-.vista-tareas .deleteButton {
-    background-color: red;
-    color: white;
+.vista-tareas .toggleButton {
+  background: var(--red-accent);
+  color: #05252e;
 }
 
 .vista-tareas .editButton {
-    background-color: orange;
-    color: white;
+  background: var(--red-warning);
+  color: #2a1a00;
 }
 
-.vista-tareas .toggleButton {
-    background-color: blue;
-    color: white;
+.vista-tareas .deleteButton {
+  background: var(--red-danger);
+  color: #2a0b0b;
 }
 
-.vista-tareas .deleteButton:hover,
+.vista-tareas .toggleButton:hover,
 .vista-tareas .editButton:hover,
-.vista-tareas .toggleButton:hover {
-    opacity: 0.8;
+.vista-tareas .deleteButton:hover {
+  filter: brightness(1.08);
 }

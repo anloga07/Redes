@@ -261,7 +261,7 @@ function generarDesgloseTutor(ip, mascara) {
     const octetoInteres = Math.min(Math.floor(prefijo / 8), 3);
     const numeroMagico = 256 - octetosMask[octetoInteres];
 
-    let html = '<div class="mt-4 p-3 border rounded bg-light">';
+    let html = '<div class="panel-tutor mt-4 p-3">';
     html += '<h5>Desglose paso a paso (Modo Tutor)</h5>';
 
     html += '<h6 class="mt-3">1. Conversión a binario</h6>';
@@ -346,8 +346,26 @@ function cargarFragmento(archivo) {
         .then(data => {
             document.getElementById('cuerpo').innerHTML = data;
             inicializarFragmento(archivo);
+            marcarVistaActiva(archivo);
         })
         .catch(error => console.error('Error:', error));
+}
+
+// Marca el enlace del menú correspondiente al fragmento cargado
+function marcarVistaActiva(archivo) {
+    const vistas = {
+        'inicio.html': 'inicio',
+        'clases.html': 'clases',
+        'subneting.html': 'subneting',
+        'pass.html': 'pass',
+        'tareas.html': 'tareas',
+        'notas.html': 'notas',
+        'agenda.html': 'agenda'
+    };
+    const vista = vistas[archivo];
+    document.querySelectorAll('[data-vista]').forEach(enlace => {
+        enlace.classList.toggle('active', enlace.dataset.vista === vista);
+    });
 }
 
 // Los <script> incluidos en un fragmento inyectado con innerHTML NO se
