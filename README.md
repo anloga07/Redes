@@ -14,6 +14,7 @@ Sitio web educativo estático sobre redes IP con herramientas de cálculo intera
 - **Validación en vivo** — El campo de IP se resalta en verde/rojo mientras se escribe
 - **Herramientas de aula** — Generador de contraseñas, gestor de tareas, gestor de notas y agenda (en construcción)
 - **Persistencia en el navegador** — Contraseñas, tareas y notas se guardan en `localStorage` y no se pierden al recargar o cambiar de herramienta
+- **Tema visual unificado** — Estética oscura tipo centro de datos (NOC) con acento cian, construida sobre Bootstrap y responsive en todas las pantallas
 
 ## Tecnologías
 
@@ -33,6 +34,12 @@ python -m http.server 8000
 
 Luego accede a `http://localhost:8000`
 
+### Live Server (VS Code)
+
+Si usas la extensión **Live Server**, iníciala siempre sobre **`index.html`** (botón derecho → *Open with Live Server*), nunca sobre un fragmento (`inicio.html`, `pass.html`...): los fragmentos no llevan `<head>` ni `<body>` a propósito, así que abrirlos directamente muestra una página sin estilos ni navegación.
+
+Por ese mismo motivo Live Server mostrará el aviso *"Live Reload is not possible without a head or body tag"* al servir los fragmentos; es esperado y está silenciado por `.vscode/settings.json` (`liveServer.settings.donotVerifyTags: true`).
+
 ## Estructura del proyecto
 
 ```
@@ -51,8 +58,8 @@ Redes/
 │   ├── scriptTareas.js  # Gestor de tareas
 │   └── notas.js         # Gestor de notas
 ├── css/
-│   ├── normalize.css    # Reset de estilos
-│   ├── estilos.css      # Estilos personalizados del sitio
+│   ├── tema.css         # Tema oscuro: tokens y variables de Bootstrap
+│   ├── estilos.css      # Layout del sitio (navbar, inicio, pie, agenda)
 │   ├── stylepass.css    # Estilos del generador de contraseñas
 │   ├── tareas.css       # Estilos del gestor de tareas
 │   └── notas.css        # Estilos del gestor de notas
@@ -73,7 +80,7 @@ Cargadas desde CDN:
 
 Locales:
 
-- `css/normalize.css`, `css/estilos.css` y los CSS de cada herramienta (con scope para no afectar al resto del sitio)
+- `css/tema.css` (tema y tokens), `css/estilos.css` (layout) y los CSS de cada herramienta (con scope para no afectar al resto del sitio)
 
 ## Licencia
 

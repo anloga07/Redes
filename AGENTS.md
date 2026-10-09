@@ -16,14 +16,14 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 - `scripts/` holds **all** JS:
   - `redes.js`: utilities (`ipAInt`, `intAIP`, `claseDelPrimerOcteto`, `prefijoAMascara`), IP class detection (`verClase`, returns `null` on invalid input — callers must check), subneting calculators (`calculaConMascara`, `calculaConRedes`, `calculaConHosts`; classful: classes A, B and C, masks must be contiguous and ≥ the class default), tutor breakdown (`generarDesgloseTutor`), page loading and live IP validation.
   - `scriptpass.js`, `scriptTareas.js`, `notas.js`: one file per tool. They must not touch the DOM at load time (the fragment does not exist yet); everything goes in an init function called by `inicializarFragmento`. Global functions invoked from inline `onclick` in fragments (`guardarNota`, `cargarNotas`, `eliminarNota`, `generatePassword`, `addTask`...) must stay global.
-- CSS is organised per feature in `css/`. Rules of the tool stylesheets are **scoped** under their fragment wrapper class (`.vista-pass`, `.vista-tareas`, `.vista-notas`) so they never leak into the rest of the site (`body`, `button`, `input`, `.container` selectors would otherwise restyle everything).
+- CSS is organised per feature in `css/`. `tema.css` defines the design tokens (CSS custom properties) and overrides Bootstrap's CSS variables for the **dark "NOC" theme** (cyan accent, `data-bs-theme="dark"` on `<html>`); `estilos.css` holds the site layout (navbar, hero, footer, agenda). Rules of the tool stylesheets are **scoped** under their fragment wrapper class (`.vista-pass`, `.vista-tareas`, `.vista-notas`, `.vista-agenda`) so they never leak into the rest of the site (`body`, `button`, `input`, `.container` selectors would otherwise restyle everything). Reuse the theme tokens and utilities (`.panel`, `.section-title`, `.result-box`, `.ip-out`, `.btn-outline-accent`, `--red-*`) instead of adding new hardcoded colors.
 - Tool data persists in `localStorage` as JSON (keys `contrasenas`, `tareas`, `notas`) through `leerX()`/`escribirX()` helpers with `try/catch`. Init functions reload from storage after each injection; after every mutation the data is saved and the view repainted. Render user data with `createElement`/`textContent`, not `innerHTML` (password charset contains `<`/`>`).
 
 ## Dependencies
 
 - Bootstrap 5.3.8 and Bootstrap Icons are loaded from CDN. No local copies.
 - jQuery is **not** used.
-- `css/normalize.css` and `css/estilos.css` are local stylesheets referenced from `index.html`.
+- Local stylesheets referenced from `index.html`: `css/tema.css` (theme tokens), `css/estilos.css` (layout) and the per-tool CSS. `css/normalize.css` was removed because Bootstrap Reboot already normalizes.
 
 ## Language
 
