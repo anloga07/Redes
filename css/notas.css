@@ -1,48 +1,88 @@
-/* Reglas con scope .vista-notas para no afectar al resto del sitio */
-
-.vista-notas {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f0f0f0;
-}
-
-.vista-notas .container {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* Estilos del Gestor de Notas (scope .vista-notas)
+   El panel, botones y formularios vienen del tema (css/tema.css). */
 .vista-notas .nota {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-left: 3px solid var(--red-accent);
+  border-radius: var(--red-radius);
 }
 
-.vista-notas button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+.vista-notas .nota-info {
+  flex: 1 1 320px;
+  min-width: 0;
 }
 
-.vista-notas button.eliminar {
-    background-color: #f44336;
+.vista-notas .nota-info h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.35rem;
 }
 
-.vista-notas input,
-.vista-notas textarea {
-    width: 100%;
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+.vista-notas .nota-info p {
+  margin-bottom: 0.35rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.vista-notas .nota-info small {
+  display: block;
+  color: var(--red-muted);
+  font-size: 0.8rem;
+}
+
+.vista-notas .nota-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.vista-notas .nota-edicion {
+  flex: 1 1 100%;
+}
+
+.vista-notas .nota button.editar,
+.vista-notas .nota button.guardar,
+.vista-notas .nota button.cancelar,
+.vista-notas .nota button.eliminar {
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  padding: 0.3rem 0.8rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vista-notas .nota button.editar {
+  background: var(--red-warning);
+  color: #2a1a00;
+}
+
+.vista-notas .nota button.guardar {
+  background: var(--red-accent);
+  color: #05252e;
+}
+
+.vista-notas .nota button.cancelar {
+  background: var(--red-surface);
+  color: var(--red-text);
+  border-color: var(--red-border);
+}
+
+.vista-notas .nota button.eliminar {
+  background: var(--red-danger);
+  color: #2a0b0b;
+}
+
+.vista-notas .nota button.editar:hover,
+.vista-notas .nota button.guardar:hover,
+.vista-notas .nota button.cancelar:hover,
+.vista-notas .nota button.eliminar:hover {
+  filter: brightness(1.08);
 }
