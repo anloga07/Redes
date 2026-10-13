@@ -1,0 +1,132 @@
+<div class="col-12">
+    <h1 class="page-title h3"><i class="bi bi-book"></i> Teoría: direccionamiento IP</h1>
+    <p class="text-secondary mb-4">Guía de repaso para entender una dirección IPv4 antes de usar las calculadoras. Si algo no queda claro, prueba el ejemplo en la <a href="#" onclick="cargarSubneting(event)">calculadora de subneting</a>.</p>
+</div>
+<div class="col-12 col-lg-10">
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-123"></i> 1. ¿Qué es una dirección IP?</h2>
+        <hr>
+        <p class="text-justify">Una dirección IPv4 es un número de <b>32 bits</b> que identifica a un dispositivo dentro de una red. Para leerla con comodidad se divide en <b>4 octetos</b> (grupos de 8 bits) escritos en decimal y separados por puntos. Cada octeto puede valer entre <code>0</code> y <code>255</code>.</p>
+        <p class="text-justify">La dirección tiene siempre dos partes: la <b>parte de red</b>, que es igual para todos los equipos de la misma red, y la <b>parte de host</b>, que distingue a cada equipo. Qué trozos son de red y cuáles de host lo decide la máscara (Apartado 3).</p>
+        <div class="result-box ip-out mb-0">
+            <div>192.168.1.1 &rarr; 11000000.10101000.00000001.00000001</div>
+            <div class="mt-2"><span class="icon-accent">red</span> = 192.168.1 &nbsp;&middot;&nbsp; <span class="icon-accent">host</span> = .1 &nbsp;(con máscara /24)</div>
+        </div>
+    </div>
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-hdd-network"></i> 2. Clases de direcciones (A&ndash;E)</h2>
+        <hr>
+        <p class="text-justify">El direccionamiento clásico o <b>con clases</b> deduce el tamaño de la red a partir del primer octeto. La clase determina cuántos octetos pertenecen a la red y cuántos al host.</p>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr><th>Clase</th><th>Primer octeto</th><th>Bits iniciales</th><th>Uso</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>A</code></td><td>1 &ndash; 126</td><td><code>0</code></td><td>Redes muy grandes</td></tr>
+                    <tr><td><code>B</code></td><td>128 &ndash; 191</td><td><code>10</code></td><td>Redes medianas</td></tr>
+                    <tr><td><code>C</code></td><td>192 &ndash; 223</td><td><code>110</code></td><td>Redes pequeñas</td></tr>
+                    <tr><td><code>D</code></td><td>224 &ndash; 239</td><td><code>1110</code></td><td>Multicast</td></tr>
+                    <tr><td><code>E</code></td><td>240 &ndash; 255</td><td><code>1111</code></td><td>Experimental</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-justify mb-0">La dirección <code>127.x.x.x</code> está reservada para <i>loopback</i> (el propio equipo) y no se usa como red. Las clases A, B y C se dividen en subredes; D y E tienen usos especiales.</p>
+    </div>
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-rulers"></i> 3. La máscara de subred y la notación CIDR</h2>
+        <hr>
+        <p class="text-justify">La <b>máscara de subred</b> es un número de 32 bits con los unos agrupados a la izquierda y los ceros a la derecha. Marca con <code>1</code> la parte de red y con <code>0</code> la parte de host. Siempre se escribe en binario como <code>111...111000...000</code>: los unos y los ceros no pueden alternarse.</p>
+        <p class="text-justify">En notación <b>CIDR</b> basta con el prefijo <code>/n</code>, donde <code>n</code> es el número de bits a 1. Así, <code>/24</code> equivale a la máscara <code>255.255.255.0</code>.</p>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr><th>Prefijo</th><th>Máscara en decimal</th><th>Máscara en binario</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>/8</code></td><td>255.0.0.0</td><td>11111111.00000000.00000000.00000000</td></tr>
+                    <tr><td><code>/16</code></td><td>255.255.0.0</td><td>11111111.11111111.00000000.00000000</td></tr>
+                    <tr><td><code>/24</code></td><td>255.255.255.0</td><td>11111111.11111111.11111111.00000000</td></tr>
+                    <tr><td><code>/25</code></td><td>255.255.255.128</td><td>11111111.11111111.11111111.10000000</td></tr>
+                    <tr><td><code>/27</code></td><td>255.255.255.224</td><td>11111111.11111111.11111111.11100000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-diagram-2"></i> 4. Subneting: dividir una red</h2>
+        <hr>
+        <p class="text-justify">Hacer <b>subneting</b> es partir una red en varias subredes más pequeñas. Para ello se <b>toman prestados</b> bits de la parte de host y se añaden a la parte de red: cada bit prestado duplica el número de subredes y reduce a la mitad los hosts de cada una.</p>
+        <ul>
+            <li>Número de subredes = <code>2^bits prestados</code>.</li>
+            <li>Direcciones por subred = <code>2^bits de host</code>.</li>
+            <li>Hosts útiles = <code>2^bits de host &minus; 2</code> (se descuentan la dirección de red y la de broadcast).</li>
+            <li>El <b>número mágico</b> es <code>256 &minus; último octeto de la máscara</code> y marca el salto entre subredes.</li>
+        </ul>
+        <p class="text-justify"><b>Ejemplo:</b> a una empresa le asignan la red <code>200.3.25.0/24</code> (clase C, 254 hosts útiles) y necesita 8 subredes. Como <code>2^3 = 8</code>, hay que tomar prestados 3 bits, así que la máscara pasa a <code>/27</code> = <code>255.255.255.224</code>. Cada subred tendrá <code>2^5 = 32</code> direcciones, es decir <code>30</code> hosts útiles, y el salto entre subredes es <code>256 &minus; 224 = 32</code>.</p>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr><th>Subred</th><th>Dirección de red</th><th>Rango de hosts</th><th>Broadcast</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>200.3.25.0</td><td>200.3.25.1 &ndash; 200.3.25.30</td><td>200.3.25.31</td></tr>
+                    <tr><td>2</td><td>200.3.25.32</td><td>200.3.25.33 &ndash; 200.3.25.62</td><td>200.3.25.63</td></tr>
+                    <tr><td>3</td><td>200.3.25.64</td><td>200.3.25.65 &ndash; 200.3.25.94</td><td>200.3.25.95</td></tr>
+                    <tr><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td><td>&hellip;</td></tr>
+                    <tr><td>8</td><td>200.3.25.224</td><td>200.3.25.225 &ndash; 200.3.25.254</td><td>200.3.25.255</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-shield-lock"></i> 5. Direcciones privadas y públicas</h2>
+        <hr>
+        <p class="text-justify">Las direcciones <b>públicas</b> son únicas en Internet. Las <b>privadas</b> se usan dentro de redes locales y se repiten en miles de organizaciones; un router no las enruta hacia Internet. El documento <b>RFC 1918</b> reserva tres bloques:</p>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr><th>Bloque</th><th>Rango</th><th>Máscara (CIDR)</th><th>Clase</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>24 bits</td><td>10.0.0.0 &ndash; 10.255.255.255</td><td><code>10.0.0.0/8</code></td><td>A</td></tr>
+                    <tr><td>20 bits</td><td>172.16.0.0 &ndash; 172.31.255.255</td><td><code>172.16.0.0/12</code></td><td>B</td></tr>
+                    <tr><td>16 bits</td><td>192.168.0.0 &ndash; 192.168.255.255</td><td><code>192.168.0.0/16</code></td><td>C</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="text-justify">El rango <code>169.254.0.0/16</code> se reserva para la <b>autoconfiguración</b> (enlace local) cuando un equipo no obtiene dirección por DHCP. Para que una red privada salga a Internet se usa <b>NAT</b>: el router traduce las direcciones privadas a su dirección pública.</p>
+        <p class="text-justify mb-0">El ejemplo <code>192.168.1.1</code> de la portada es una dirección privada: sirve dentro de la red local, no en Internet.</p>
+    </div>
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-lightning-charge"></i> 6. Practica</h2>
+        <hr>
+        <p class="text-justify">Ya tienes la base. Compruébala con las herramientas del sitio:</p>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-outline-accent" href="#" onclick="cargarClases(event)"><i class="bi bi-hdd-network me-1"></i>Detectar la clase</a>
+            <a class="btn btn-primary" href="#" onclick="cargarSubneting(event)"><i class="bi bi-diagram-2 me-1"></i>Abrir calculadora</a>
+        </div>
+    </div>
+
+    <div class="field p-4 mb-4">
+        <h2 class="h5 section-title"><i class="bi bi-journal-bookmark"></i> Más lectura</h2>
+        <hr>
+        <ul class="mb-0">
+            <li><a href="https://es.wikipedia.org/wiki/Direcci%C3%B3n_IP" target="_blank" rel="noopener">Dirección IP</a> &mdash; Wikipedia (español).</li>
+            <li><a href="https://es.wikipedia.org/wiki/M%C3%A1scara_de_red" target="_blank" rel="noopener">Máscara de red</a> &mdash; Wikipedia (español).</li>
+            <li><a href="https://es.wikipedia.org/wiki/Subred" target="_blank" rel="noopener">Subred</a> &mdash; Wikipedia (español).</li>
+            <li><a href="https://es.wikipedia.org/wiki/Classless_Inter-Domain_Routing" target="_blank" rel="noopener">CIDR</a> &mdash; Wikipedia (español).</li>
+            <li><a href="https://es.wikipedia.org/wiki/Red_privada" target="_blank" rel="noopener">Red privada (RFC 1918)</a> &mdash; Wikipedia (español).</li>
+            <li><a href="https://riull.ull.es/xmlui/bitstream/handle/915/14702/Guia_sobre_direccionamiento_IP__subredes_y_enrutamiento.pdf" target="_blank" rel="noopener">Guía sobre direccionamiento IP, subredes y enrutamiento</a> &mdash; Universidad de La Laguna (PDF, español).</li>
+            <li><a href="https://www.rfc-editor.org/rfc/rfc791" target="_blank" rel="noopener">RFC 791 &mdash; Internet Protocol</a> (inglés).</li>
+            <li><a href="https://www.rfc-editor.org/rfc/rfc1918" target="_blank" rel="noopener">RFC 1918 &mdash; Address Allocation for Private Internets</a> (inglés).</li>
+        </ul>
+    </div>
+
+</div>

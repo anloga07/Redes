@@ -21,11 +21,163 @@
   box-shadow: 0 0 14px var(--red-accent-soft);
 }
 
-/* --- Imágenes de contenido --- */
-.hero img {
-  border-radius: var(--red-radius);
+/* --- Hero de inicio: la firma de una dirección IP --- */
+.hero-redes .field-hero {
+  padding: 2rem 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .hero-redes .field-hero {
+    padding: 3.5rem 3rem;
+  }
+}
+
+/* --- Ilustración SVG de la portada --- */
+.hero-art {
+  background:
+    linear-gradient(180deg, rgba(34, 211, 238, 0.08), transparent 45%),
+    var(--red-surface-2);
   border: 1px solid var(--red-border);
+  border-radius: var(--red-radius);
   box-shadow: var(--red-shadow);
+  padding: 1.4rem 1.4rem 1rem;
+  max-width: 540px;
+  margin-inline: auto;
+}
+
+.hero-art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.hero-svg-mono {
+  font-family: var(--red-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+}
+
+.hero-svg-text {
+  font-family: var(--red-font-mono);
+  font-size: 11px;
+  fill: var(--red-muted);
+}
+
+.hero-svg .packet {
+  fill: var(--red-accent);
+  filter: drop-shadow(0 0 4px var(--red-accent));
+  animation: packet-send 3s linear infinite;
+}
+
+@supports (offset-path: path("M1 1")) {
+  .hero-svg .packet {
+    offset-path: path("M 160 168 Q 126 196 94 218");
+    offset-rotate: 0deg;
+  }
+}
+
+@keyframes packet-send {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+
+/* --- Chips de datos del hero --- */
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+.chip {
+  font-family: var(--red-font-mono);
+  font-size: 0.78rem;
+  color: var(--red-text);
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  white-space: nowrap;
+}
+
+.chip-accent {
+  color: #05252e;
+  border-color: transparent;
+  background: var(--red-gradient);
+}
+
+.hero-breadcrumb {
+  color: var(--red-muted);
+  font-family: var(--red-font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  margin-bottom: 1.75rem;
+}
+
+.address-signature {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.octeto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.9rem;
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-radius: var(--red-radius);
+}
+
+.octeto-dec {
+  font-family: var(--red-font-mono);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.octeto-bin {
+  font-family: var(--red-font-mono);
+  font-size: 0.72rem;
+  color: var(--red-muted);
+  letter-spacing: 0.05em;
+  margin-top: 0.4rem;
+}
+
+.cidr {
+  font-family: var(--red-font-mono);
+  font-size: clamp(1.2rem, 3vw, 1.9rem);
+  font-weight: 600;
+  color: var(--red-accent);
+  padding: 0 0.25rem 0.3rem 0.5rem;
+}
+
+.hero-title {
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  max-width: 16ch;
+}
+
+.hero-sub {
+  color: var(--red-muted);
+  font-size: 1.05rem;
+  line-height: 1.6;
+  max-width: 52ch;
+  margin: 1rem 0 0;
+}
+
+.hero-redes .d-flex {
+  margin-top: 1.5rem;
 }
 
 /* --- Cabecera de sección --- */
@@ -34,6 +186,88 @@
   align-items: center;
   gap: 0.6rem;
   margin-bottom: 1rem;
+}
+
+/* --- Tarjetas de secciones ("Explora el sitio") --- */
+.icon-circle {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 1.3rem;
+  color: #05252e;
+  background: var(--red-gradient);
+  box-shadow: 0 0 16px var(--red-accent-soft);
+}
+
+.feature-card h3 {
+  margin: 1rem 0 0.5rem;
+}
+
+.feature-card p {
+  color: var(--red-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
+.card-link {
+  color: var(--red-accent);
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 0.85rem;
+}
+
+.card-link:hover,
+.card-link:focus {
+  color: #67e8f9;
+  text-decoration: underline;
+}
+
+.tool-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tool-pill {
+  font-size: 0.78rem;
+  color: var(--red-muted);
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+  text-decoration: none;
+}
+
+.tool-pill:hover,
+.tool-pill:focus {
+  color: var(--red-accent);
+  border-color: var(--red-accent);
+}
+
+/* --- Guía "¿Por dónde empiezo?" --- */
+.step-num {
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #05252e;
+  background: var(--red-gradient);
+}
+
+.step h3 {
+  margin: 0.9rem 0 0.45rem;
+}
+
+.step p {
+  color: var(--red-muted);
+  font-size: 0.92rem;
+  line-height: 1.55;
 }
 
 /* --- Pie de página --- */

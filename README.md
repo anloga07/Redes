@@ -4,6 +4,7 @@ Sitio web educativo estático sobre redes IP con herramientas de cálculo intera
 
 ## Características
 
+- **Teoría del direccionamiento IP** — Temario de repaso: qué es una dirección IPv4, clases A–E, máscara y CIDR, subneting con ejemplo, direcciones privadas/públicas y enlaces de ampliación
 - **Detección de clase IP** — Identifica si una dirección IP pertenece a la clase A, B, C, D o E
 - **Calculadora de Subneting** — Tres modos de cálculo:
   - Por máscara de subred
@@ -14,7 +15,8 @@ Sitio web educativo estático sobre redes IP con herramientas de cálculo intera
 - **Validación en vivo** — El campo de IP se resalta en verde/rojo mientras se escribe
 - **Herramientas de aula** — Generador de contraseñas, gestor de tareas, gestor de notas y agenda (en construcción)
 - **Persistencia en el navegador** — Contraseñas, tareas y notas se guardan en `localStorage` y no se pierden al recargar o cambiar de herramienta
-- **Tema visual unificado** — Estética oscura tipo centro de datos (NOC) con acento cian, construida sobre Bootstrap y responsive en todas las pantallas
+- **Tema visual unificado** — Estética oscura tipo centro de datos (NOC) con acento cian y tipografía IBM Plex (Sans + Mono), construida sobre Bootstrap y responsive en todas las pantallas
+- **Portada vistosa** — Hero a dos columnas con la firma de la IP en binario, chips de datos e ilustración SVG de una red en la que "viaja" un paquete, más tarjetas de secciones y guía de inicio en tres pasos
 
 ## Tecnologías
 
@@ -46,6 +48,7 @@ Por ese mismo motivo Live Server mostrará el aviso *"Live Reload is not possibl
 Redes/
 ├── index.html           # Punto de entrada único (navbar + contenedor + CSS/JS)
 ├── inicio.html          # Fragmento: página de inicio
+├── teoria.html          # Fragmento: temario de teoría (direccionamiento IP)
 ├── clases.html          # Fragmento: detección de clase IP
 ├── subneting.html       # Fragmento: calculadora de subneting
 ├── pass.html            # Fragmento: generador de contraseñas

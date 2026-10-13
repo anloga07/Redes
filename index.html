@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/tema.css">
     <link rel="stylesheet" type="text/css" href="./css/estilos.css">
     <link rel="stylesheet" type="text/css" href="./css/stylepass.css">
@@ -32,7 +35,7 @@
                                     <a class="nav-link active" aria-current="page" data-vista="inicio" href="#" onclick="cargarInicio(event)">Inicio</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="https://platzi.com/clases/2225-redes/35586-clases-de-redes/" target="_blank" rel="noopener">Teoria</a>
+                                    <a class="nav-link" data-vista="teoria" href="#" onclick="teoria(event)">Teoría</a>
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,19 +63,142 @@
                 </nav>
             </div>
         </div>
-        <!-- Contenido inicial: se sustituye por los fragmentos (inicio, clases, subneting y herramientas) -->
+        <!-- Contenido inicial: se sustituye por los fragmentos (inicio, teoria, clases, subneting y herramientas) -->
         <div class="row py-4" id="cuerpo">
-            <div class="col-lg-5 col-xl-5 hero mb-4 mb-lg-0">
-                <img src="img/4-clases-de-redes.webp" width="600" class="img-fluid w-100" alt="Redes IP">
+            <div class="col-12 hero-redes">
+                <div class="field field-hero p-4 p-lg-5">
+                    <div class="row align-items-center g-4 g-lg-5">
+                        <div class="col-12 col-lg-7">
+                            <p class="hero-breadcrumb mb-0">Redes IP &middot; Clases A&#8211;E &middot; Subneting</p>
+                            <div class="address-signature" aria-hidden="true">
+                                <span class="octeto"><span class="octeto-dec">192</span><span class="octeto-bin">11000000</span></span>
+                                <span class="octeto"><span class="octeto-dec">168</span><span class="octeto-bin">10101000</span></span>
+                                <span class="octeto"><span class="octeto-dec">1</span><span class="octeto-bin">00000001</span></span>
+                                <span class="octeto"><span class="octeto-dec">1</span><span class="octeto-bin">00000001</span></span>
+                                <span class="cidr">/24</span>
+                            </div>
+                            <h1 class="hero-title">Aprende a leer una dirección IP</h1>
+                            <p class="hero-sub">Descubre a qué clase pertenece, cuál es su máscara y cómo se divide en subredes, con calculadoras guiadas paso a paso.</p>
+                            <div class="hero-chips" aria-hidden="true">
+                                <span class="chip">32 bits</span>
+                                <span class="chip">4 octetos</span>
+                                <span class="chip">2&#8319;&#8722;2 hosts</span>
+                                <span class="chip chip-accent">clases A&#8211;E</span>
+                            </div>
+                            <div class="d-flex flex-wrap gap-2">
+                                <a class="btn btn-outline-accent" href="#" onclick="cargarClases(event)"><i class="bi bi-hdd-network me-1"></i>Ver clases</a>
+                                <a class="btn btn-primary" href="#" onclick="cargarSubneting(event)"><i class="bi bi-diagram-2 me-1"></i>Abrir calculadora</a>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-5">
+                            <div class="hero-art" aria-hidden="true">
+                                <svg viewBox="0 0 380 300" class="hero-svg">
+                                    <g>
+                                        <circle cx="190" cy="150" r="120" fill="none" stroke="var(--red-border)" stroke-opacity="0.4" stroke-dasharray="2 7" stroke-width="1.5"/>
+                                        <circle cx="190" cy="150" r="96" fill="none" stroke="var(--red-border)" stroke-opacity="0.25" stroke-dasharray="2 7" stroke-width="1.5"/>
+                                    </g>
+                                    <g stroke="var(--red-border)" stroke-linecap="round" stroke-width="1.5">
+                                        <line x1="160" y1="132" x2="94" y2="86"/>
+                                        <line x1="220" y1="132" x2="286" y2="86"/>
+                                        <line x1="160" y1="168" x2="94" y2="214"/>
+                                        <line x1="220" y1="168" x2="286" y2="214"/>
+                                    </g>
+                                    <g>
+                                        <circle cx="74" cy="66" r="14" fill="var(--red-surface)" stroke="var(--red-accent-2)" stroke-width="1.5"/>
+                                        <circle cx="74" cy="66" r="5" fill="var(--red-accent-2)"/>
+                                        <circle cx="306" cy="66" r="14" fill="var(--red-surface)" stroke="var(--red-accent-2)" stroke-width="1.5"/>
+                                        <circle cx="306" cy="66" r="5" fill="var(--red-accent-2)"/>
+                                        <circle cx="74" cy="234" r="14" fill="var(--red-surface)" stroke="var(--red-accent-2)" stroke-width="1.5"/>
+                                        <circle cx="74" cy="234" r="5" fill="var(--red-accent-2)"/>
+                                        <circle cx="306" cy="234" r="14" fill="var(--red-surface)" stroke="var(--red-accent-2)" stroke-width="1.5"/>
+                                        <circle cx="306" cy="234" r="5" fill="var(--red-accent-2)"/>
+                                    </g>
+                                    <rect x="148" y="124" width="84" height="52" rx="12" fill="var(--red-surface)" stroke="var(--red-accent)" stroke-width="2"/>
+                                    <g stroke="var(--red-accent)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M168 140 h12 v9"/>
+                                        <path d="M182 149 l-5 4 5 4"/>
+                                        <path d="M212 160 h-12 v-9"/>
+                                        <path d="M198 151 l5 -4 -5 -4"/>
+                                    </g>
+                                    <circle class="packet" cx="127" cy="191" r="4.5"/>
+                                    <text x="190" y="198" text-anchor="middle" class="hero-svg-text">enrutador</text>
+                                    <text x="24" y="34" class="hero-svg-mono" style="fill: var(--red-accent)">192.168.1.0/24</text>
+                                    <text x="252" y="280" class="hero-svg-mono" style="fill: var(--red-muted)">11000000 10101000</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-7 col-xl-7">
-                <div class="panel p-4 p-lg-5 h-100">
-                    <h2 class="section-title"><i class="bi bi-diagram-3"></i> ¿Qué son las redes IP?</h2>
-                    <hr>
-                    <p class="text-justify">Las redes IP son un conjunto de protocolos y estándares utilizados para conectar dispositivos en una red de computadoras. Estas redes permiten la comunicación entre dispositivos a través de direcciones IP únicas, lo que las hace fundamentales en la infraestructura de Internet.</p>
-                    <p class="text-justify">Se basan en la arquitectura de capas, divididas en siete capas principales: capa física, capa enlace de datos, capa de red, capa de transporte, capa de sesión, capa de presentación y capa de aplicación. Cada capa tiene un propósito específico en la comunicación y procesamiento de datos.</p>
-                    <p class="text-justify">Utilizan direcciones IP para identificar y enrutar los datos entre los dispositivos de la red. Estas direcciones IP se representan como una secuencia de cuatro números separados por puntos, como <code>192.168.1.1</code>. Cada dirección IP es única y se asigna a cada dispositivo en la red.</p>
-                    <p class="text-justify mb-0">También se utilizan en una amplia variedad de aplicaciones, desde la comunicación en línea hasta el envío de correo electrónico y la transferencia de archivos. Además, las redes IP también se utilizan para proteger la integridad y confidencialidad de los datos transmitidos a través de la red.</p>
+            <div class="col-12 mt-4">
+                <h2 class="page-title h4"><i class="bi bi-grid-3x3-gap"></i> Explora el sitio</h2>
+                <div class="row g-4">
+                    <div class="col-md-6 col-xl-3">
+                        <div class="panel p-4 h-100 feature-card">
+                            <div class="icon-circle"><i class="bi bi-book"></i></div>
+                            <h3>Teoría</h3>
+                            <p class="mb-0">Qué es una dirección IP, las clases A&ndash;E, la máscara y el subneting con ejemplos y enlaces de ampliación.</p>
+                            <a class="card-link" href="#" onclick="teoria(event)">Leer la teoría <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="panel p-4 h-100 feature-card">
+                            <div class="icon-circle"><i class="bi bi-hdd-network"></i></div>
+                            <h3>Clases de IP</h3>
+                            <p class="mb-0">Escribe una dirección IP y descubre al instante a qué clase pertenece según su primer octeto.</p>
+                            <a class="card-link" href="#" onclick="cargarClases(event)">Ver clases <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="panel p-4 h-100 feature-card">
+                            <div class="icon-circle"><i class="bi bi-diagram-2"></i></div>
+                            <h3>Subneting</h3>
+                            <p class="mb-0">Divide tu red por máscara, número de redes u hosts y sigue el desglose del Modo Tutor paso a paso.</p>
+                            <a class="card-link" href="#" onclick="cargarSubneting(event)">Abrir calculadora <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xl-3">
+                        <div class="panel p-4 h-100 feature-card">
+                            <div class="icon-circle"><i class="bi bi-tools"></i></div>
+                            <h3>Herramientas de aula</h3>
+                            <p class="mb-0">Generador de contraseñas, tareas y notas. Todo se guarda en tu navegador.</p>
+                            <div class="tool-links">
+                                <a class="tool-pill" href="#" onclick="passGenerator(event)">PassGenerator</a>
+                                <a class="tool-pill" href="#" onclick="tareas(event)">Tareas</a>
+                                <a class="tool-pill" href="#" onclick="notas(event)">Notas</a>
+                                <a class="tool-pill" href="#" onclick="agenda(event)">Agenda</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-5">
+                <h2 class="page-title h4"><i class="bi bi-signpost-2"></i> &iquest;Por d&oacute;nde empiezo?</h2>
+                <div class="row g-4 steps">
+                    <div class="col-md-4">
+                        <div class="field p-4 h-100 step">
+                            <span class="step-num">1</span>
+                            <h3>Lee la teor&iacute;a</h3>
+                            <p class="text-justify mb-0">Repasa qu&eacute; es una direcci&oacute;n IP, sus clases y c&oacute;mo funciona la m&aacute;scara.</p>
+                            <a class="card-link" href="#" onclick="teoria(event)">Ir a Teor&iacute;a <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="field p-4 h-100 step">
+                            <span class="step-num">2</span>
+                            <h3>Comprueba la clase</h3>
+                            <p class="text-justify mb-0">Escribe tu direcci&oacute;n IP y mira a qu&eacute; clase pertenece al instante.</p>
+                            <a class="card-link" href="#" onclick="cargarClases(event)">Ver clases <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="field p-4 h-100 step">
+                            <span class="step-num">3</span>
+                            <h3>Divide tu red</h3>
+                            <p class="text-justify mb-0">Calcula subredes por m&aacute;scara, redes u hosts y sigue el desglose del Modo Tutor.</p>
+                            <a class="card-link" href="#" onclick="cargarSubneting(event)">Abrir calculadora <i class="bi bi-arrow-right"></i></a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

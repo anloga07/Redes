@@ -355,6 +355,7 @@ function cargarFragmento(archivo) {
 function marcarVistaActiva(archivo) {
     const vistas = {
         'inicio.html': 'inicio',
+        'teoria.html': 'teoria',
         'clases.html': 'clases',
         'subneting.html': 'subneting',
         'pass.html': 'pass',
@@ -397,6 +398,11 @@ function cargarInicio(event) {
 function cargarClases(event) {
     event.preventDefault();
     cargarFragmento('clases.html');
+}
+
+function teoria(event) {
+    event.preventDefault();
+    cargarFragmento('teoria.html');
 }
 
 function passGenerator(event) {

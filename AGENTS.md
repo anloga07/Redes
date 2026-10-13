@@ -11,7 +11,7 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 ## Architecture
 
 - `index.html` is the **only real entry point**. It contains the Bootstrap navbar and a `#cuerpo` div (with the same initial content as `inicio.html`), and it is the **only** place where CSS and JS are declared.
-- `inicio.html`, `clases.html`, `subneting.html`, `pass.html`, `tareas.html`, `notas.html`, `agenda.html` are **fragments of pure markup**: no `<!DOCTYPE>`, `<head>`, `<body>`, `<link>` or `<script>` tags (they would not work when injected with `innerHTML`). They are injected into `#cuerpo` via `fetch()` in `scripts/redes.js` (`cargarInicio`, `cargarClases`, `cargarSubneting`, `passGenerator`, `tareas`, `notas`, `agenda`, all routed through `cargarFragmento`).
+- `inicio.html`, `teoria.html`, `clases.html`, `subneting.html`, `pass.html`, `tareas.html`, `notas.html`, `agenda.html` are **fragments of pure markup**: no `<!DOCTYPE>`, `<head>`, `<body>`, `<link>` or `<script>` tags (they would not work when injected with `innerHTML`). They are injected into `#cuerpo` via `fetch()` in `scripts/redes.js` (`cargarInicio`, `teoria`, `cargarClases`, `cargarSubneting`, `passGenerator`, `tareas`, `notas`, `agenda`, all routed through `cargarFragmento`). `teoria.html` is static (no init function): it holds the theory tutorial and a "Más lectura" list of external links.
 - **Fragment initialization**: `<script>` tags inside an `innerHTML` injection never run, so after injecting a fragment `cargarFragmento()` calls `inicializarFragmento(archivo)`, which runs the fragment's init function when it needs one (`pass.html` → `iniciarPass`, `tareas.html` → `iniciarTareas`, `notas.html` → `cargarNotas`) plus `prepararValidacionIP()`. Any new fragment with JS must be registered there.
 - `scripts/` holds **all** JS:
   - `redes.js`: utilities (`ipAInt`, `intAIP`, `claseDelPrimerOcteto`, `prefijoAMascara`), IP class detection (`verClase`, returns `null` on invalid input — callers must check), subneting calculators (`calculaConMascara`, `calculaConRedes`, `calculaConHosts`; classful: classes A, B and C, masks must be contiguous and ≥ the class default), tutor breakdown (`generarDesgloseTutor`), page loading and live IP validation.
@@ -27,4 +27,4 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 
 ## Language
 
-All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.
+All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.You must keep the MEMORY.md file updated with the changes.
