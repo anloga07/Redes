@@ -19,3 +19,4 @@ Static educational site about IP networks (Redes IP) plus classroom tools (gener
 ## Conventions
 - All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.
 - No build tools, no package manager, no test suite, no CI pipeline.
+- `.agents/` and `skills-lock.json` are local AI-skills config installed by `autoskills` (accessibility, seo, frontend-design, deploy-to-vercel). They are **git-ignored** (see `.gitignore`): they are not part of the site and can be regenerated with `npx autoskills`.

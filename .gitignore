@@ -1,0 +1,4 @@
+# Configuración local de skills de IA (autoskills). No forman parte del sitio
+# y se pueden regenerar con `npx autoskills`.
+.agents/
+skills-lock.json
