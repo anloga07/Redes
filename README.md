@@ -13,7 +13,7 @@ Sitio web educativo estático sobre redes IP con herramientas de cálculo intera
 - **Modo Tutor** — Desglose paso a paso: conversión a binario, operación AND, número mágico y rango de subredes
 - **Resultados detallados** — Muestra máscara en decimal y binario, número de subredes, hosts útiles, rangos de direcciones y broadcast
 - **Validación en vivo** — El campo de IP se resalta en verde/rojo mientras se escribe
-- **Herramientas de aula** — Generador de contraseñas, gestor de tareas, gestor de notas y agenda (en construcción)
+- **Herramientas de aula** — Generador de contraseñas (con copiado al portapapeles), gestor de tareas, gestor de notas y agenda (en construcción)
 - **Persistencia en el navegador** — Contraseñas, tareas y notas se guardan en `localStorage` y no se pierden al recargar o cambiar de herramienta
 - **Tema visual unificado** — Estética oscura tipo centro de datos (NOC) con acento cian y tipografía IBM Plex (Sans + Mono), construida sobre Bootstrap y responsive en todas las pantallas
 - **Portada vistosa** — Hero a dos columnas con la firma de la IP en binario, chips de datos e ilustración SVG de una red en la que "viaja" un paquete, más tarjetas de secciones y guía de inicio en tres pasos

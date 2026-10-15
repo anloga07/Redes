@@ -36,6 +36,11 @@ function iniciarPass() {
   if (!generateBtn || !saveBtn) return;
   generateBtn.onclick = generatePassword;
   saveBtn.onclick = savePassword;
+  const copyBtn = document.getElementById("copyBtn");
+  if (copyBtn) {
+    copyBtn.onclick = copiarPassword;
+    copyBtn.hidden = true; // se muestra al generar una contraseña
+  }
   updateTable(); // recupera las contraseñas guardadas al abrir la herramienta
 }
 
@@ -63,7 +68,74 @@ function generatePassword() {
   } while (guardadas.some(entrada => entrada.password === password));
 
   document.getElementById("passwordResult").innerText = password;
+  const copyBtn = document.getElementById("copyBtn");
+  if (copyBtn) copyBtn.hidden = false; // ya hay contraseña que copiar
   return password;
+}
+
+// Copia texto al portapapeles y devuelve una promesa.
+// La Clipboard API solo funciona en contexto seguro (https o localhost);
+// el sitio se sirve a menudo por http en la red del aula, así que si no
+// hay contexto seguro se usa el método antiguo con execCommand.
+function copiarAlPortapapeles(texto) {
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(texto);
+  }
+  return new Promise((resolver, rechazar) => {
+    try {
+      const area = document.createElement("textarea");
+      area.value = texto;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(area);
+      ok ? resolver() : rechazar(new Error("No se pudo copiar"));
+    } catch (error) {
+      rechazar(error);
+    }
+  });
+}
+
+// Muestra "Copiado" en el botón durante ~1,5 s y lo restaura.
+// Se cambia solo el nodo de texto (junto al icono) para no borrar el <i>.
+function feedbackCopiado(boton) {
+  const icono = boton.querySelector("i");
+  const nodoTexto = boton.lastChild;
+  const conTexto = nodoTexto && nodoTexto.nodeType === 3;
+  const textoOriginal = conTexto ? nodoTexto.nodeValue : boton.textContent;
+  const iconoOriginal = icono ? icono.className : "";
+  if (icono) icono.className = "bi bi-check2";
+  if (conTexto) nodoTexto.nodeValue = " Copiado";
+  else boton.textContent = "✓ Copiado";
+  setTimeout(() => {
+    if (icono) icono.className = iconoOriginal;
+    if (conTexto) nodoTexto.nodeValue = textoOriginal;
+    else boton.textContent = textoOriginal;
+  }, 1500);
+}
+
+// Botón "Copiar" junto a la contraseña recién generada
+function copiarPassword() {
+  const div = document.getElementById("passwordResult");
+  const boton = document.getElementById("copyBtn");
+  if (!div || !boton) return;
+  const password = div.innerText;
+  if (!password || password === "Aquí aparecerá tu contraseña") return;
+  copiarAlPortapapeles(password)
+    .then(() => feedbackCopiado(boton))
+    .catch(() => alert("No se ha podido copiar al portapapeles"));
+}
+
+// Botón "Copiar" de una fila de la tabla de contraseñas guardadas
+function copiarPasswordFila(indice, boton) {
+  const guardadas = leerPass();
+  if (indice < 0 || indice >= guardadas.length) return;
+  copiarAlPortapapeles(guardadas[indice].password)
+    .then(() => feedbackCopiado(boton))
+    .catch(() => alert("No se ha podido copiar al portapapeles"));
 }
 
 function savePassword() {
@@ -119,11 +191,27 @@ function updateTable() {
     celdaPassword.textContent = entrada.password;
 
     const celdaAcciones = document.createElement("td");
+    const acciones = document.createElement("div");
+    acciones.className = "acciones";
+
+    const botonCopiar = document.createElement("button");
+    botonCopiar.className = "copiar";
+    botonCopiar.type = "button";
+    botonCopiar.setAttribute("aria-label", "Copiar la contraseña de " + entrada.login);
+    botonCopiar.onclick = () => copiarPasswordFila(indice, botonCopiar);
+    const iconoCopiar = document.createElement("i");
+    iconoCopiar.className = "bi bi-clipboard";
+    botonCopiar.appendChild(iconoCopiar);
+    botonCopiar.appendChild(document.createTextNode(" Copiar"));
+    acciones.appendChild(botonCopiar);
+
     const botonEliminar = document.createElement("button");
     botonEliminar.textContent = "Eliminar";
     botonEliminar.className = "eliminar";
     botonEliminar.onclick = () => eliminarPassword(indice);
-    celdaAcciones.appendChild(botonEliminar);
+    acciones.appendChild(botonEliminar);
+
+    celdaAcciones.appendChild(acciones);
 
     fila.appendChild(celdaLogin);
     fila.appendChild(celdaPassword);
