@@ -33,7 +33,7 @@
           <!-- BARRA DE MENÚ -->
           <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid">
-              <a class="navbar-brand" href="#" onclick="cargarInicio(event)">
+              <a class="navbar-brand" href="#" data-vista="inicio">
                 <img src="img/logo.jpg" alt="Redes IP" width="200" height="200" />
                 <span>Redes IP</span>
               </a>
@@ -51,19 +51,12 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      aria-current="page"
-                      data-vista="inicio"
-                      href="#"
-                      onclick="cargarInicio(event)"
+                    <a class="nav-link active" aria-current="page" data-vista="inicio" href="#"
                       >Inicio</a
                     >
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-vista="teoria" href="#" onclick="teoria(event)"
-                      >Teoría</a
-                    >
+                    <a class="nav-link" data-vista="teoria" href="#">Teoría</a>
                   </li>
                   <li class="nav-item dropdown">
                     <button
@@ -76,22 +69,10 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li>
-                        <a
-                          class="dropdown-item"
-                          data-vista="clases"
-                          href="#"
-                          onclick="cargarClases(event)"
-                          >Clases</a
-                        >
+                        <a class="dropdown-item" data-vista="clases" href="#">Clases</a>
                       </li>
                       <li>
-                        <a
-                          class="dropdown-item"
-                          data-vista="subneting"
-                          href="#"
-                          onclick="cargarSubneting(event)"
-                          >Subneting</a
-                        >
+                        <a class="dropdown-item" data-vista="subneting" href="#">Subneting</a>
                       </li>
                     </ul>
                   </li>
@@ -106,36 +87,16 @@
                     </button>
                     <ul class="dropdown-menu">
                       <li>
-                        <a
-                          class="dropdown-item"
-                          data-vista="pass"
-                          href="#"
-                          onclick="passGenerator(event)"
-                          >PassGenerator</a
-                        >
+                        <a class="dropdown-item" data-vista="pass" href="#">PassGenerator</a>
                       </li>
                       <li>
-                        <a
-                          class="dropdown-item"
-                          data-vista="tareas"
-                          href="#"
-                          onclick="tareas(event)"
-                          >Tareas</a
-                        >
+                        <a class="dropdown-item" data-vista="tareas" href="#">Tareas</a>
                       </li>
                       <li>
-                        <a class="dropdown-item" data-vista="notas" href="#" onclick="notas(event)"
-                          >Notas</a
-                        >
+                        <a class="dropdown-item" data-vista="notas" href="#">Notas</a>
                       </li>
                       <li>
-                        <a
-                          class="dropdown-item"
-                          data-vista="agenda"
-                          href="#"
-                          onclick="agenda(event)"
-                          >Agenda</a
-                        >
+                        <a class="dropdown-item" data-vista="agenda" href="#">Agenda</a>
                       </li>
                     </ul>
                   </li>
@@ -183,10 +144,10 @@
                   <span class="chip chip-accent">clases A&#8211;E</span>
                 </div>
                 <div class="d-flex flex-wrap gap-2">
-                  <a class="btn btn-outline-accent" href="#" onclick="cargarClases(event)"
+                  <a class="btn btn-outline-accent" href="#" data-vista="clases"
                     ><i class="bi bi-hdd-network me-1"></i>Ver clases</a
                   >
-                  <a class="btn btn-primary" href="#" onclick="cargarSubneting(event)"
+                  <a class="btn btn-primary" href="#" data-vista="subneting"
                     ><i class="bi bi-diagram-2 me-1"></i>Abrir calculadora</a
                   >
                 </div>
@@ -307,7 +268,7 @@
                   Qué es una dirección IP, las clases A&ndash;E, la máscara y el subneting con
                   ejemplos y enlaces de ampliación.
                 </p>
-                <a class="card-link" href="#" onclick="teoria(event)"
+                <a class="card-link" href="#" data-vista="teoria"
                   >Leer la teoría <i class="bi bi-arrow-right"></i
                 ></a>
               </div>
@@ -320,7 +281,7 @@
                   Escribe una dirección IP y descubre al instante a qué clase pertenece según su
                   primer octeto.
                 </p>
-                <a class="card-link" href="#" onclick="cargarClases(event)"
+                <a class="card-link" href="#" data-vista="clases"
                   >Ver clases <i class="bi bi-arrow-right"></i
                 ></a>
               </div>
@@ -333,7 +294,7 @@
                   Divide tu red por máscara, número de redes u hosts y sigue el desglose del Modo
                   Tutor paso a paso.
                 </p>
-                <a class="card-link" href="#" onclick="cargarSubneting(event)"
+                <a class="card-link" href="#" data-vista="subneting"
                   >Abrir calculadora <i class="bi bi-arrow-right"></i
                 ></a>
               </div>
@@ -346,10 +307,10 @@
                   Generador de contraseñas, tareas y notas. Todo se guarda en tu navegador.
                 </p>
                 <div class="tool-links">
-                  <a class="tool-pill" href="#" onclick="passGenerator(event)">PassGenerator</a>
-                  <a class="tool-pill" href="#" onclick="tareas(event)">Tareas</a>
-                  <a class="tool-pill" href="#" onclick="notas(event)">Notas</a>
-                  <a class="tool-pill" href="#" onclick="agenda(event)">Agenda</a>
+                  <a class="tool-pill" href="#" data-vista="pass">PassGenerator</a>
+                  <a class="tool-pill" href="#" data-vista="tareas">Tareas</a>
+                  <a class="tool-pill" href="#" data-vista="notas">Notas</a>
+                  <a class="tool-pill" href="#" data-vista="agenda">Agenda</a>
                 </div>
               </div>
             </div>
@@ -368,7 +329,7 @@
                   Repasa qu&eacute; es una direcci&oacute;n IP, sus clases y c&oacute;mo funciona la
                   m&aacute;scara.
                 </p>
-                <a class="card-link" href="#" onclick="teoria(event)"
+                <a class="card-link" href="#" data-vista="teoria"
                   >Ir a Teor&iacute;a <i class="bi bi-arrow-right"></i
                 ></a>
               </div>
@@ -380,7 +341,7 @@
                 <p class="text-justify mb-0">
                   Escribe tu direcci&oacute;n IP y mira a qu&eacute; clase pertenece al instante.
                 </p>
-                <a class="card-link" href="#" onclick="cargarClases(event)"
+                <a class="card-link" href="#" data-vista="clases"
                   >Ver clases <i class="bi bi-arrow-right"></i
                 ></a>
               </div>
@@ -393,7 +354,7 @@
                   Calcula subredes por m&aacute;scara, redes u hosts y sigue el desglose del Modo
                   Tutor.
                 </p>
-                <a class="card-link" href="#" onclick="cargarSubneting(event)"
+                <a class="card-link" href="#" data-vista="subneting"
                   >Abrir calculadora <i class="bi bi-arrow-right"></i
                 ></a>
               </div>

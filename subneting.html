@@ -29,12 +29,7 @@
     <label for="ip" class="form-label">Dirección IP de la red</label>
     <input type="text" class="form-control ip-out mb-3" id="ip" placeholder="192.168.0.0" />
     <label for="maskSelect" class="form-label">Máscara en formato /n</label>
-    <select
-      class="form-select"
-      aria-label="Selector de máscara"
-      id="maskSelect"
-      onchange="actualizarMascara(this.value)"
-    >
+    <select class="form-select" aria-label="Selector de máscara" id="maskSelect">
       <option selected value="Máscaras">Máscaras</option>
       <option value="8">/8</option>
       <option value="9">/9</option>
@@ -75,49 +70,10 @@
     <input type="text" class="form-control mb-3" id="hosts" placeholder="Hosts útiles por subred" />
     <h6>¿Qué necesitas obtener?</h6>
     <div id="botones" class="d-flex flex-wrap gap-2 justify-content-center">
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="verClase(document.getElementById('ip').value)"
-      >
-        Clase
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="
-          calculaConMascara(
-            document.getElementById('ip').value,
-            document.getElementById('mascara').value,
-          )
-        "
-      >
-        Máscara
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="
-          calculaConRedes(
-            document.getElementById('ip').value,
-            document.getElementById('redes').value,
-          )
-        "
-      >
-        Redes
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="
-          calculaConHosts(
-            document.getElementById('ip').value,
-            document.getElementById('hosts').value,
-          )
-        "
-      >
-        Hosts
-      </button>
+      <button type="button" class="btn btn-primary" id="btn-clase">Clase</button>
+      <button type="button" class="btn btn-primary" id="btn-mascara">Máscara</button>
+      <button type="button" class="btn btn-primary" id="btn-redes">Redes</button>
+      <button type="button" class="btn btn-primary" id="btn-hosts">Hosts</button>
     </div>
     <div class="form-check form-switch mt-3">
       <input class="form-check-input" type="checkbox" id="modoTutor" />

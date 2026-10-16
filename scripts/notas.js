@@ -1,8 +1,8 @@
 // Las notas se cargan desde cargarFragmento() → inicializarFragmento()
 // justo después de inyectar notas.html (el evento DOMContentLoaded ya se
 // habría disparado, así que no sirve engancharse a él).
-// guardarNota/cargarNotas/eliminarNota/editarNota/alternarNotas... deben ser
-// globales porque los llama el HTML del fragmento o la propia vista.
+// cargarNotas debe seguir siendo global porque inicializarFragmento la busca en
+// window; los botones se enganchan aquí y en cada repintado con onclick =.
 
 const CLAVE_NOTAS = "notas";
 
@@ -31,11 +31,15 @@ function escribirNotas(lista) {
   }
 }
 
-// Inicializador (registrado en redes.js): la lista empieza oculta y sin
-// ninguna nota en edición.
+// Inicializador (registrado en redes.js): engancha el botón de guardar, la
+// lista empieza oculta y sin ninguna nota en edición.
 function cargarNotas() {
   notasVisibles = false;
   notaEditando = null;
+
+  const botonGuardar = document.getElementById("btn-guardar");
+  if (botonGuardar) botonGuardar.onclick = guardarNota;
+
   renderNotas();
 }
 

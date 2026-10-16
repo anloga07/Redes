@@ -375,6 +375,18 @@ function generarDesgloseTutor(ip, mascara) {
 
 // ===== FUNCIONALIDAD PARA CARGAR PÁGINAS A PARTIR DE LOS ENLACES DEL MENÚ =====
 
+// Vistas del sitio: identificador usado en data-vista -> archivo del fragmento
+const VISTAS = {
+  inicio: "inicio.html",
+  teoria: "teoria.html",
+  clases: "clases.html",
+  subneting: "subneting.html",
+  pass: "pass.html",
+  tareas: "tareas.html",
+  notas: "notas.html",
+  agenda: "agenda.html",
+};
+
 function cargarFragmento(archivo) {
   fetch(archivo)
     .then((response) => {
@@ -389,21 +401,34 @@ function cargarFragmento(archivo) {
     .catch((error) => console.error("Error:", error));
 }
 
-// Marca el enlace del menú correspondiente al fragmento cargado
+// Un único listener delegado en document atiende toda la navegación: cualquier
+// elemento con data-vista (menú, portada o enlaces dentro de un fragmento) carga
+// su página. Al vivir en document sobrevive a cada inyección de fragmento, así
+// que no hay que volver a engancharlo.
+function prepararNavegacion() {
+  document.addEventListener("click", (evento) => {
+    const enlace = evento.target.closest("[data-vista]");
+    if (!enlace) return;
+    const archivo = VISTAS[enlace.dataset.vista];
+    if (!archivo) return;
+    evento.preventDefault();
+    cargarFragmento(archivo);
+  });
+}
+
+// Marca el enlace del menú correspondiente al fragmento cargado. Solo se
+// actualiza la barra de navegación: los enlaces de la portada comparten
+// data-vista, pero no deben recibir la clase "active".
 function marcarVistaActiva(archivo) {
-  const vistas = {
-    "inicio.html": "inicio",
-    "teoria.html": "teoria",
-    "clases.html": "clases",
-    "subneting.html": "subneting",
-    "pass.html": "pass",
-    "tareas.html": "tareas",
-    "notas.html": "notas",
-    "agenda.html": "agenda",
-  };
-  const vista = vistas[archivo];
-  document.querySelectorAll("[data-vista]").forEach((enlace) => {
-    enlace.classList.toggle("active", enlace.dataset.vista === vista);
+  const vista = Object.keys(VISTAS).find((clave) => VISTAS[clave] === archivo);
+  document.querySelectorAll(".navbar-nav [data-vista]").forEach((enlace) => {
+    const activa = enlace.dataset.vista === vista;
+    enlace.classList.toggle("active", activa);
+    if (activa) {
+      enlace.setAttribute("aria-current", "page");
+    } else {
+      enlace.removeAttribute("aria-current");
+    }
   });
 }
 
@@ -413,6 +438,8 @@ function inicializarFragmento(archivo) {
   prepararValidacionIP();
 
   const inicializadores = {
+    "clases.html": "iniciarClases",
+    "subneting.html": "iniciarSubneting",
     "pass.html": "iniciarPass",
     "tareas.html": "iniciarTareas",
     "notas.html": "cargarNotas",
@@ -421,45 +448,6 @@ function inicializarFragmento(archivo) {
   if (nombre && typeof window[nombre] === "function") {
     window[nombre]();
   }
-}
-
-function cargarSubneting(event) {
-  event.preventDefault();
-  cargarFragmento("subneting.html");
-}
-
-function cargarInicio(event) {
-  event.preventDefault();
-  cargarFragmento("inicio.html");
-}
-
-function cargarClases(event) {
-  event.preventDefault();
-  cargarFragmento("clases.html");
-}
-
-function teoria(event) {
-  event.preventDefault();
-  cargarFragmento("teoria.html");
-}
-
-function passGenerator(event) {
-  event.preventDefault();
-  cargarFragmento("pass.html");
-}
-function tareas(event) {
-  event.preventDefault();
-  cargarFragmento("tareas.html");
-}
-
-function notas(event) {
-  event.preventDefault();
-  cargarFragmento("notas.html");
-}
-
-function agenda(event) {
-  event.preventDefault();
-  cargarFragmento("agenda.html"); //agenda.html aun no esta creada
 }
 
 // ===== FORMULARIOS =====
@@ -475,6 +463,39 @@ function actualizarMascara(valor) {
   const bits = parseInt(valor, 10);
   if (!Number.isInteger(bits)) return;
   campoMascara.value = prefijoAMascara(bits).join(".");
+}
+
+// clases.html: el botón "Ver clase" detecta la clase de la IP escrita
+function iniciarClases() {
+  const boton = document.getElementById("btn-ver-clase");
+  const inputIP = document.getElementById("ip");
+  if (!boton || !inputIP) return;
+  boton.addEventListener("click", () => verClase(inputIP.value));
+}
+
+// subneting.html: el selector de máscara y los cuatro botones de la calculadora
+function iniciarSubneting() {
+  const inputIP = document.getElementById("ip");
+  if (!inputIP) return;
+
+  const selector = document.getElementById("maskSelect");
+  if (selector) {
+    selector.addEventListener("change", () => actualizarMascara(selector.value));
+  }
+
+  const valor = (id) => {
+    const campo = document.getElementById(id);
+    return campo ? campo.value : "";
+  };
+  const enlazar = (id, accion) => {
+    const boton = document.getElementById(id);
+    if (boton) boton.addEventListener("click", accion);
+  };
+
+  enlazar("btn-clase", () => verClase(inputIP.value));
+  enlazar("btn-mascara", () => calculaConMascara(inputIP.value, valor("mascara")));
+  enlazar("btn-redes", () => calculaConRedes(inputIP.value, valor("redes")));
+  enlazar("btn-hosts", () => calculaConHosts(inputIP.value, valor("hosts")));
 }
 
 // Validación en vivo del campo de IP tras cargar cada fragmento
@@ -501,3 +522,8 @@ function prepararValidacionIP() {
     }
   });
 }
+
+// Registro del listener delegado de navegación. Se hace una sola vez, al cargar
+// la página (redes.js se declara al final del body), y sigue valiendo para todos
+// los fragmentos que se inyecten después.
+prepararNavegacion();

@@ -3,7 +3,7 @@
   <p class="text-secondary mb-4">
     Guía de repaso para entender una dirección IPv4 antes de usar las calculadoras. Si algo no queda
     claro, prueba el ejemplo en la
-    <a href="#" onclick="cargarSubneting(event)">calculadora de subneting</a>.
+    <a href="#" data-vista="subneting">calculadora de subneting</a>.
   </p>
 </div>
 <div class="col-12 col-lg-10">
@@ -275,10 +275,10 @@
     <hr />
     <p class="text-justify">Ya tienes la base. Compruébala con las herramientas del sitio:</p>
     <div class="d-flex flex-wrap gap-2">
-      <a class="btn btn-outline-accent" href="#" onclick="cargarClases(event)"
+      <a class="btn btn-outline-accent" href="#" data-vista="clases"
         ><i class="bi bi-hdd-network me-1"></i>Detectar la clase</a
       >
-      <a class="btn btn-primary" href="#" onclick="cargarSubneting(event)"
+      <a class="btn btn-primary" href="#" data-vista="subneting"
         ><i class="bi bi-diagram-2 me-1"></i>Abrir calculadora</a
       >
     </div>
