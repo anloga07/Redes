@@ -21,6 +21,14 @@ Static educational site about IP networks (Redes IP) plus classroom tools (gener
 
 - Bootstrap 5.3.8, Bootstrap Icons and Google Fonts **IBM Plex Sans** + **IBM Plex Mono** (CDN). jQuery is not used.
 
+## Accessibility and SEO
+
+- `index.html` (the only entry point) carries `<html lang="es">` and a `<meta name="description">` (133 characters). All three jsDelivr resources — `bootstrap@5.3.8/dist/css/bootstrap.min.css`, `bootstrap-icons@1.11.3/font/bootstrap-icons.min.css` and `bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js` — carry **SRI** (`integrity="sha384-…"` + `crossorigin="anonymous"`). Bumping a CDN version means recomputing the hash (`node -e` + `crypto`, over the response bytes the browser receives) or the browser blocks the asset. Google Fonts cannot take SRI (the CSS varies per user agent).
+- **Skip link:** `<a class="skip-link" href="#cuerpo">` is the first node in `<body>`; `.skip-link` (in `estilos.css`, using theme tokens) is `position: fixed` off-screen and slides in on `:focus`, and `<main id="cuerpo">` has `tabindex="-1"` so it can actually take the focus. The delegated navigation listener ignores it (it has no `data-vista`), so the browser performs the jump.
+- **Decorative icons:** the 56 `<i class="bi …">` in the nine HTML files carry `aria-hidden="true"` (they always accompany text), as do the two built by JS (`ponerIcono()` in `notas.js`, the copy button in `scriptpass.js`). `test_fragmentos.js` guards both.
+- The logo `<img>` already has `alt`, `width` and `height`; the navbar toggler is a `<button>` with `aria-label` plus Bootstrap's `<span class="navbar-toggler-icon">` (not an `<i>`).
+- Unused assets: `img/clases.jpg` (23 KB) and `img/4-clases-de-redes.webp` (75 KB) are referenced by no HTML/CSS/JS. They are kept for now — whether to delete them or use them is still pending.
+
 ## Conventions
 
 - All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.

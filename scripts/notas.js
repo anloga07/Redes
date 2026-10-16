@@ -48,6 +48,7 @@ function cargarNotas() {
 function ponerIcono(boton, claseIcono, texto) {
   const icono = document.createElement("i");
   icono.className = claseIcono + " me-1";
+  icono.setAttribute("aria-hidden", "true");
   boton.replaceChildren(icono, texto);
 }
 

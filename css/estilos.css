@@ -4,6 +4,26 @@
    Aquí solo la maqueta: navbar, inicio, pie y estilos de la agenda.
    ========================================================================== */
 
+/* --- Enlace para saltar al contenido: oculto salvo con el teclado --- */
+.skip-link {
+  position: fixed;
+  top: -4rem;
+  left: 0.75rem;
+  z-index: 1100;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--red-accent);
+  border-radius: var(--red-radius);
+  background: var(--red-surface);
+  color: var(--red-accent);
+  font-weight: 600;
+  text-decoration: none;
+  transition: top 0.15s ease-in-out;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
 /* --- Marca de la barra de navegación --- */
 .navbar-brand {
   display: flex;

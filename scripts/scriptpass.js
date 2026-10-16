@@ -203,6 +203,7 @@ function updateTable() {
     botonCopiar.onclick = () => copiarPasswordFila(indice, botonCopiar);
     const iconoCopiar = document.createElement("i");
     iconoCopiar.className = "bi bi-clipboard";
+    iconoCopiar.setAttribute("aria-hidden", "true");
     botonCopiar.appendChild(iconoCopiar);
     botonCopiar.appendChild(document.createTextNode(" Copiar"));
     acciones.appendChild(botonCopiar);
