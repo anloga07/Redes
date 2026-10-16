@@ -34,4 +34,15 @@ export default [
       ],
     },
   },
+  {
+    // Suites de verificación: son tooling de desarrollo, no parte del sitio.
+    // Pueden usar eval para cargar redes.js y escriben su informe por consola.
+    files: ["tests/**/*.js"],
+    rules: {
+      "no-console": "off",
+      "no-eval": "off",
+      complexity: "off",
+      "max-lines-per-function": "off",
+    },
+  },
 ];

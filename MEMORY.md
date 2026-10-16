@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Static educational site about IP networks (Redes IP) plus classroom tools (generador de contraseñas, tareas, notas, agenda). Pure HTML/CSS/JS — the site has no build step, no framework, no tests and no CI; a root `package.json` only holds **dev-only** lint/format tooling. Must be served over HTTP (`python -m http.server`): navigation uses `fetch()` and breaks on `file://`.
+Static educational site about IP networks (Redes IP) plus classroom tools (generador de contraseñas, tareas, notas, agenda). Pure HTML/CSS/JS — the site has no build step, no framework and no CI; a root `package.json` holds **dev-only** tooling (lint/format plus the test runner, see below). Must be served over HTTP (`python -m http.server`): navigation uses `fetch()` and breaks on `file://`.
 
 ## Architecture
 
@@ -36,10 +36,18 @@ Static educational site about IP networks (Redes IP) plus classroom tools (gener
 - The site itself has no build step and no test suite; the only dev tooling is the lint/format `package.json` described below. No CI pipeline.
 - `.agents/` and `skills-lock.json` are local AI-skills config installed by `autoskills` (accessibility, seo, frontend-design, deploy-to-vercel). They are **git-ignored** (see `.gitignore`): they are not part of the site and can be regenerated with `npx autoskills`.
 
+## Tests
+
+- The repo has its **own verification suites** in `tests/` (plain node scripts, no framework): `test_redes.js` (IP utilities, class detection, the three subneting calculators, the tutor breakdown), `test_flujo.js` (tool flows over `localStorage` with a stub DOM), `test_fragmentos.js` (fragments are pure markup, every `data-vista` is in `VISTAS`, init functions are registered, ids the JS looks up exist, icons carry `aria-hidden`, skip-link target, `lang`/description/SRI), `sync_check.js` (the duplicated portada keeps the same tags and visible words) plus `test_sync_negativo.js` (that checker must fail when it should), `test_copia_fallback.js` (clipboard `execCommand` fallback), `test_dom_real.js` (**jsdom**: real DOM, `nodosDesdeHTML`, XSS safety, delegated navigation, skip link) and `check_balance.js` (tag balance per HTML file; `index.html` is run with the `balance` argument because it legitimately carries doctype/head/link).
+- `npm test` runs them through `tests/run.js`, which launches each suite with the repo root as its working directory, prints one line per suite and the whole output only when one fails. `npm run check` = `lint` + `format:check` + `test`.
+- Suites that read repo files start with `process.chdir(<repo root>)`, so they work from any cwd; `test_redes.js` and `test_dom_real.js` default to the repo path (an argument still overrides it).
+- `jsdom` is a devDependency used **only** by `test_dom_real.js`. The `tests/**` block in `eslint.config.mjs` turns off `no-console`, `no-eval`, `complexity` and `max-lines-per-function`: the suites print their own report and `test_redes.js`/`test_flujo.js` load `redes.js` with `eval` to reach its functions.
+- Some stderr noise is expected: `test_flujo.js` deliberately feeds corrupt JSON so the site's `leerX()` helpers log their `console.error` from the `catch` blocks. `tests/run.js` takes its summary from stdout for that reason.
+
 ## Lint and format (local tooling)
 
-- Root `package.json` is **dev-only** (the site needs no build). Scripts: `npm run lint` = `lint:js` (eslint) + `lint:css` (stylelint) + `lint:html` (html-validate); `npm run format` = `prettier --write .`; `npm run format:check` verifies without writing.
-- Configs: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML`/`outerHTML` assignments and `insertAdjacentHTML`, and the message cites `JS-02`; the only sanctioned sink is `nodosDesdeHTML()` in `redes.js`), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, printWidth 100, Prettier's default 2-space indent), `.prettierignore`.
+- Root `package.json` is **dev-only** (the site needs no build). Scripts: `npm run lint` = `lint:js` (eslint) + `lint:css` (stylelint) + `lint:html` (html-validate); `npm run format` = `prettier --write .`; `npm run format:check` verifies without writing; `npm test` = `node tests/run.js`; `npm run check` = `lint` + `format:check` + `test` (the single "everything is fine" command).
+- Configs: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML`/`outerHTML` assignments and `insertAdjacentHTML`, and the message cites `JS-02`; the only sanctioned sink is `nodosDesdeHTML()` in `redes.js`; a final `tests/**` block relaxes the rules for the verification suites), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, printWidth 100, Prettier's default 2-space indent), `.prettierignore`.
 - The first `npm run format` rewrote essentially every line of the site: Prettier reindented the markup from the original 4 spaces per level to 2, and wrapped the long attribute lists. It is a whitespace-only change (same tags, same visible words), but the diff is a full-file rewrite, so keep it in its own commit.
 - Prettier formats the whole site **and** the root `*.md`. `.prettierignore` excludes `node_modules`, `package-lock.json`, `.agents/`, `skills-lock.json`, `.opencode/` and `.vscode/`: the skill rule files and local agent config are read as instructions and must not be rewritten.
 - **Prettier vs html-validate:** they conflict by default. Prettier emits `<!doctype html>` and self-closing voids (`<meta ... />`); `html-validate:recommended` requires `<!DOCTYPE html>` and omitted end tags (14 errors on a freshly formatted `index.html`). Resolved in `.htmlvalidate.json` with `doctype-style: ["error", {"style":"lowercase"}]` and `void-style: ["error", {"style":"selfclosing"}]`. Changing one tool means revisiting the other.

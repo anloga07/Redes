@@ -4,7 +4,8 @@
   "description": "Sitio web educativo estático sobre redes IP con herramientas de cálculo interactivas y pequeñas herramientas de aula.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node tests/run.js",
+    "check": "npm run lint && npm run format:check && npm test",
     "lint:js": "eslint .",
     "lint:css": "stylelint \"**/*.css\" --allow-empty-input --ignore-pattern node_modules",
     "lint:html": "html-validate \"*.html\"",
@@ -29,6 +30,7 @@
     "eslint": "^10.13.0",
     "globals": "^17.13.0",
     "html-validate": "^11.16.2",
+    "jsdom": "^30.1.3",
     "prettier": "^3.9.10",
     "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0"

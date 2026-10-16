@@ -2,11 +2,11 @@
 
 ## Project type
 
-Static educational site about IP networks (Redes IP) plus a few small classroom tools. Pure HTML/CSS/JS — no build step, no framework, no tests, no CI. A root `package.json` holds **dev-only** lint/format tooling (see "Lint and format").
+Static educational site about IP networks (Redes IP) plus a few small classroom tools. Pure HTML/CSS/JS — no build step, no framework, no CI. A root `package.json` holds **dev-only** tooling: lint/format and the node test runner (see "Lint and format").
 
 ## Running
 
-Open `index.html` in a browser **through a local server** (e.g. `python -m http.server`). Pages are loaded with `fetch()`, so opening the file directly (`file://`) breaks all navigation. There is no dev server or build command. There is no test runner either: the unit-style checks live in throwaway node scripts, not in the repo.
+Open `index.html` in a browser **through a local server** (e.g. `python -m http.server`). Pages are loaded with `fetch()`, so opening the file directly (`file://`) breaks all navigation. There is no dev server or build command. `npm test` runs the repo's own verification suites (`tests/`, plain node scripts; `npm run check` = lint + format check + tests).
 
 ## Architecture
 
@@ -28,8 +28,8 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 
 ## Lint and format (local tooling)
 
-- The root `package.json` is **dev-only**; it does not affect how the site runs. Scripts: `npm run lint` (`lint:js` eslint + `lint:css` stylelint + `lint:html` html-validate), `npm run format` (`prettier --write .`) and `npm run format:check`.
-- Config files: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML`/`outerHTML` assignments and `insertAdjacentHTML`, reported as `JS-02`; the only sanctioned HTML sink is `nodosDesdeHTML()` in `redes.js`), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, 100 columns).
+- The root `package.json` is **dev-only**; it does not affect how the site runs. Scripts: `npm run lint` (`lint:js` eslint + `lint:css` stylelint + `lint:html` html-validate), `npm run format` (`prettier --write .`), `npm run format:check`, `npm test` (`node tests/run.js`) and `npm run check` (`lint` + `format:check` + `test` — the single "everything is fine" command).
+- Config files: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML`/`outerHTML` assignments and `insertAdjacentHTML`, reported as `JS-02`; the only sanctioned HTML sink is `nodosDesdeHTML()` in `redes.js`; a `tests/**` block turns off `no-console`, `no-eval`, `complexity` and `max-lines-per-function` for the verification scripts), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, 100 columns).
 - Prettier covers the whole site **and** the root `*.md` files. `.prettierignore` keeps `.agents/`, `skills-lock.json`, `.opencode/` and `.vscode/` out of it: they are regenerable or local config that is read as instructions.
 - **Prettier and html-validate disagree by default.** Prettier writes `<!doctype html>` and self-closing void elements (`<meta ... />`); `html-validate:recommended` demands `<!DOCTYPE html>` and omitted end tags. `.htmlvalidate.json` therefore overrides `doctype-style` to `lowercase` and `void-style` to `selfclosing`. Keep both in sync, or freshly formatted HTML fails `npm run lint:html`.
 - **Line endings:** the repo stores LF and `.gitattributes` (`* text=auto eol=lf`) forces LF in the working tree, because Prettier's default is `endOfLine: "lf"` while Windows git (`core.autocrlf=true`) would otherwise check files out as CRLF. Do not drop that rule: without it `npm run format:check` flags every file on a fresh clone.
