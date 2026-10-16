@@ -51,6 +51,17 @@ function ponerIcono(boton, claseIcono, texto) {
   boton.replaceChildren(icono, texto);
 }
 
+// Etiqueta accesible para un campo de formulario. Se oculta a la vista (la clase
+// visually-hidden de Bootstrap la expone a los lectores de pantalla) y se asocia
+// al control con el atributo for.
+function etiquetaCampo(texto, id) {
+  const etiqueta = document.createElement("label");
+  etiqueta.className = "visually-hidden";
+  etiqueta.htmlFor = id;
+  etiqueta.textContent = texto;
+  return etiqueta;
+}
+
 // Vuelve a pintar la lista completa desde el almacenamiento
 function renderNotas() {
   const contenedor = document.getElementById("lista-notas");
@@ -164,8 +175,11 @@ function crearFormularioEdicion(nota) {
   acciones.appendChild(botonGuardar);
   acciones.appendChild(botonCancelar);
 
+  form.appendChild(etiquetaCampo("Título", "edit-titulo"));
   form.appendChild(campoTitulo);
+  form.appendChild(etiquetaCampo("Contenido", "edit-contenido"));
   form.appendChild(campoContenido);
+  form.appendChild(etiquetaCampo("A realizar el día", "edit-fecha"));
   form.appendChild(campoFecha);
   form.appendChild(acciones);
   return form;
