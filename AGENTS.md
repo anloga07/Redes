@@ -2,11 +2,11 @@
 
 ## Project type
 
-Static educational site about IP networks (Redes IP) plus a few small classroom tools. Pure HTML/CSS/JS — no build step, no package manager, no framework, no tests, no CI.
+Static educational site about IP networks (Redes IP) plus a few small classroom tools. Pure HTML/CSS/JS — no build step, no framework, no tests, no CI. A root `package.json` holds **dev-only** lint/format tooling (see "Lint and format").
 
 ## Running
 
-Open `index.html` in a browser **through a local server** (e.g. `python -m http.server`). Pages are loaded with `fetch()`, so opening the file directly (`file://`) breaks all navigation. There is no dev server or build command.
+Open `index.html` in a browser **through a local server** (e.g. `python -m http.server`). Pages are loaded with `fetch()`, so opening the file directly (`file://`) breaks all navigation. There is no dev server or build command. There is no test runner either: the unit-style checks live in throwaway node scripts, not in the repo.
 
 ## Architecture
 
@@ -24,6 +24,14 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 - Bootstrap 5.3.8 and Bootstrap Icons are loaded from CDN. No local copies.
 - jQuery is **not** used.
 - Local stylesheets referenced from `index.html`: `css/tema.css` (theme tokens), `css/estilos.css` (layout) and the per-tool CSS. `css/normalize.css` was removed because Bootstrap Reboot already normalizes.
+
+## Lint and format (local tooling)
+
+- The root `package.json` is **dev-only**; it does not affect how the site runs. Scripts: `npm run lint` (`lint:js` eslint + `lint:css` stylelint + `lint:html` html-validate), `npm run format` (`prettier --write .`) and `npm run format:check`.
+- Config files: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML`, reported as `JS-02`), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, 100 columns).
+- Prettier covers the whole site **and** the root `*.md` files. `.prettierignore` keeps `.agents/`, `skills-lock.json`, `.opencode/` and `.vscode/` out of it: they are regenerable or local config that is read as instructions.
+- **Prettier and html-validate disagree by default.** Prettier writes `<!doctype html>` and self-closing void elements (`<meta ... />`); `html-validate:recommended` demands `<!DOCTYPE html>` and omitted end tags. `.htmlvalidate.json` therefore overrides `doctype-style` to `lowercase` and `void-style` to `selfclosing`. Keep both in sync, or freshly formatted HTML fails `npm run lint:html`.
+- Outstanding real debt (not formatting): `<input>`/`<textarea>` without `<label>` and `<button>` without `type` in the fragments (html-validate), `innerHTML` in the tool scripts (eslint), and stylelint style rules (modern color notation, `!important`, specificity, `.taskItem`-style class names).
 
 ## OpenCode tooling (local)
 

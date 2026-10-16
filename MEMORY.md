@@ -1,11 +1,13 @@
 # MEMORY.md
 
 ## Project Overview
-Static educational site about IP networks (Redes IP) plus classroom tools (generador de contraseñas, tareas, notas, agenda). Pure HTML/CSS/JS — no build step, no package manager, no framework, no tests, no CI. Must be served over HTTP (`python -m http.server`): navigation uses `fetch()` and breaks on `file://`.
+
+Static educational site about IP networks (Redes IP) plus classroom tools (generador de contraseñas, tareas, notas, agenda). Pure HTML/CSS/JS — the site has no build step, no framework, no tests and no CI; a root `package.json` only holds **dev-only** lint/format tooling. Must be served over HTTP (`python -m http.server`): navigation uses `fetch()` and breaks on `file://`.
 
 ## Architecture
+
 - `index.html` is the **only real entry point** and the only place with `<link>`/`<script>` tags (Bootstrap CDN + `scripts/*.js` + `css/*.css`). Its semantic skeleton is `<header>` (navbar) + `<main id="cuerpo">` + `<footer>`, a single `h1`; `#cuerpo` keeps its `id` so `cargarFragmento()` keeps working when the wrapper changed from `div` to `main`. The navbar's two dropdown toggles are native `<button type="button">` (not `<a role="button" href="#">`), which is what html-validate's `prefer-native-element` demands; Bootstrap 5.3's `.nav-link` already resets the button's `background`/`border`, so it looks the same.
-- **Sync invariant:** the whole home portada (hero + cards + guide) in `inicio.html` is duplicated as the initial content of `#cuerpo` in `index.html`, so both copies must stay character-identical (whitespace-normalized). Any edit to the portada must be applied twice.
+- **Sync invariant:** the whole home portada (hero + cards + guide) in `inicio.html` is duplicated as the initial content of `#cuerpo` in `index.html`. Both copies must keep the **same tags and the same visible words** (character-for-character equality no longer holds: Prettier lays each copy out with different whitespace because they sit at different indentation levels, which does not change the render). Any edit to the portada must be applied twice.
 - `inicio.html`, `teoria.html`, `clases.html`, `subneting.html`, `pass.html`, `tareas.html`, `notas.html`, `agenda.html` are **pure-markup fragments** (no doctype/head/body/link/script) injected into `#cuerpo` by `cargarFragmento()` in `scripts/redes.js`. `teoria.html` is the theory tutorial (IPv4 basics, classes A–E, mask/CIDR, subneting with the `200.3.25.0/24 → /27` example, private/public addresses per RFC 1918, and a "Más lectura" list of external links). Its menu link ("Teoría") replaced the old paid Platzi link.
 - **Key gotcha:** `<script>` tags injected with `innerHTML` never execute. That is why `cargarFragmento()` calls `inicializarFragmento(archivo)` after injection, which runs the per-fragment init function: `iniciarPass()`, `iniciarTareas()`, `cargarNotas()`, plus `prepararValidacionIP()`. New fragment with JS → register it there.
 - Tool scripts must not run DOM code at load time (elements do not exist yet). Inline `onclick` handlers in fragments need their functions to stay global.
@@ -15,15 +17,25 @@ Static educational site about IP networks (Redes IP) plus classroom tools (gener
 - Subneting is **classful**: classes A/B/C only, contiguous masks ≥ the class default, at least 2 host bits. Listings use 32-bit arithmetic (no manual carry).
 
 ## Dependencies
+
 - Bootstrap 5.3.8, Bootstrap Icons and Google Fonts **IBM Plex Sans** + **IBM Plex Mono** (CDN). jQuery is not used.
 
 ## Conventions
+
 - All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.
 - **Language rule:** everything (code comments, docs, commit messages, chat replies) is written in **Spanish**; English only when strictly unavoidable (technical names, identifiers, third-party terms). No other languages.
-- No build tools, no package manager, no test suite, no CI pipeline.
+- The site itself has no build step and no test suite; the only dev tooling is the lint/format `package.json` described below. No CI pipeline.
 - `.agents/` and `skills-lock.json` are local AI-skills config installed by `autoskills` (accessibility, seo, frontend-design, deploy-to-vercel). They are **git-ignored** (see `.gitignore`): they are not part of the site and can be regenerated with `npx autoskills`.
 
-## OpenCode tooling (local, `.opencode/`)
+## Lint and format (local tooling)
+
+- Root `package.json` is **dev-only** (the site needs no build). Scripts: `npm run lint` = `lint:js` (eslint) + `lint:css` (stylelint) + `lint:html` (html-validate); `npm run format` = `prettier --write .`; `npm run format:check` verifies without writing.
+- Configs: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML` and the message cites `JS-02`), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, printWidth 100, Prettier's default 2-space indent), `.prettierignore`.
+- The first `npm run format` rewrote essentially every line of the site: Prettier reindented the markup from the original 4 spaces per level to 2, and wrapped the long attribute lists. It is a whitespace-only change (same tags, same visible words), but the diff is a full-file rewrite, so keep it in its own commit.
+- Prettier formats the whole site **and** the root `*.md`. `.prettierignore` excludes `node_modules`, `package-lock.json`, `.agents/`, `skills-lock.json`, `.opencode/` and `.vscode/`: the skill rule files and local agent config are read as instructions and must not be rewritten.
+- **Prettier vs html-validate:** they conflict by default. Prettier emits `<!doctype html>` and self-closing voids (`<meta ... />`); `html-validate:recommended` requires `<!DOCTYPE html>` and omitted end tags (14 errors on a freshly formatted `index.html`). Resolved in `.htmlvalidate.json` with `doctype-style: ["error", {"style":"lowercase"}]` and `void-style: ["error", {"style":"selfclosing"}]`. Changing one tool means revisiting the other.
+- Remaining **real** debt (not formatting artifacts): in the fragments, `<input>`/`<textarea>` without `<label>` and `<button>` without `type` (9 html-validate errors); `innerHTML` in the tool scripts (15 eslint errors); stylelint style preferences (modern color notation, `!important`, specificity, `.taskItem`-style class names).
+
 - `/revisar <ruta>` reviews front-end code. It is defined by `.opencode/commands/revisar.md`, which selects the `revisar` agent and loads the `revision-frontend` skill.
 - The `revisar` agent (`.opencode/agents/revisar.md`, `mode: all`) is read-only: `edit` is denied, `shell` is allowed so the skill's linters (eslint / stylelint / html-validate) can run.
 - The skill lives in `.opencode/skills/revision-frontend/` (`SKILL.md` + `reglas-*.md`). Its **id is derived from the folder name** (not the frontmatter `name`), so the folder must stay `revision-frontend`; the previous folder `revision-fontend` produced the wrong id `revision-fontend`.
