@@ -91,7 +91,6 @@ function crearNotaDOM(nota) {
   articulo.className = "nota";
 
   if (nota.id === notaEditando) {
-    articulo.classList.add("nota-editando");
     articulo.appendChild(crearFormularioEdicion(nota));
     return articulo;
   }
