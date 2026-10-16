@@ -1,0 +1,5 @@
+# Fuerza finales de línea LF en el árbol de trabajo y en el repositorio,
+# independientemente de core.autocrlf. Sin esto, en Windows (autocrlf=true)
+# git escribiría CRLF y Prettier (endOfLine: "lf") marcaría todos los
+# ficheros como mal formateados al clonar.
+* text=auto eol=lf
