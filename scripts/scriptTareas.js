@@ -1,6 +1,6 @@
 // Las tareas se guardan en el navegador (localStorage) para que no se
 // pierdan al recargar o al cambiar de herramienta.
-const CLAVE_TAREAS = 'tareas';
+const CLAVE_TAREAS = "tareas";
 
 // Fuente de verdad: [{ id, texto, completada }, ...]
 let listaTareas = [];
@@ -13,10 +13,10 @@ let taskList = null;
 // Lee las tareas guardadas. Devuelve [] si no hay nada o si los datos están rotos.
 function leerTareas() {
   try {
-    const datos = JSON.parse(localStorage.getItem(CLAVE_TAREAS) || '[]');
+    const datos = JSON.parse(localStorage.getItem(CLAVE_TAREAS) || "[]");
     return Array.isArray(datos) ? datos : [];
   } catch (error) {
-    console.error('No se pudieron leer las tareas guardadas:', error);
+    console.error("No se pudieron leer las tareas guardadas:", error);
     return [];
   }
 }
@@ -26,7 +26,7 @@ function guardarTareas() {
   try {
     localStorage.setItem(CLAVE_TAREAS, JSON.stringify(listaTareas));
   } catch (error) {
-    alert('No se han podido guardar las tareas en este navegador');
+    alert("No se han podido guardar las tareas en este navegador");
     console.error(error);
   }
 }
@@ -36,9 +36,9 @@ function guardarTareas() {
 // de un fragmento inyectado con innerHTML no se ejecutan).
 // Se usa onclick = para poder llamarla varias veces sin duplicar listeners.
 function iniciarTareas() {
-  addTaskButton = document.getElementById('addTaskButton');
-  taskInput = document.getElementById('taskInput');
-  taskList = document.getElementById('taskList');
+  addTaskButton = document.getElementById("addTaskButton");
+  taskInput = document.getElementById("taskInput");
+  taskList = document.getElementById("taskList");
   if (!addTaskButton || !taskInput || !taskList) return;
 
   // Botón: agregar una tarea
@@ -46,7 +46,7 @@ function iniciarTareas() {
 
   // Enter: agregar una tarea
   taskInput.onkeypress = function (event) {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       addTask();
     }
   };
@@ -62,16 +62,16 @@ function cargarTareas() {
 
 // Vuelve a pintar la lista completa desde el array
 function pintarTareas() {
-  taskList.innerHTML = '';
-  listaTareas.forEach(tarea => taskList.appendChild(crearTareaDOM(tarea)));
+  taskList.innerHTML = "";
+  listaTareas.forEach((tarea) => taskList.appendChild(crearTareaDOM(tarea)));
 }
 
 // Función para agregar una nueva tarea
 function addTask() {
   const taskText = taskInput.value.trim();
 
-  if (taskText === '') {
-    alert('Por favor, ingresa una tarea.');
+  if (taskText === "") {
+    alert("Por favor, ingresa una tarea.");
     return;
   }
 
@@ -80,41 +80,41 @@ function addTask() {
   pintarTareas();
 
   // Limpiar el campo de entrada
-  taskInput.value = '';
+  taskInput.value = "";
 }
 
 // Crea el DOM de una tarea a partir de su objeto
 function crearTareaDOM(tarea) {
   // Crear el contenedor de la tarea
-  const taskItem = document.createElement('div');
-  taskItem.classList.add('taskItem');
-  if (tarea.completada) taskItem.classList.add('completed');
+  const taskItem = document.createElement("div");
+  taskItem.classList.add("taskItem");
+  if (tarea.completada) taskItem.classList.add("completed");
 
   // Crear el texto de la tarea
   const taskTextNode = document.createTextNode(tarea.texto);
-  const taskContent = document.createElement('span');
+  const taskContent = document.createElement("span");
   taskContent.appendChild(taskTextNode);
 
   // Crear el botón de completar
-  const toggleButton = document.createElement('button');
-  toggleButton.textContent = tarea.completada ? 'Marcar como Pendiente' : 'Marcar como Completada';
-  toggleButton.classList.add('toggleButton');
-  toggleButton.addEventListener('click', function () {
+  const toggleButton = document.createElement("button");
+  toggleButton.textContent = tarea.completada ? "Marcar como Pendiente" : "Marcar como Completada";
+  toggleButton.classList.add("toggleButton");
+  toggleButton.addEventListener("click", function () {
     tarea.completada = !tarea.completada;
-    taskItem.classList.toggle('completed', tarea.completada);
+    taskItem.classList.toggle("completed", tarea.completada);
     toggleButton.textContent = tarea.completada
-      ? 'Marcar como Pendiente'
-      : 'Marcar como Completada';
+      ? "Marcar como Pendiente"
+      : "Marcar como Completada";
     guardarTareas();
   });
 
   // Crear el botón de editar
-  const editButton = document.createElement('button');
-  editButton.textContent = 'Editar';
-  editButton.classList.add('editButton');
-  editButton.addEventListener('click', function () {
-    const newText = prompt('Edita tu tarea:', taskTextNode.textContent);
-    if (newText !== null && newText.trim() !== '') {
+  const editButton = document.createElement("button");
+  editButton.textContent = "Editar";
+  editButton.classList.add("editButton");
+  editButton.addEventListener("click", function () {
+    const newText = prompt("Edita tu tarea:", taskTextNode.textContent);
+    if (newText !== null && newText.trim() !== "") {
       tarea.texto = newText.trim();
       taskTextNode.textContent = tarea.texto;
       guardarTareas();
@@ -122,11 +122,11 @@ function crearTareaDOM(tarea) {
   });
 
   // Crear el botón de eliminar
-  const deleteButton = document.createElement('button');
-  deleteButton.textContent = 'Eliminar';
-  deleteButton.classList.add('deleteButton');
-  deleteButton.addEventListener('click', function () {
-    listaTareas = listaTareas.filter(t => t.id !== tarea.id);
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Eliminar";
+  deleteButton.classList.add("deleteButton");
+  deleteButton.addEventListener("click", function () {
+    listaTareas = listaTareas.filter((t) => t.id !== tarea.id);
     guardarTareas();
     pintarTareas();
   });

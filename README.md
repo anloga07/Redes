@@ -38,9 +38,9 @@ Luego accede a `http://localhost:8000`
 
 ### Live Server (VS Code)
 
-Si usas la extensión **Live Server**, iníciala siempre sobre **`index.html`** (botón derecho → *Open with Live Server*), nunca sobre un fragmento (`inicio.html`, `pass.html`...): los fragmentos no llevan `<head>` ni `<body>` a propósito, así que abrirlos directamente muestra una página sin estilos ni navegación.
+Si usas la extensión **Live Server**, iníciala siempre sobre **`index.html`** (botón derecho → _Open with Live Server_), nunca sobre un fragmento (`inicio.html`, `pass.html`...): los fragmentos no llevan `<head>` ni `<body>` a propósito, así que abrirlos directamente muestra una página sin estilos ni navegación.
 
-Por ese mismo motivo Live Server mostrará el aviso *"Live Reload is not possible without a head or body tag"* al servir los fragmentos; es esperado y está silenciado por `.vscode/settings.json` (`liveServer.settings.donotVerifyTags: true`).
+Por ese mismo motivo Live Server mostrará el aviso _"Live Reload is not possible without a head or body tag"_ al servir los fragmentos; es esperado y está silenciado por `.vscode/settings.json` (`liveServer.settings.donotVerifyTags: true`).
 
 ## Estructura del proyecto
 

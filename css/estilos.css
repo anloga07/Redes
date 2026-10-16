@@ -35,8 +35,7 @@
 /* --- Ilustración SVG de la portada --- */
 .hero-art {
   background:
-    linear-gradient(180deg, rgba(34, 211, 238, 0.08), transparent 45%),
-    var(--red-surface-2);
+    linear-gradient(180deg, rgba(34, 211, 238, 0.08), transparent 45%), var(--red-surface-2);
   border: 1px solid var(--red-border);
   border-radius: var(--red-radius);
   box-shadow: var(--red-shadow);

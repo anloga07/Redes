@@ -3,15 +3,15 @@
 // Las contraseñas guardadas se recuerdan en el navegador (localStorage).
 // AVISO: se guardan en texto plano en este navegador; son para ejercicios
 // de clase, no para cuentas reales.
-const CLAVE_CONTRASENAS = 'contrasenas';
+const CLAVE_CONTRASENAS = "contrasenas";
 
 // Lee la lista guardada. Devuelve [] si no hay nada o si los datos están rotos.
 function leerPass() {
   try {
-    const datos = JSON.parse(localStorage.getItem(CLAVE_CONTRASENAS) || '[]');
+    const datos = JSON.parse(localStorage.getItem(CLAVE_CONTRASENAS) || "[]");
     return Array.isArray(datos) ? datos : [];
   } catch (error) {
-    console.error('No se pudieron leer las contraseñas guardadas:', error);
+    console.error("No se pudieron leer las contraseñas guardadas:", error);
     return [];
   }
 }
@@ -21,7 +21,7 @@ function escribirPass(lista) {
   try {
     localStorage.setItem(CLAVE_CONTRASENAS, JSON.stringify(lista));
   } catch (error) {
-    alert('No se han podido guardar las contraseñas en este navegador');
+    alert("No se han podido guardar las contraseñas en este navegador");
     console.error(error);
   }
 }
@@ -64,8 +64,10 @@ function generatePassword() {
   const guardadas = leerPass();
   let password;
   do {
-    password = Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join("");
-  } while (guardadas.some(entrada => entrada.password === password));
+    password = Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join(
+      "",
+    );
+  } while (guardadas.some((entrada) => entrada.password === password));
 
   document.getElementById("passwordResult").innerText = password;
   const copyBtn = document.getElementById("copyBtn");
@@ -152,7 +154,7 @@ function savePassword() {
   }
 
   const guardadas = leerPass();
-  if (guardadas.some(entrada => entrada.password === password)) {
+  if (guardadas.some((entrada) => entrada.password === password)) {
     alert("Esta contraseña ya está guardada. Genera otra.");
     return;
   }

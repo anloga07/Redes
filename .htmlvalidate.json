@@ -6,6 +6,8 @@
     "wcag/h30": "error",
     "input-missing-label": "error",
     "no-implicit-button-type": "error",
-    "prefer-native-element": "error"
+    "prefer-native-element": "error",
+    "doctype-style": ["error", { "style": "lowercase" }],
+    "void-style": ["error", { "style": "selfclosing" }]
   }
 }

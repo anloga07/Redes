@@ -23,8 +23,12 @@
   --red-radius: 0.625rem;
   --red-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
   --red-gradient: linear-gradient(135deg, #22d3ee, #14b8a6);
-  --red-font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --red-font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --red-font-body:
+    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --red-font-mono:
+    "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
 
   /* Variables de Bootstrap */
   --bs-body-bg: var(--red-bg);
@@ -50,7 +54,11 @@
 body {
   min-height: 100vh;
   background-color: var(--red-bg);
-  background-image: radial-gradient(900px 420px at 50% -8%, rgba(34, 211, 238, 0.07), transparent 60%);
+  background-image: radial-gradient(
+    900px 420px at 50% -8%,
+    rgba(34, 211, 238, 0.07),
+    transparent 60%
+  );
   background-repeat: no-repeat;
 }
 
@@ -72,13 +80,20 @@ body {
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #ffffff;
   font-weight: 600;
   letter-spacing: 0.2px;
 }
 
-code, kbd, samp {
+code,
+kbd,
+samp {
   font-family: var(--red-font-mono);
   color: var(--red-accent);
   background: var(--red-accent-soft);

@@ -1,81 +1,135 @@
 <div class="col-sm-12 col-md-3 col-lg-3 mb-4 mb-md-0">
-    <div class="panel p-4 h-100">
-        <h3 class="h5 section-title"><i class="bi bi-diagram-2"></i> Subneting</h3>
-        <hr>
-        <h6 class="text-info">¿Qué es Subneting?</h6>
-        <p class="text-justify">Subneting es una técnica de red que se utiliza para dividir una red grande en varias redes más pequeñas,
-            conocidas como subredes. Esto se hace para mejorar la eficiencia de la red, reducir el tráfico y mejorar la
-            seguridad de la red.
-        </p>
-        <h6 class="text-info">¿Cómo funciona Subneting?</h6>
-        <p class="text-justify">Subneting se basa en la asignación de direcciones IP a cada subred. Para hacer esto, se utiliza una máscara de
-            subred, que es una dirección IP que se utiliza para identificar la subred. La máscara de subred se utiliza para
-            determinar la cantidad de direcciones IP que se pueden asignar a cada subred.
-        </p>
-        <h6 class="text-info">¿Cuándo se utiliza Subneting?</h6>
-        <p class="text-justify mb-0">Subneting se utiliza en una amplia variedad de aplicaciones, desde la comunicación en línea hasta el envío de
-            correo electrónico y la transferencia de archivos. También se utiliza en las empresas para dividir la red en
-            subredes más pequeñas, lo que permite una mayor eficiencia de la red.
-        </p>
-    </div>
+  <div class="panel p-4 h-100">
+    <h3 class="h5 section-title"><i class="bi bi-diagram-2"></i> Subneting</h3>
+    <hr />
+    <h6 class="text-info">¿Qué es Subneting?</h6>
+    <p class="text-justify">
+      Subneting es una técnica de red que se utiliza para dividir una red grande en varias redes más
+      pequeñas, conocidas como subredes. Esto se hace para mejorar la eficiencia de la red, reducir
+      el tráfico y mejorar la seguridad de la red.
+    </p>
+    <h6 class="text-info">¿Cómo funciona Subneting?</h6>
+    <p class="text-justify">
+      Subneting se basa en la asignación de direcciones IP a cada subred. Para hacer esto, se
+      utiliza una máscara de subred, que es una dirección IP que se utiliza para identificar la
+      subred. La máscara de subred se utiliza para determinar la cantidad de direcciones IP que se
+      pueden asignar a cada subred.
+    </p>
+    <h6 class="text-info">¿Cuándo se utiliza Subneting?</h6>
+    <p class="text-justify mb-0">
+      Subneting se utiliza en una amplia variedad de aplicaciones, desde la comunicación en línea
+      hasta el envío de correo electrónico y la transferencia de archivos. También se utiliza en las
+      empresas para dividir la red en subredes más pequeñas, lo que permite una mayor eficiencia de
+      la red.
+    </p>
+  </div>
 </div>
 <div class="col-sm-12 col-md-4 col-lg-4 mb-4 mb-md-0">
-    <div class="panel p-4 h-100">
-        <h6>Dirección IP de la red:</h6>
-        <input type="text" class="form-control ip-out mb-3" id="ip" placeholder="192.168.0.0">
-        <label for="maskSelect" class="form-label">Máscara en formato /n</label>
-        <select class="form-select" aria-label="Selector de máscara" id="maskSelect" onchange="actualizarMascara(this.value)">
-            <option selected value="Máscaras">Máscaras</option>
-            <option value="8">/8</option>
-            <option value="9">/9</option>
-            <option value="10">/10</option>
-            <option value="11">/11</option>
-            <option value="12">/12</option>
-            <option value="13">/13</option>
-            <option value="14">/14</option>
-            <option value="15">/15</option>
-            <option value="16">/16</option>
-            <option value="17">/17</option>
-            <option value="18">/18</option>
-            <option value="19">/19</option>
-            <option value="20">/20</option>
-            <option value="21">/21</option>
-            <option value="22">/22</option>
-            <option value="23">/23</option>
-            <option value="24">/24</option>
-            <option value="25">/25</option>
-            <option value="26">/26</option>
-            <option value="27">/27</option>
-            <option value="28">/28</option>
-            <option value="29">/29</option>
-            <option value="30">/30</option>
-            <option value="31">/31</option>
-            <option value="32">/32</option>
-        </select>
-        <label for="mascara" class="form-label mt-3">Máscara en formato decimal</label>
-        <input type="text" class="form-control ip-out mb-3" id="mascara" placeholder="255.255.255.0">
-        <label for="redes" class="form-label">Número de redes deseadas</label>
-        <input type="text" class="form-control mb-3" id="redes" placeholder="Número de subredes a crear">
-        <label for="hosts" class="form-label">Número de hosts deseados</label>
-        <input type="text" class="form-control mb-3" id="hosts" placeholder="Hosts útiles por subred">
-        <h6>¿Qué necesitas obtener?</h6>
-        <div id="botones" class="d-flex flex-wrap gap-2 justify-content-center">
-            <button type="button" class="btn btn-primary" onclick="verClase(document.getElementById('ip').value)">Clase</button>
-            <button type="button" class="btn btn-primary" onclick="calculaConMascara(document.getElementById('ip').value,document.getElementById('mascara').value)">Máscara</button>
-            <button type="button" class="btn btn-primary" onclick="calculaConRedes(document.getElementById('ip').value,document.getElementById('redes').value)">Redes</button>
-            <button type="button" class="btn btn-primary" onclick="calculaConHosts(document.getElementById('ip').value,document.getElementById('hosts').value)">Hosts</button>
-        </div>
-        <div class="form-check form-switch mt-3">
-            <input class="form-check-input" type="checkbox" id="modoTutor">
-            <label class="form-check-label" for="modoTutor">Modo Tutor (desglose paso a paso)</label>
-        </div>
+  <div class="panel p-4 h-100">
+    <h6>Dirección IP de la red:</h6>
+    <input type="text" class="form-control ip-out mb-3" id="ip" placeholder="192.168.0.0" />
+    <label for="maskSelect" class="form-label">Máscara en formato /n</label>
+    <select
+      class="form-select"
+      aria-label="Selector de máscara"
+      id="maskSelect"
+      onchange="actualizarMascara(this.value)"
+    >
+      <option selected value="Máscaras">Máscaras</option>
+      <option value="8">/8</option>
+      <option value="9">/9</option>
+      <option value="10">/10</option>
+      <option value="11">/11</option>
+      <option value="12">/12</option>
+      <option value="13">/13</option>
+      <option value="14">/14</option>
+      <option value="15">/15</option>
+      <option value="16">/16</option>
+      <option value="17">/17</option>
+      <option value="18">/18</option>
+      <option value="19">/19</option>
+      <option value="20">/20</option>
+      <option value="21">/21</option>
+      <option value="22">/22</option>
+      <option value="23">/23</option>
+      <option value="24">/24</option>
+      <option value="25">/25</option>
+      <option value="26">/26</option>
+      <option value="27">/27</option>
+      <option value="28">/28</option>
+      <option value="29">/29</option>
+      <option value="30">/30</option>
+      <option value="31">/31</option>
+      <option value="32">/32</option>
+    </select>
+    <label for="mascara" class="form-label mt-3">Máscara en formato decimal</label>
+    <input type="text" class="form-control ip-out mb-3" id="mascara" placeholder="255.255.255.0" />
+    <label for="redes" class="form-label">Número de redes deseadas</label>
+    <input
+      type="text"
+      class="form-control mb-3"
+      id="redes"
+      placeholder="Número de subredes a crear"
+    />
+    <label for="hosts" class="form-label">Número de hosts deseados</label>
+    <input type="text" class="form-control mb-3" id="hosts" placeholder="Hosts útiles por subred" />
+    <h6>¿Qué necesitas obtener?</h6>
+    <div id="botones" class="d-flex flex-wrap gap-2 justify-content-center">
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="verClase(document.getElementById('ip').value)"
+      >
+        Clase
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="
+          calculaConMascara(
+            document.getElementById('ip').value,
+            document.getElementById('mascara').value,
+          )
+        "
+      >
+        Máscara
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="
+          calculaConRedes(
+            document.getElementById('ip').value,
+            document.getElementById('redes').value,
+          )
+        "
+      >
+        Redes
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        onclick="
+          calculaConHosts(
+            document.getElementById('ip').value,
+            document.getElementById('hosts').value,
+          )
+        "
+      >
+        Hosts
+      </button>
     </div>
+    <div class="form-check form-switch mt-3">
+      <input class="form-check-input" type="checkbox" id="modoTutor" />
+      <label class="form-check-label" for="modoTutor">Modo Tutor (desglose paso a paso)</label>
+    </div>
+  </div>
 </div>
 <div class="col-sm-12 col-md-5 col-lg-5">
-    <div class="panel p-4 h-100">
-        <h6>Resultado</h6>
-        <div id="result" class="result-box ip-out mb-3">Resultado.</div>
-        <h6>Direcciones</h6>
-        <div id="direcciones" class="result-box ip-out mb-0">Direcciones.</div>
-    </div>
+  <div class="panel p-4 h-100">
+    <h6>Resultado</h6>
+    <div id="result" class="result-box ip-out mb-3">Resultado.</div>
+    <h6>Direcciones</h6>
+    <div id="direcciones" class="result-box ip-out mb-0">Direcciones.</div>
+  </div>
 </div>

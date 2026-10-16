@@ -1,60 +1,63 @@
 <div class="col-12 vista-pass">
-    <div class="panel p-4 mx-auto narrow-panel">
-        <h2 class="section-title"><i class="bi bi-shield-lock"></i> Generador de contraseñas</h2>
-        <hr>
+  <div class="panel p-4 mx-auto narrow-panel">
+    <h2 class="section-title"><i class="bi bi-shield-lock"></i> Generador de contraseñas</h2>
+    <hr />
 
-        <!-- Controles -->
-        <div class="mb-3">
-            <label for="length" class="form-label">Longitud</label>
-            <input type="number" class="form-control ip-out" id="length" min="4" max="50" value="12">
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="includeLetters" checked>
-            <label class="form-check-label" for="includeLetters">Incluir letras</label>
-        </div>
-        <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="includeNumbers" checked>
-            <label class="form-check-label" for="includeNumbers">Incluir números</label>
-        </div>
-        <div class="form-check form-switch mb-3">
-            <input class="form-check-input" type="checkbox" id="includeSymbols" checked>
-            <label class="form-check-label" for="includeSymbols">Incluir símbolos</label>
-        </div>
-
-        <!-- Botones -->
-        <button id="generateBtn" class="btn btn-primary w-100">
-            <i class="bi bi-arrow-repeat me-1"></i>Generar contraseña
-        </button>
-        <div class="result-row">
-            <div class="result" id="passwordResult">Aquí aparecerá tu contraseña</div>
-            <button id="copyBtn" class="btn btn-outline-accent btn-copy" type="button" hidden>
-                <i class="bi bi-clipboard"></i> Copiar
-            </button>
-        </div>
-
-        <!-- Login -->
-        <label for="login" class="form-label mt-3">Login asociado</label>
-        <input type="text" class="form-control" id="login" placeholder="ej: usuario@email.com">
-        <button id="saveBtn" class="btn btn-outline-accent w-100 mt-2">
-            <i class="bi bi-save me-1"></i>Guardar contraseña
-        </button>
-
-        <!-- Tabla -->
-        <div class="saved">
-            <h3 class="h5"><i class="bi bi-key me-1"></i>Contraseñas guardadas</h3>
-            <div class="table-responsive">
-                <table id="savedTable" class="table table-hover align-middle">
-                    <thead>
-                        <tr>
-                            <th>Login</th>
-                            <th>Contraseña</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <p class="small text-secondary mb-0">Las contraseñas se guardan solo en este navegador (localStorage); no las uses para cuentas reales.</p>
-        </div>
+    <!-- Controles -->
+    <div class="mb-3">
+      <label for="length" class="form-label">Longitud</label>
+      <input type="number" class="form-control ip-out" id="length" min="4" max="50" value="12" />
     </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="includeLetters" checked />
+      <label class="form-check-label" for="includeLetters">Incluir letras</label>
+    </div>
+    <div class="form-check form-switch">
+      <input class="form-check-input" type="checkbox" id="includeNumbers" checked />
+      <label class="form-check-label" for="includeNumbers">Incluir números</label>
+    </div>
+    <div class="form-check form-switch mb-3">
+      <input class="form-check-input" type="checkbox" id="includeSymbols" checked />
+      <label class="form-check-label" for="includeSymbols">Incluir símbolos</label>
+    </div>
+
+    <!-- Botones -->
+    <button id="generateBtn" class="btn btn-primary w-100">
+      <i class="bi bi-arrow-repeat me-1"></i>Generar contraseña
+    </button>
+    <div class="result-row">
+      <div class="result" id="passwordResult">Aquí aparecerá tu contraseña</div>
+      <button id="copyBtn" class="btn btn-outline-accent btn-copy" type="button" hidden>
+        <i class="bi bi-clipboard"></i> Copiar
+      </button>
+    </div>
+
+    <!-- Login -->
+    <label for="login" class="form-label mt-3">Login asociado</label>
+    <input type="text" class="form-control" id="login" placeholder="ej: usuario@email.com" />
+    <button id="saveBtn" class="btn btn-outline-accent w-100 mt-2">
+      <i class="bi bi-save me-1"></i>Guardar contraseña
+    </button>
+
+    <!-- Tabla -->
+    <div class="saved">
+      <h3 class="h5"><i class="bi bi-key me-1"></i>Contraseñas guardadas</h3>
+      <div class="table-responsive">
+        <table id="savedTable" class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Login</th>
+              <th>Contraseña</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p class="small text-secondary mb-0">
+        Las contraseñas se guardan solo en este navegador (localStorage); no las uses para cuentas
+        reales.
+      </p>
+    </div>
+  </div>
 </div>
