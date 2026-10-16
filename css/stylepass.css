@@ -45,7 +45,7 @@
   align-items: center;
 }
 
-.vista-pass button.copiar {
+.vista-pass .copiar {
   background: transparent;
   color: var(--red-accent);
   border: 1px solid var(--red-accent);
@@ -56,12 +56,12 @@
   cursor: pointer;
 }
 
-.vista-pass button.copiar:hover {
+.vista-pass .copiar:hover {
   background: var(--red-accent);
   color: #05252e;
 }
 
-.vista-pass button.eliminar {
+.vista-pass .eliminar {
   background: var(--red-danger);
   color: #2a0b0b;
   border: none;
@@ -72,6 +72,6 @@
   cursor: pointer;
 }
 
-.vista-pass button.eliminar:hover {
+.vista-pass .eliminar:hover {
   filter: brightness(1.08);
 }

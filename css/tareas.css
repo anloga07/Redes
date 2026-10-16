@@ -1,6 +1,6 @@
 /* Estilos del Gestor de Tareas (scope .vista-tareas)
    El panel y el formulario vienen del tema (css/tema.css). */
-.vista-tareas .taskItem {
+.vista-tareas .task-item {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -14,23 +14,23 @@
   border-radius: var(--red-radius);
 }
 
-.vista-tareas .taskItem > span {
+.vista-tareas .task-text {
   flex: 1 1 100%;
 }
 
-.vista-tareas .taskItem.completed {
+.vista-tareas .task-item.completed {
   border-left-color: var(--red-success);
   opacity: 0.85;
 }
 
-.vista-tareas .taskItem.completed > span {
+.vista-tareas .completed .task-text {
   text-decoration: line-through;
   color: var(--red-muted);
 }
 
-.vista-tareas .toggleButton,
-.vista-tareas .editButton,
-.vista-tareas .deleteButton {
+.vista-tareas .toggle-button,
+.vista-tareas .edit-button,
+.vista-tareas .delete-button {
   padding: 0.3rem 0.7rem;
   border: none;
   border-radius: 0.45rem;
@@ -39,23 +39,23 @@
   cursor: pointer;
 }
 
-.vista-tareas .toggleButton {
+.vista-tareas .toggle-button {
   background: var(--red-accent);
   color: #05252e;
 }
 
-.vista-tareas .editButton {
+.vista-tareas .edit-button {
   background: var(--red-warning);
   color: #2a1a00;
 }
 
-.vista-tareas .deleteButton {
+.vista-tareas .delete-button {
   background: var(--red-danger);
   color: #2a0b0b;
 }
 
-.vista-tareas .toggleButton:hover,
-.vista-tareas .editButton:hover,
-.vista-tareas .deleteButton:hover {
+.vista-tareas .toggle-button:hover,
+.vista-tareas .edit-button:hover,
+.vista-tareas .delete-button:hover {
   filter: brightness(1.08);
 }

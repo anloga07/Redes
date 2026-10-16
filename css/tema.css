@@ -14,20 +14,20 @@
   --red-border: #26313f;
   --red-accent: #22d3ee;
   --red-accent-2: #14b8a6;
-  --red-accent-soft: rgba(34, 211, 238, 0.12);
+  --red-accent-soft: rgb(34 211 238 / 12%);
   --red-text: #e2e8f0;
   --red-muted: #94a3b8;
   --red-success: #34d399;
   --red-warning: #fbbf24;
   --red-danger: #f87171;
   --red-radius: 0.625rem;
-  --red-shadow: 0 6px 22px rgba(0, 0, 0, 0.35);
+  --red-shadow: 0 6px 22px rgb(0 0 0 / 35%);
   --red-gradient: linear-gradient(135deg, #22d3ee, #14b8a6);
   --red-font-body:
-    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", roboto, "Helvetica Neue", arial,
     sans-serif;
   --red-font-mono:
-    "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    "IBM Plex Mono", ui-monospace, sfmono-regular, "SF Mono", menlo, consolas, "Liberation Mono",
     monospace;
 
   /* Variables de Bootstrap */
@@ -35,12 +35,12 @@
   --bs-body-color: var(--red-text);
   --bs-body-color-rgb: 226, 232, 240;
   --bs-body-font-family: var(--red-font-body);
-  --bs-emphasis-color: #ffffff;
+  --bs-emphasis-color: #fff;
   --bs-secondary-color: var(--red-muted);
   --bs-secondary-bg: var(--red-surface);
   --bs-tertiary-bg: var(--red-surface-2);
   --bs-border-color: var(--red-border);
-  --bs-border-color-translucent: rgba(31, 58, 82, 0.6);
+  --bs-border-color-translucent: rgb(31 58 82 / 60%);
   --bs-primary: var(--red-accent);
   --bs-primary-rgb: 34, 211, 238;
   --bs-link-color: var(--red-accent);
@@ -54,11 +54,7 @@
 body {
   min-height: 100vh;
   background-color: var(--red-bg);
-  background-image: radial-gradient(
-    900px 420px at 50% -8%,
-    rgba(34, 211, 238, 0.07),
-    transparent 60%
-  );
+  background-image: radial-gradient(900px 420px at 50% -8%, rgb(34 211 238 / 7%), transparent 60%);
   background-repeat: no-repeat;
 }
 
@@ -68,7 +64,10 @@ body {
   outline-offset: 2px;
 }
 
-/* Respeta la preferencia de reducir movimiento */
+/* Respeta la preferencia de reducir movimiento.
+   El !important es intencionado: este bloque debe ganar a cualquier
+   animación o transición declarada en el resto de la hoja. */
+/* stylelint-disable declaration-no-important */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -79,6 +78,7 @@ body {
     scroll-behavior: auto !important;
   }
 }
+/* stylelint-enable declaration-no-important */
 
 h1,
 h2,
@@ -86,7 +86,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #ffffff;
+  color: #fff;
   font-weight: 600;
   letter-spacing: 0.2px;
 }
@@ -106,13 +106,16 @@ samp {
   width: 10px;
   height: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--red-bg);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--red-border);
   border-radius: 5px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--red-accent-2);
 }
@@ -202,7 +205,7 @@ samp {
    Navbar y menús
    -------------------------------------------------------------------------- */
 .navbar {
-  background: rgba(15, 27, 45, 0.85);
+  background: rgb(15 27 45 / 85%);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--red-border);
 }
@@ -214,14 +217,14 @@ samp {
 
 .navbar .nav-link:hover,
 .navbar .nav-link:focus {
-  color: #ffffff;
+  color: #fff;
 }
 
 .navbar .nav-link.active {
   color: var(--red-accent);
 }
 
-.navbar .nav-link.active::after {
+.nav-link.active::after {
   content: "";
   position: absolute;
   left: 0.5rem;
@@ -245,7 +248,7 @@ samp {
 .dropdown-item:hover,
 .dropdown-item:focus {
   background: var(--red-accent-soft);
-  color: #ffffff;
+  color: #fff;
 }
 
 /* --------------------------------------------------------------------------

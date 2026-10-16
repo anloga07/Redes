@@ -47,10 +47,10 @@
   flex: 1 1 100%;
 }
 
-.vista-notas .nota button.editar,
-.vista-notas .nota button.guardar,
-.vista-notas .nota button.cancelar,
-.vista-notas .nota button.eliminar {
+.vista-notas .editar,
+.vista-notas .guardar,
+.vista-notas .cancelar,
+.vista-notas .eliminar {
   border: 1px solid transparent;
   border-radius: 0.45rem;
   padding: 0.3rem 0.8rem;
@@ -59,30 +59,30 @@
   cursor: pointer;
 }
 
-.vista-notas .nota button.editar {
+.vista-notas .editar {
   background: var(--red-warning);
   color: #2a1a00;
 }
 
-.vista-notas .nota button.guardar {
+.vista-notas .guardar {
   background: var(--red-accent);
   color: #05252e;
 }
 
-.vista-notas .nota button.cancelar {
+.vista-notas .cancelar {
   background: var(--red-surface);
   color: var(--red-text);
   border-color: var(--red-border);
 }
 
-.vista-notas .nota button.eliminar {
+.vista-notas .eliminar {
   background: var(--red-danger);
   color: #2a0b0b;
 }
 
-.vista-notas .nota button.editar:hover,
-.vista-notas .nota button.guardar:hover,
-.vista-notas .nota button.cancelar:hover,
-.vista-notas .nota button.eliminar:hover {
+.vista-notas .editar:hover,
+.vista-notas .guardar:hover,
+.vista-notas .cancelar:hover,
+.vista-notas .eliminar:hover {
   filter: brightness(1.08);
 }

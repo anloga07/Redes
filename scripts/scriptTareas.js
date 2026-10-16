@@ -87,18 +87,19 @@ function addTask() {
 function crearTareaDOM(tarea) {
   // Crear el contenedor de la tarea
   const taskItem = document.createElement("div");
-  taskItem.classList.add("taskItem");
+  taskItem.classList.add("task-item");
   if (tarea.completada) taskItem.classList.add("completed");
 
   // Crear el texto de la tarea
   const taskTextNode = document.createTextNode(tarea.texto);
   const taskContent = document.createElement("span");
+  taskContent.classList.add("task-text");
   taskContent.appendChild(taskTextNode);
 
   // Crear el botón de completar
   const toggleButton = document.createElement("button");
   toggleButton.textContent = tarea.completada ? "Marcar como Pendiente" : "Marcar como Completada";
-  toggleButton.classList.add("toggleButton");
+  toggleButton.classList.add("toggle-button");
   toggleButton.addEventListener("click", function () {
     tarea.completada = !tarea.completada;
     taskItem.classList.toggle("completed", tarea.completada);
@@ -111,7 +112,7 @@ function crearTareaDOM(tarea) {
   // Crear el botón de editar
   const editButton = document.createElement("button");
   editButton.textContent = "Editar";
-  editButton.classList.add("editButton");
+  editButton.classList.add("edit-button");
   editButton.addEventListener("click", function () {
     const newText = prompt("Edita tu tarea:", taskTextNode.textContent);
     if (newText !== null && newText.trim() !== "") {
@@ -124,7 +125,7 @@ function crearTareaDOM(tarea) {
   // Crear el botón de eliminar
   const deleteButton = document.createElement("button");
   deleteButton.textContent = "Eliminar";
-  deleteButton.classList.add("deleteButton");
+  deleteButton.classList.add("delete-button");
   deleteButton.addEventListener("click", function () {
     listaTareas = listaTareas.filter((t) => t.id !== tarea.id);
     guardarTareas();
