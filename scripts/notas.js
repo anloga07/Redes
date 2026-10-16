@@ -39,12 +39,20 @@ function cargarNotas() {
   renderNotas();
 }
 
+// Rellena un botón con un icono de Bootstrap Icons y su texto. Se construye con
+// createElement/textContent (nunca con innerHTML) para no interpretar HTML.
+function ponerIcono(boton, claseIcono, texto) {
+  const icono = document.createElement("i");
+  icono.className = claseIcono + " me-1";
+  boton.replaceChildren(icono, texto);
+}
+
 // Vuelve a pintar la lista completa desde el almacenamiento
 function renderNotas() {
   const contenedor = document.getElementById("lista-notas");
   if (!contenedor) return;
 
-  contenedor.innerHTML = "";
+  contenedor.replaceChildren();
   leerNotas().forEach((nota) => contenedor.appendChild(crearNotaDOM(nota)));
 
   contenedor.classList.toggle("d-none", !notasVisibles);
@@ -53,9 +61,11 @@ function renderNotas() {
   if (boton) {
     boton.onclick = alternarNotas;
     boton.setAttribute("aria-expanded", String(notasVisibles));
-    boton.innerHTML = notasVisibles
-      ? '<i class="bi bi-eye-slash me-1"></i>Ocultar notas'
-      : '<i class="bi bi-eye me-1"></i>Ver notas';
+    ponerIcono(
+      boton,
+      notasVisibles ? "bi bi-eye-slash" : "bi bi-eye",
+      notasVisibles ? "Ocultar notas" : "Ver notas",
+    );
   }
 }
 
@@ -95,12 +105,12 @@ function crearNotaDOM(nota) {
 
   const botonEditar = document.createElement("button");
   botonEditar.className = "editar";
-  botonEditar.innerHTML = '<i class="bi bi-pencil me-1"></i>Editar';
+  ponerIcono(botonEditar, "bi bi-pencil", "Editar");
   botonEditar.onclick = () => editarNota(nota.id);
 
   const botonEliminar = document.createElement("button");
   botonEliminar.className = "eliminar";
-  botonEliminar.innerHTML = '<i class="bi bi-trash me-1"></i>Eliminar';
+  ponerIcono(botonEliminar, "bi bi-trash", "Eliminar");
   botonEliminar.onclick = () => eliminarNota(nota.id);
 
   acciones.appendChild(botonEditar);
@@ -139,12 +149,12 @@ function crearFormularioEdicion(nota) {
 
   const botonGuardar = document.createElement("button");
   botonGuardar.className = "guardar";
-  botonGuardar.innerHTML = '<i class="bi bi-check-lg me-1"></i>Guardar';
+  ponerIcono(botonGuardar, "bi bi-check-lg", "Guardar");
   botonGuardar.onclick = () => guardarEdicionNota(nota.id);
 
   const botonCancelar = document.createElement("button");
   botonCancelar.className = "cancelar";
-  botonCancelar.innerHTML = '<i class="bi bi-x-lg me-1"></i>Cancelar';
+  ponerIcono(botonCancelar, "bi bi-x-lg", "Cancelar");
   botonCancelar.onclick = cancelarEdicion;
 
   acciones.appendChild(botonGuardar);

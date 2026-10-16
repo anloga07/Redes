@@ -28,7 +28,7 @@ function escribirPass(lista) {
 
 // Engancha los botones del fragmento pass.html y pinta la tabla guardada.
 // Se llama desde cargarFragmento() tras inyectar el HTML (los <script>
-// de un fragmento inyectado con innerHTML no se ejecutan).
+// de un fragmento inyectado no se ejecutan).
 // Se usa onclick = para poder llamarla varias veces sin duplicar listeners.
 function iniciarPass() {
   const generateBtn = document.getElementById("generateBtn");
@@ -181,7 +181,7 @@ function updateTable() {
   const tabla = document.getElementById("savedTable");
   if (!tabla) return;
   const tbody = tabla.querySelector("tbody");
-  tbody.innerHTML = "";
+  tbody.replaceChildren();
 
   leerPass().forEach((entrada, indice) => {
     const fila = document.createElement("tr");

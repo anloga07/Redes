@@ -33,7 +33,7 @@ function guardarTareas() {
 
 // Engancha los botones del fragmento tareas.html y pinta las tareas guardadas.
 // Se llama desde cargarFragmento() tras inyectar el HTML (los <script>
-// de un fragmento inyectado con innerHTML no se ejecutan).
+// de un fragmento inyectado no se ejecutan).
 // Se usa onclick = para poder llamarla varias veces sin duplicar listeners.
 function iniciarTareas() {
   addTaskButton = document.getElementById("addTaskButton");
@@ -62,7 +62,7 @@ function cargarTareas() {
 
 // Vuelve a pintar la lista completa desde el array
 function pintarTareas() {
-  taskList.innerHTML = "";
+  taskList.replaceChildren();
   listaTareas.forEach((tarea) => taskList.appendChild(crearTareaDOM(tarea)));
 }
 

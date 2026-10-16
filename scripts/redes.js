@@ -42,10 +42,30 @@ function prefijoAMascara(prefijo) {
   return mascara;
 }
 
+// Convierte una cadena de HTML generado por la propia aplicación en nodos DOM.
+// Es el único punto del sitio que interpreta HTML como tal (eslint JS-02) y no
+// sanea nada, así que se usa solo con contenido calculado: números y direcciones
+// ya validadas (máscara, subredes y tabla del Modo Tutor) y los fragmentos
+// locales que carga cargarFragmento. Nunca con datos del usuario: esos van con
+// textContent o createElement (ver notas.js).
+// Ojo: selectNodeContents (y no selectNode) hace que el propio div desligado sea
+// el nodo de contexto del análisis; con selectNode el contexto sería su padre,
+// que es null al no estar en el documento, y fallaría.
+function nodosDesdeHTML(html) {
+  const rango = document.createRange();
+  rango.selectNodeContents(document.createElement("div"));
+  return rango.createContextualFragment(html);
+}
+
+// Reemplaza el contenido de un elemento por HTML generado
+function pintarHTML(elemento, html) {
+  if (elemento) elemento.replaceChildren(nodosDesdeHTML(html));
+}
+
 // Añade contenido al párrafo de resultados (si existe en la página)
 function escribirResultado(html) {
   const el = document.getElementById("result");
-  if (el) el.innerHTML += html;
+  if (el) el.append(nodosDesdeHTML(html));
 }
 
 // ===== DETECCIÓN DE CLASE =====
@@ -55,11 +75,11 @@ function escribirResultado(html) {
 function verClase(ip) {
   const elResult = document.getElementById("result");
   const elDirecciones = document.getElementById("direcciones");
-  if (elResult) elResult.innerHTML = "";
-  if (elDirecciones) elDirecciones.innerHTML = "";
+  if (elResult) elResult.replaceChildren();
+  if (elDirecciones) elDirecciones.replaceChildren();
 
   function error(mensaje) {
-    if (elResult) elResult.innerHTML = mensaje;
+    if (elResult) elResult.textContent = mensaje;
     return null;
   }
 
@@ -88,7 +108,10 @@ function verClase(ip) {
   }
 
   if (elResult) {
-    elResult.innerHTML = `La dirección IP: <b>${octetos.join(".")}</b> pertenece a la clase <b>${info.clase}</b> (Rango: <b>${info.rango}</b>)`;
+    pintarHTML(
+      elResult,
+      `La dirección IP: <b>${octetos.join(".")}</b> pertenece a la clase <b>${info.clase}</b> (Rango: <b>${info.rango}</b>)`,
+    );
   }
   return { octetos: octetos.map(Number), clase: info.clase, i: info.i };
 }
@@ -171,7 +194,7 @@ function calculaConMascara(ip, mask) {
   html += `<br>Número de subredes <b>${numRedes}</b>`;
 
   const elDirecciones = document.getElementById("direcciones");
-  if (elDirecciones) elDirecciones.innerHTML = html;
+  pintarHTML(elDirecciones, html);
 
   if (document.getElementById("modoTutor") && document.getElementById("modoTutor").checked) {
     escribirResultado(generarDesgloseTutor(ip, miMask.join(".")));
@@ -359,7 +382,7 @@ function cargarFragmento(archivo) {
       return response.text();
     })
     .then((data) => {
-      document.getElementById("cuerpo").innerHTML = data;
+      pintarHTML(document.getElementById("cuerpo"), data);
       inicializarFragmento(archivo);
       marcarVistaActiva(archivo);
     })
@@ -384,7 +407,7 @@ function marcarVistaActiva(archivo) {
   });
 }
 
-// Los <script> incluidos en un fragmento inyectado con innerHTML NO se
+// Los <script> incluidos en un fragmento inyectado NO se
 // ejecutan, así que cada herramienta se inicializa aquí, después de cargarla.
 function inicializarFragmento(archivo) {
   prepararValidacionIP();
