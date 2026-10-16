@@ -1,0 +1,9 @@
+node_modules
+package-lock.json
+
+# Configuración local de skills de IA (regenerable) y tooling de OpenCode.
+# No forman parte del sitio y se leen como instrucciones: no se formatean.
+.agents/
+skills-lock.json
+.opencode/
+.vscode/

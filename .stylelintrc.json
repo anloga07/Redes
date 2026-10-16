@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "declaration-no-important": true,
+    "selector-max-id": 0,
+    "selector-max-specificity": "0,3,0",
+    "media-feature-range-notation": "prefix",
+    "no-duplicate-selectors": true,
+    "declaration-block-no-duplicate-properties": true,
+    "property-disallowed-list": ["float"]
+  }
+}

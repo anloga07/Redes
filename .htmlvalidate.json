@@ -1,0 +1,11 @@
+{
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "no-inline-style": "error",
+    "wcag/h37": "error",
+    "wcag/h30": "error",
+    "input-missing-label": "error",
+    "no-implicit-button-type": "error",
+    "prefer-native-element": "error"
+  }
+}

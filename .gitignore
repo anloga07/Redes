@@ -2,3 +2,4 @@
 # y se pueden regenerar con `npx autoskills`.
 .agents/
 skills-lock.json
+node_modules/

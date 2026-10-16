@@ -1,0 +1,36 @@
+{
+  "name": "redes",
+  "version": "1.0.0",
+  "description": "Sitio web educativo estático sobre redes IP con herramientas de cálculo interactivas y pequeñas herramientas de aula.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint:js": "eslint .",
+    "lint:css": "stylelint \"**/*.css\" --allow-empty-input --ignore-pattern node_modules",
+    "lint:html": "html-validate \"*.html\"",
+    "lint": "npm run lint:js && npm run lint:css && npm run lint:html",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anloga07/Redes.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anloga07/Redes/issues"
+  },
+  "homepage": "https://github.com/anloga07/Redes#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0",
+    "html-validate": "^11.16.2",
+    "prettier": "^3.9.10",
+    "stylelint": "^17.16.0",
+    "stylelint-config-standard": "^40.0.0"
+  }
+}
