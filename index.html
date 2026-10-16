@@ -18,15 +18,15 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 px-0">
+            <header class="col-12 px-0">
                 <!-- BARRA DE MENÚ -->
                 <nav class="navbar navbar-expand-lg sticky-top">
                     <div class="container-fluid">
                         <a class="navbar-brand" href="#" onclick="cargarInicio(event)">
-                            <img src="img/logo.jpg" alt="Redes IP">
+                            <img src="img/logo.jpg" alt="Redes IP" width="200" height="200">
                             <span>Redes IP</span>
                         </a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Abrir menú de navegación">
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -38,18 +38,18 @@
                                     <a class="nav-link" data-vista="teoria" href="#" onclick="teoria(event)">Teoría</a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Direcciones IP
-                                    </a>
+                                    </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" data-vista="clases" href="#" onclick="cargarClases(event)">Clases</a></li>
                                         <li><a class="dropdown-item" data-vista="subneting" href="#" onclick="cargarSubneting(event)">Subneting</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <button class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Herramientas
-                                    </a>
+                                    </button>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" data-vista="pass" href="#" onclick="passGenerator(event)">PassGenerator</a></li>
                                         <li><a class="dropdown-item" data-vista="tareas" href="#" onclick="tareas(event)">Tareas</a></li>
@@ -61,10 +61,10 @@
                         </div>
                     </div>
                 </nav>
-            </div>
+            </header>
         </div>
         <!-- Contenido inicial: se sustituye por los fragmentos (inicio, teoria, clases, subneting y herramientas) -->
-        <div class="row py-4" id="cuerpo">
+        <main class="row py-4" id="cuerpo">
             <div class="col-12 hero-redes">
                 <div class="field field-hero p-4 p-lg-5">
                     <div class="row align-items-center g-4 g-lg-5">
@@ -122,8 +122,8 @@
                                     </g>
                                     <circle class="packet" cx="127" cy="191" r="4.5"/>
                                     <text x="190" y="198" text-anchor="middle" class="hero-svg-text">enrutador</text>
-                                    <text x="24" y="34" class="hero-svg-mono" style="fill: var(--red-accent)">192.168.1.0/24</text>
-                                    <text x="252" y="280" class="hero-svg-mono" style="fill: var(--red-muted)">11000000 10101000</text>
+                                    <text x="24" y="34" class="hero-svg-mono hero-svg-accent">192.168.1.0/24</text>
+                                    <text x="252" y="280" class="hero-svg-mono hero-svg-muted">11000000 10101000</text>
                                 </svg>
                             </div>
                         </div>
@@ -201,7 +201,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
         <footer class="site-footer text-center">
             <span class="text-secondary small"><i class="bi bi-hdd-network me-1"></i>Redes IP · Proyecto educativo</span>
         </footer>

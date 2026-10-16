@@ -57,6 +57,14 @@
   letter-spacing: 0.03em;
 }
 
+.hero-svg-accent {
+  fill: var(--red-accent);
+}
+
+.hero-svg-muted {
+  fill: var(--red-muted);
+}
+
 .hero-svg-text {
   font-family: var(--red-font-mono);
   font-size: 11px;

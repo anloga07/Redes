@@ -10,7 +10,7 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 
 ## Architecture
 
-- `index.html` is the **only real entry point**. It contains the Bootstrap navbar and a `#cuerpo` div (with the same initial content as `inicio.html`), and it is the **only** place where CSS and JS are declared.
+- `index.html` is the **only real entry point**. It contains the Bootstrap navbar (wrapped in a `<header>`) and a `<main id="cuerpo">` (with the same initial content as `inicio.html`), and it is the **only** place where CSS and JS are declared. `#cuerpo` keeps its `id`, so `cargarFragmento()` still finds it.
 - `inicio.html`, `teoria.html`, `clases.html`, `subneting.html`, `pass.html`, `tareas.html`, `notas.html`, `agenda.html` are **fragments of pure markup**: no `<!DOCTYPE>`, `<head>`, `<body>`, `<link>` or `<script>` tags (they would not work when injected with `innerHTML`). They are injected into `#cuerpo` via `fetch()` in `scripts/redes.js` (`cargarInicio`, `teoria`, `cargarClases`, `cargarSubneting`, `passGenerator`, `tareas`, `notas`, `agenda`, all routed through `cargarFragmento`). `teoria.html` is static (no init function): it holds the theory tutorial and a "Más lectura" list of external links.
 - **Fragment initialization**: `<script>` tags inside an `innerHTML` injection never run, so after injecting a fragment `cargarFragmento()` calls `inicializarFragmento(archivo)`, which runs the fragment's init function when it needs one (`pass.html` → `iniciarPass`, `tareas.html` → `iniciarTareas`, `notas.html` → `cargarNotas`) plus `prepararValidacionIP()`. Any new fragment with JS must be registered there.
 - `scripts/` holds **all** JS:
