@@ -5,6 +5,7 @@
 
     <div id="formulario" class="row g-2">
       <div class="col-12">
+        <label for="titulo" class="form-label">Título</label>
         <input
           type="text"
           class="form-control"
@@ -14,6 +15,7 @@
         />
       </div>
       <div class="col-12">
+        <label for="contenido" class="form-label">Contenido</label>
         <textarea
           class="form-control"
           id="contenido"
@@ -23,15 +25,17 @@
         ></textarea>
       </div>
       <div class="col-12">
+        <label for="fecha" class="form-label">A realizar el día</label>
         <input type="datetime-local" class="form-control" id="fecha" required />
       </div>
       <div class="col-12 d-flex flex-wrap gap-2">
-        <button class="btn btn-primary flex-fill" onclick="guardarNota()">
+        <button class="btn btn-primary flex-fill" type="button" onclick="guardarNota()">
           <i class="bi bi-save me-1"></i>Guardar nota
         </button>
         <button
           id="btn-cargar"
           class="btn btn-outline-accent flex-fill"
+          type="button"
           aria-controls="lista-notas"
           aria-expanded="false"
           onclick="alternarNotas()"

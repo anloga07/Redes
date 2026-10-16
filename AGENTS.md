@@ -31,7 +31,7 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 - Config files: `eslint.config.mjs` (flat config; `no-restricted-syntax` bans `innerHTML`, reported as `JS-02`), `.stylelintrc.json`, `.htmlvalidate.json`, `.prettierrc` (double quotes, semicolons, 100 columns).
 - Prettier covers the whole site **and** the root `*.md` files. `.prettierignore` keeps `.agents/`, `skills-lock.json`, `.opencode/` and `.vscode/` out of it: they are regenerable or local config that is read as instructions.
 - **Prettier and html-validate disagree by default.** Prettier writes `<!doctype html>` and self-closing void elements (`<meta ... />`); `html-validate:recommended` demands `<!DOCTYPE html>` and omitted end tags. `.htmlvalidate.json` therefore overrides `doctype-style` to `lowercase` and `void-style` to `selfclosing`. Keep both in sync, or freshly formatted HTML fails `npm run lint:html`.
-- Outstanding real debt (not formatting): `<input>`/`<textarea>` without `<label>` and `<button>` without `type` in the fragments (html-validate), `innerHTML` in the tool scripts (eslint), and stylelint style rules (modern color notation, `!important`, specificity, `.taskItem`-style class names).
+- Outstanding real debt (not formatting): `innerHTML` in the tool scripts (eslint) and the stylelint style rules (modern color notation, `!important`, selector specificity, `.taskItem`-style class names). html-validate is clean: form controls in the fragments have labels and every `<button>` declares its `type`. The inline edit form that `notas.js` builds at runtime (`edit-titulo`, `edit-contenido`, `edit-fecha`) is still unlabeled — html-validate cannot see it.
 
 ## OpenCode tooling (local)
 
