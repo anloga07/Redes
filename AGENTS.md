@@ -25,6 +25,14 @@ Open `index.html` in a browser **through a local server** (e.g. `python -m http.
 - jQuery is **not** used.
 - Local stylesheets referenced from `index.html`: `css/tema.css` (theme tokens), `css/estilos.css` (layout) and the per-tool CSS. `css/normalize.css` was removed because Bootstrap Reboot already normalizes.
 
+## OpenCode tooling (local)
+
+- `.opencode/` holds this project's local OpenCode configuration. It is **not part of the site**; `node_modules`, `package.json` and `package-lock.json` inside it are git-ignored.
+- `commands/revisar.md` defines the `/revisar` command: it runs with the `revisar` agent and loads the `revision-frontend` skill. Usage: `/revisar <ruta>`.
+- `agents/revisar.md` is the read-only reviewer agent (`mode: all`; `edit` denied, `shell` allowed so the linters required by the skill can run).
+- `skills/revision-frontend/` holds the review skill (`SKILL.md` + `reglas-html.md`, `reglas-css.md`, `reglas-js.md`). The skill **id comes from the folder name**, so keep the folder `revision-frontend`; the frontmatter `name` is only a display label.
+- A command's `agent:` field must reference an **existing** agent id. Otherwise the command still appears in the list but fails on run with `Error: Agent not found: <id>`.
+
 ## Language
 
-All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content.You must keep the MEMORY.md file updated with the changes.
+All UI text, comments, and alerts are in **Spanish**. Maintain this for any new content. You must keep the MEMORY.md file updated with the changes.

@@ -21,3 +21,9 @@ Static educational site about IP networks (Redes IP) plus classroom tools (gener
 - **Language rule:** everything (code comments, docs, commit messages, chat replies) is written in **Spanish**; English only when strictly unavoidable (technical names, identifiers, third-party terms). No other languages.
 - No build tools, no package manager, no test suite, no CI pipeline.
 - `.agents/` and `skills-lock.json` are local AI-skills config installed by `autoskills` (accessibility, seo, frontend-design, deploy-to-vercel). They are **git-ignored** (see `.gitignore`): they are not part of the site and can be regenerated with `npx autoskills`.
+
+## OpenCode tooling (local, `.opencode/`)
+- `/revisar <ruta>` reviews front-end code. It is defined by `.opencode/commands/revisar.md`, which selects the `revisar` agent and loads the `revision-frontend` skill.
+- The `revisar` agent (`.opencode/agents/revisar.md`, `mode: all`) is read-only: `edit` is denied, `shell` is allowed so the skill's linters (eslint / stylelint / html-validate) can run.
+- The skill lives in `.opencode/skills/revision-frontend/` (`SKILL.md` + `reglas-*.md`). Its **id is derived from the folder name** (not the frontmatter `name`), so the folder must stay `revision-frontend`; the previous folder `revision-fontend` produced the wrong id `revision-fontend`.
+- Gotcha: a command whose `agent:` refers to a non-existent agent is listed normally but fails when run with `Error: Agent not found: <id>` (this is what broke `/revisar`). Both `.opencode/skill` and `.opencode/skills` (and global `~/.config/opencode/skill(s)`) are scanned by OpenCode v2.0.29; the canonical plural form is used here.
