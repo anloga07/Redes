@@ -17,6 +17,7 @@ const htmls = [
   "teoria.html",
   "clases.html",
   "subneting.html",
+  "conversor.html",
   "pass.html",
   "tareas.html",
   "notas.html",
@@ -31,6 +32,7 @@ const suites = [
   { nombre: "sincronía: casos que deben fallar", script: "test_sync_negativo.js" },
   { nombre: "copia al portapapeles con reserva", script: "test_copia_fallback.js" },
   { nombre: "DOM real (jsdom)", script: "test_dom_real.js" },
+  { nombre: "conversor de bases", script: "test_conversor.js" },
   // index.html sí lleva doctype/head/link, así que allí solo se mira el balance.
   ...htmls.map((f) => ({
     nombre: "balance del marcado de " + f,

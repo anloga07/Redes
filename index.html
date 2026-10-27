@@ -30,6 +30,7 @@
     <link rel="stylesheet" type="text/css" href="./css/stylepass.css" />
     <link rel="stylesheet" type="text/css" href="./css/tareas.css" />
     <link rel="stylesheet" type="text/css" href="./css/notas.css" />
+    <link rel="stylesheet" type="text/css" href="./css/conversor.css" />
     <title>Redes IP</title>
   </head>
   <body>
@@ -80,6 +81,11 @@
                       </li>
                       <li>
                         <a class="dropdown-item" data-vista="subneting" href="#">Subneting</a>
+                      </li>
+                      <li>
+                        <a class="dropdown-item" data-vista="conversor" href="#"
+                          >Conversor de bases</a
+                        >
                       </li>
                     </ul>
                   </li>
@@ -268,8 +274,8 @@
           <h2 class="page-title h4">
             <i class="bi bi-grid-3x3-gap" aria-hidden="true"></i> Explora el sitio
           </h2>
-          <div class="row g-4">
-            <div class="col-md-6 col-xl-3">
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-6 col-xl-4">
               <div class="panel p-4 h-100 feature-card">
                 <div class="icon-circle"><i class="bi bi-book" aria-hidden="true"></i></div>
                 <h3>Teoría</h3>
@@ -282,7 +288,7 @@
                 ></a>
               </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-4">
               <div class="panel p-4 h-100 feature-card">
                 <div class="icon-circle"><i class="bi bi-hdd-network" aria-hidden="true"></i></div>
                 <h3>Clases de IP</h3>
@@ -295,7 +301,7 @@
                 ></a>
               </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-4">
               <div class="panel p-4 h-100 feature-card">
                 <div class="icon-circle"><i class="bi bi-diagram-2" aria-hidden="true"></i></div>
                 <h3>Subneting</h3>
@@ -308,7 +314,22 @@
                 ></a>
               </div>
             </div>
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-4">
+              <div class="panel p-4 h-100 feature-card">
+                <div class="icon-circle">
+                  <i class="bi bi-arrow-left-right" aria-hidden="true"></i>
+                </div>
+                <h3>Conversor de bases</h3>
+                <p class="mb-0">
+                  Traduce un número entre decimal, binario, octal y hexadecimal para leer los
+                  octetos de una dirección IP.
+                </p>
+                <a class="card-link" href="#" data-vista="conversor"
+                  >Convertir un número <i class="bi bi-arrow-right" aria-hidden="true"></i
+                ></a>
+              </div>
+            </div>
+            <div class="col-md-6 col-xl-4">
               <div class="panel p-4 h-100 feature-card">
                 <div class="icon-circle"><i class="bi bi-tools" aria-hidden="true"></i></div>
                 <h3>Herramientas de aula</h3>
@@ -387,5 +408,6 @@
     <script src="./scripts/scriptpass.js"></script>
     <script src="./scripts/scriptTareas.js"></script>
     <script src="./scripts/notas.js"></script>
+    <script src="./scripts/scriptConversor.js"></script>
   </body>
 </html>

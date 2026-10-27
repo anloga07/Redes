@@ -1,5 +1,5 @@
 # Reglas CSS
-- CSS-01 (CRÍTICO): una hoja de herramienta no reestiliza el sitio entero (`body`, `button`, `input`, `.container`); todo va bajo la clase del fragmento (`.vista-pass`, `.vista-tareas`, `.vista-notas`, `.vista-agenda`).
+- CSS-01 (CRÍTICO): una hoja de herramienta no reestiliza el sitio entero (`body`, `button`, `input`, `.container`); todo va bajo la clase del fragmento (`.vista-pass`, `.vista-tareas`, `.vista-notas`, `.vista-agenda`, `.vista-conversor`).
 - CSS-02 (CRÍTICO): sin `float` ni `!important` (`property-disallowed-list`, `declaration-no-important`); la maquetación se resuelve con flex/grid y, si `!important` es imprescindible, se documenta con `stylelint-disable` y su motivo.
 - CSS-03 (IMPORTANTE): sin `#id` como selector y con especificidad ≤ `0,3,0` (`selector-max-id`, `selector-max-specificity`); se quitan los selectores de elemento o de ancestro que la clase ya cubre.
 - CSS-04 (IMPORTANTE): clases en kebab-case, con el mismo texto en el CSS y en el JS que crea el nodo; si se renombra, se cambian los dos a la vez.

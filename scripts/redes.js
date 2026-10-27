@@ -381,6 +381,7 @@ const VISTAS = {
   teoria: "teoria.html",
   clases: "clases.html",
   subneting: "subneting.html",
+  conversor: "conversor.html",
   pass: "pass.html",
   tareas: "tareas.html",
   notas: "notas.html",
@@ -440,6 +441,7 @@ function inicializarFragmento(archivo) {
   const inicializadores = {
     "clases.html": "iniciarClases",
     "subneting.html": "iniciarSubneting",
+    "conversor.html": "iniciarConversor",
     "pass.html": "iniciarPass",
     "tareas.html": "iniciarTareas",
     "notas.html": "cargarNotas",

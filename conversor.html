@@ -1,0 +1,46 @@
+<div class="col-12 vista-conversor">
+  <div class="panel p-4 mx-auto narrow-panel-wide">
+    <h2 class="section-title">
+      <i class="bi bi-arrow-left-right" aria-hidden="true"></i> Conversor de bases
+    </h2>
+    <hr />
+    <p class="text-secondary">
+      Pasa un número entre decimal, binario, octal y hexadecimal. Resulta útil para traducir los
+      octetos de una dirección IP. El valor debe caber en 32 bits (de 0 a 4 294 967 295).
+    </p>
+    <div class="row g-3">
+      <div class="col-12 col-sm-5">
+        <label class="form-label" for="base-origen">Sistema de numeración de origen</label>
+        <select class="form-select" id="base-origen">
+          <option value="10" selected>Decimal</option>
+          <option value="2">Binario</option>
+          <option value="8">Octal</option>
+          <option value="16">Hexadecimal</option>
+        </select>
+      </div>
+      <div class="col-12 col-sm-7">
+        <label class="form-label" for="numero-convertir">Número a convertir</label>
+        <div class="input-group">
+          <input
+            type="text"
+            class="form-control ip-out"
+            id="numero-convertir"
+            placeholder="192"
+            aria-describedby="ayuda-conversor"
+            autocomplete="off"
+            spellcheck="false"
+            inputmode="numeric"
+          />
+          <button class="btn btn-primary" type="button" id="btn-convertir">
+            <i class="bi bi-arrow-left-right me-1" aria-hidden="true"></i>Convertir
+          </button>
+        </div>
+        <p class="form-text" id="ayuda-conversor">Acepta dígitos del 0 al 9.</p>
+      </div>
+    </div>
+    <h3 class="h6 mt-4">Resultado</h3>
+    <div id="resultado-conversor" class="result-box conversor-resultado" aria-live="polite">
+      <p class="conversor-aviso mb-0">Escribe un número y pulsa «Convertir».</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+/* Estilos del Conversor de bases (scope .vista-conversor).
+   El panel, el formulario y la caja de resultados vienen del tema (css/tema.css). */
+.vista-conversor .conversor-resultado {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 7.5rem;
+}
+
+.vista-conversor .conversor-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--red-border);
+}
+
+.vista-conversor .conversor-fila:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.vista-conversor .conversor-etiqueta {
+  font-family: var(--red-font-body);
+  font-size: 0.85rem;
+  color: var(--red-muted);
+}
+
+.vista-conversor .conversor-valor {
+  font-weight: 600;
+  color: var(--red-accent);
+  overflow-wrap: anywhere;
+}
+
+.vista-conversor .conversor-aviso {
+  color: var(--red-muted);
+}
+
+.vista-conversor .conversor-aviso-error {
+  color: var(--red-warning);
+}

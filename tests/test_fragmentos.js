@@ -19,6 +19,7 @@ const fragments = [
   "teoria.html",
   "clases.html",
   "subneting.html",
+  "conversor.html",
   "pass.html",
   "notas.html",
   "tareas.html",
@@ -75,6 +76,7 @@ if (sinUsar.length) console.log("AVISO vistas sin ningún enlace: " + sinUsar.jo
 const inicializadores = [
   ["clases.html", "iniciarClases"],
   ["subneting.html", "iniciarSubneting"],
+  ["conversor.html", "iniciarConversor"],
   ["pass.html", "iniciarPass"],
   ["tareas.html", "iniciarTareas"],
   ["notas.html", "cargarNotas"],
