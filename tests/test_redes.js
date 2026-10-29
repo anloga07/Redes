@@ -276,5 +276,70 @@ comprobar(
   alertas.join(" | "),
 );
 
+// 21. campos de objetivo vacíos: se ofrece el modo capacidad
+reset();
+calculaConRedes("192.168.1.10", "");
+comprobar(
+  "redes vacío remite al modo capacidad",
+  elementos["result"].innerHTML.includes("Cuántas redes y hosts caben"),
+);
+reset();
+calculaConHosts("192.168.1.10", "   ");
+comprobar(
+  "hosts vacío remite al modo capacidad",
+  elementos["result"].innerHTML.includes("Cuántas redes y hosts caben"),
+);
+
+// 22. calculaCapacidad con máscara
+reset();
+calculaCapacidad("192.168.5.130", "255.255.255.192");
+let capacidad = elementos["result"].innerHTML;
+comprobar("capacidad /26 -> 4 subredes", capacidad.includes("<b>4</b> subredes"));
+comprobar("capacidad /26 -> 62 hosts útiles", capacidad.includes("<b>62</b> hosts útiles"));
+comprobar(
+  "capacidad /26 menciona el otro modo",
+  capacidad.includes("La máscara para un nº de redes o hosts"),
+);
+comprobar(
+  "capacidad /26 lista las subredes",
+  elementos["direcciones"].innerHTML.includes("192.168.5.192"),
+);
+
+// 23. calculaCapacidad sin máscara: usa la de la clase
+reset();
+calculaCapacidad("192.168.5.130", "");
+capacidad = elementos["result"].innerHTML;
+comprobar("capacidad sin máscara avisa", capacidad.includes("No has indicado máscara"));
+comprobar("capacidad sin máscara usa la de clase C", capacidad.includes("clase C (/24)"));
+comprobar(
+  "capacidad /24 -> 1 red de 254 hosts",
+  capacidad.includes("1 red de <b>254</b> hosts útiles"),
+);
+
+// 24. calculaCapacidad con máscara no contigua
+reset();
+calculaCapacidad("192.168.5.130", "255.0.255.0");
+comprobar(
+  "capacidad con máscara no contigua rechazada",
+  elementos["result"].innerHTML.includes("bits a 1 deben ser consecutivos"),
+);
+
+// 25. calculaCapacidad /32: sin hosts útiles
+reset();
+calculaCapacidad("192.168.5.130", "255.255.255.255");
+comprobar(
+  "capacidad /32 sin hosts útiles",
+  elementos["result"].innerHTML.includes("sin hosts útiles"),
+);
+
+// 26. calculaCapacidad clase D rechazada
+reset();
+calculaCapacidad("224.0.0.1", "255.255.255.0");
+comprobar(
+  "capacidad clase D rechazada",
+  alertas.some((a) => a.includes("clase A, B y C")),
+  alertas.join(" | "),
+);
+
 console.log(fallos === 0 ? "\nTODAS LAS PRUEBAS PASAN" : `\n${fallos} FALLOS`);
 process.exit(fallos === 0 ? 0 : 1);

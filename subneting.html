@@ -59,21 +59,61 @@
     </select>
     <label for="mascara" class="form-label mt-3">Máscara en formato decimal</label>
     <input type="text" class="form-control ip-out mb-3" id="mascara" placeholder="255.255.255.0" />
-    <label for="redes" class="form-label">Número de redes deseadas</label>
-    <input
-      type="text"
-      class="form-control mb-3"
-      id="redes"
-      placeholder="Número de subredes a crear"
-    />
-    <label for="hosts" class="form-label">Número de hosts deseados</label>
-    <input type="text" class="form-control mb-3" id="hosts" placeholder="Hosts útiles por subred" />
-    <h6>¿Qué necesitas obtener?</h6>
+    <fieldset class="mt-2">
+      <legend class="form-label">¿Qué quieres calcular?</legend>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="modo-subneting"
+          id="modo-capacidad"
+          value="capacidad"
+          checked
+        />
+        <label class="form-check-label" for="modo-capacidad">Cuántas redes y hosts caben</label>
+      </div>
+      <div class="form-check">
+        <input
+          class="form-check-input"
+          type="radio"
+          name="modo-subneting"
+          id="modo-objetivo"
+          value="objetivo"
+        />
+        <label class="form-check-label" for="modo-objetivo">
+          La máscara para un nº de redes o hosts
+        </label>
+      </div>
+    </fieldset>
+    <p class="form-text" id="ayuda-subneting">
+      Se usan la IP y la máscara indicadas. Sin máscara se toma la de la clase.
+    </p>
+    <div id="campos-objetivo" hidden>
+      <label for="redes" class="form-label">Número de redes deseadas</label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        id="redes"
+        placeholder="Número de subredes a crear"
+        aria-describedby="ayuda-subneting"
+        disabled
+      />
+      <label for="hosts" class="form-label">Número de hosts deseados</label>
+      <input
+        type="text"
+        class="form-control mb-3"
+        id="hosts"
+        placeholder="Hosts útiles por subred"
+        aria-describedby="ayuda-subneting"
+        disabled
+      />
+    </div>
+    <h6 class="mt-3">¿Qué necesitas obtener?</h6>
     <div id="botones" class="d-flex flex-wrap gap-2 justify-content-center">
       <button type="button" class="btn btn-primary" id="btn-clase">Clase</button>
-      <button type="button" class="btn btn-primary" id="btn-mascara">Máscara</button>
-      <button type="button" class="btn btn-primary" id="btn-redes">Redes</button>
-      <button type="button" class="btn btn-primary" id="btn-hosts">Hosts</button>
+      <button type="button" class="btn btn-primary" id="btn-capacidad">Ver capacidad</button>
+      <button type="button" class="btn btn-primary" id="btn-redes" hidden>Redes</button>
+      <button type="button" class="btn btn-primary" id="btn-hosts" hidden>Hosts</button>
     </div>
     <div class="form-check form-switch mt-3">
       <input class="form-check-input" type="checkbox" id="modoTutor" />
@@ -84,7 +124,7 @@
 <div class="col-sm-12 col-md-5 col-lg-5">
   <div class="panel p-4 h-100">
     <h6>Resultado</h6>
-    <div id="result" class="result-box ip-out mb-3">Resultado.</div>
+    <div id="result" class="result-box ip-out mb-3" aria-live="polite">Resultado.</div>
     <h6>Direcciones</h6>
     <div id="direcciones" class="result-box ip-out mb-0">Direcciones.</div>
   </div>

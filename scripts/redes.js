@@ -118,59 +118,109 @@ function verClase(ip) {
 
 // ===== CÁLCULOS DE SUBNETING =====
 
-function calculaConMascara(ip, mask) {
-  const miIp = verClase(ip);
-  if (!miIp) return; // la IP ya está validada y el error mostrado
-  if (miIp.i === null) {
-    alert("Solo calculo redes de clase A, B y C");
-    return;
+const TEXTO_AYUDA_CAPACIDAD =
+  "Se usan la IP y la máscara indicadas. Sin máscara se toma la de la clase.";
+const TEXTO_AYUDA_OBJETIVO =
+  "Indica cuántas redes o hosts necesitas y se calculará la máscara adecuada.";
+
+// Valida una máscara decimal y devuelve sus octetos, su binario y su prefijo.
+// Si no es válida devuelve { error } con el mensaje listo para mostrar.
+function analizarMascara(mask) {
+  const octetos = (mask || "").trim().split(".");
+  if (octetos.length !== 4 || octetos.some((o) => !/^\d{1,3}$/.test(o) || parseInt(o, 10) > 255)) {
+    return { error: "La máscara no es válida (formato: 255.255.255.0)" };
   }
 
-  // Validar la máscara
-  const octetosMask = (mask || "").trim().split(".");
-  if (
-    octetosMask.length !== 4 ||
-    octetosMask.some((o) => !/^\d{1,3}$/.test(o) || parseInt(o, 10) > 255)
-  ) {
-    escribirResultado("<br>La máscara no es válida (formato: 255.255.255.0)");
-    return;
-  }
-  const miMask = octetosMask.map(Number);
-
-  const binario = miMask.map((o) => o.toString(2).padStart(8, "0"));
+  const numeros = octetos.map(Number);
+  const binario = numeros.map((o) => o.toString(2).padStart(8, "0"));
   const cadenaBinaria = binario.join("");
   if (!/^1*0*$/.test(cadenaBinaria)) {
-    escribirResultado("<br>La máscara no es válida: los bits a 1 deben ser consecutivos");
-    return;
+    return { error: "La máscara no es válida: los bits a 1 deben ser consecutivos" };
   }
 
   // Prefijo = nº de bits a 1 de la máscara
   const posicionCero = cadenaBinaria.indexOf("0");
-  const prefijo = posicionCero === -1 ? 32 : posicionCero;
-  if (prefijo < miIp.i * 8) {
+  return { octetos: numeros, binario, prefijo: posicionCero === -1 ? 32 : posicionCero };
+}
+
+// Nº de subredes, direcciones de host y hosts útiles que caben con un prefijo.
+// Es classful: los bits de red se cuentan desde la máscara por defecto de la clase.
+function datosDeSubredes(miIp, prefijo) {
+  const bitsRed = prefijo - miIp.i * 8;
+  const direcciones = Math.pow(2, 32 - prefijo);
+  return {
+    prefijo,
+    bitsRed,
+    bitsHost: 32 - prefijo,
+    subredes: Math.pow(2, bitsRed),
+    direcciones,
+    hostsUtiles: Math.max(direcciones - 2, 0),
+  };
+}
+
+// Máscara del modo capacidad: la indicada o, si no hay, la de la clase de la IP
+function mascaraDeCapacidad(miIp, mascara) {
+  const texto = (mascara || "").trim();
+  if (texto) return { mascara: texto, porDefecto: false };
+  return { mascara: prefijoAMascara(miIp.i * 8).join("."), porDefecto: true };
+}
+
+// Frase del modo capacidad: cuántas redes y hosts caben y el camino alternativo
+function resumenCapacidad({ miIp, mascara, datos, porDefecto }) {
+  const cifras = (n) => n.toLocaleString("es-ES");
+  const aviso = porDefecto
+    ? `<br>No has indicado máscara: se usa la de la clase ${miIp.clase} (/${datos.prefijo}).`
+    : "";
+  const hosts =
+    datos.hostsUtiles > 0
+      ? `<b>${cifras(datos.hostsUtiles)}</b> hosts útiles`
+      : "sin hosts útiles (enlace punto a punto o dirección única)";
+  const redes =
+    datos.subredes === 1
+      ? `1 red de ${hosts}`
+      : `<b>${cifras(datos.subredes)}</b> subredes de ${hosts} cada una`;
+  return (
+    aviso +
+    `<br>Con la IP <b>${miIp.octetos.join(".")}</b> y la máscara <b>${mascara}</b> (/${datos.prefijo}) puedes tener ${redes}.` +
+    `<br>Si prefieres partir de un objetivo, elige «La máscara para un nº de redes o hosts».`
+  );
+}
+
+// Devuelve { miIp, datos } o null si algo no es válido (el error ya se muestra)
+function calculaConMascara(ip, mask) {
+  const miIp = verClase(ip);
+  if (!miIp) return null; // la IP ya está validada y el error mostrado
+  if (miIp.i === null) {
+    alert("Solo calculo redes de clase A, B y C");
+    return null;
+  }
+
+  const analisis = analizarMascara(mask);
+  if (analisis.error) {
+    escribirResultado("<br>" + analisis.error);
+    return null;
+  }
+  if (analisis.prefijo < miIp.i * 8) {
     escribirResultado(
       `<br>La máscara debe ser igual o mayor que la máscara de la clase ${miIp.clase} (/${miIp.i * 8})`,
     );
-    return;
+    return null;
   }
 
-  const bitsRed = prefijo - miIp.i * 8; // bits tomados prestados de la red
-  const bitsHost = 32 - prefijo;
-  const numRedes = Math.pow(2, bitsRed);
-  const numHost = Math.pow(2, bitsHost);
+  const datos = datosDeSubredes(miIp, analisis.prefijo);
 
   escribirResultado(
-    `<br>Máscara en decimal: <b>${miMask.join(".")}</b><br>Máscara adaptada en binario: <b>${binario.join(".")}</b>`,
+    `<br>Máscara en decimal: <b>${analisis.octetos.join(".")}</b><br>Máscara adaptada en binario: <b>${analisis.binario.join(".")}</b>`,
   );
   escribirResultado(
-    `<br>Direcciones de subred <b>${numRedes}</b>, <br>Direcciones de host <b>${numHost}</b>, útiles <b>${Math.max(numHost - 2, 0)}</b>`,
+    `<br>Direcciones de subred <b>${datos.subredes}</b>, <br>Direcciones de host <b>${datos.direcciones}</b>, útiles <b>${datos.hostsUtiles}</b>`,
   );
 
   // Red principal: se copian los octetos de la IP según la clase y el resto a 0
   const base = ipAInt(miIp.octetos.map((o, k) => (k < miIp.i ? o : 0)));
-  const blockSize = numHost;
+  const blockSize = datos.direcciones;
 
-  let mostrar = numRedes;
+  let mostrar = datos.subredes;
   if (mostrar > 512) {
     alert(
       "El número de subredes es muy grande por lo que solo se mostrarán 512 direcciones de subredes",
@@ -191,14 +241,16 @@ function calculaConMascara(ip, mask) {
     }
     html += ` Broadcast <b>[${intAIP(broadcast)}]</b>`;
   }
-  html += `<br>Número de subredes <b>${numRedes}</b>`;
+  html += `<br>Número de subredes <b>${datos.subredes}</b>`;
 
   const elDirecciones = document.getElementById("direcciones");
   pintarHTML(elDirecciones, html);
 
   if (document.getElementById("modoTutor") && document.getElementById("modoTutor").checked) {
-    escribirResultado(generarDesgloseTutor(ip, miMask.join(".")));
+    escribirResultado(generarDesgloseTutor(ip, analisis.octetos.join(".")));
   }
+
+  return { miIp, datos };
 }
 
 function calculaConRedes(ip, numRedes) {
@@ -209,7 +261,15 @@ function calculaConRedes(ip, numRedes) {
     return;
   }
 
-  const totalRedes = parseInt(numRedes, 10);
+  const textoRedes = (numRedes || "").trim();
+  if (!textoRedes) {
+    escribirResultado(
+      "<br>Indica un número de redes (1 o más) o cambia a «Cuántas redes y hosts caben» para ver las posibilidades con esta máscara",
+    );
+    return;
+  }
+
+  const totalRedes = parseInt(textoRedes, 10);
   if (!Number.isInteger(totalRedes) || totalRedes < 1) {
     escribirResultado("<br>Indique un número de redes válido (mayor o igual que 1)");
     return;
@@ -245,7 +305,15 @@ function calculaConHosts(ip, numHosts) {
     return;
   }
 
-  const totalHosts = parseInt(numHosts, 10);
+  const textoHosts = (numHosts || "").trim();
+  if (!textoHosts) {
+    escribirResultado(
+      "<br>Indica un número de hosts (1 o más) o cambia a «Cuántas redes y hosts caben» para ver las posibilidades con esta máscara",
+    );
+    return;
+  }
+
+  const totalHosts = parseInt(textoHosts, 10);
   if (!Number.isInteger(totalHosts) || totalHosts < 1) {
     escribirResultado("<br>Indique un número de hosts válido (mayor o igual que 1)");
     return;
@@ -269,6 +337,30 @@ function calculaConHosts(ip, numHosts) {
     `<br>La dirección IP: <b>${miIp.octetos.join(".")}</b> debe tener la máscara <b>${mascara.join(".")}</b> (/${prefijo})` +
       `<br>Se usan <b>${32 - prefijo}</b> bits de hosts y <b>${prefijo}</b> de red: ` +
       `<b>${Math.pow(2, prefijo - miIp.i * 8)}</b> subredes de <b>${Math.pow(2, j) - 2}</b> hosts útiles`,
+  );
+}
+
+// Modo capacidad: no se pide objetivo, se muestran las redes y hosts posibles
+// con la IP y la máscara indicadas (o con la máscara por defecto de su clase).
+function calculaCapacidad(ip, mascara) {
+  const miIp = verClase(ip);
+  if (!miIp) return;
+  if (miIp.i === null) {
+    alert("Solo calculo redes de clase A, B y C");
+    return;
+  }
+
+  const elegida = mascaraDeCapacidad(miIp, mascara);
+  const resultado = calculaConMascara(ip, elegida.mascara);
+  if (!resultado) return; // calculaConMascara ya ha mostrado el error
+
+  escribirResultado(
+    resumenCapacidad({
+      miIp,
+      mascara: elegida.mascara,
+      datos: resultado.datos,
+      porDefecto: elegida.porDefecto,
+    }),
   );
 }
 
@@ -475,7 +567,56 @@ function iniciarClases() {
   boton.addEventListener("click", () => verClase(inputIP.value));
 }
 
-// subneting.html: el selector de máscara y los cuatro botones de la calculadora
+// Valor actual de un campo de la vista (cadena vacía si no existe)
+function valorDe(id) {
+  const campo = document.getElementById(id);
+  return campo ? campo.value : "";
+}
+
+// Enlaza el clic de un botón, si ese botón existe en la vista
+function enlazarBoton(id, accion) {
+  const boton = document.getElementById(id);
+  if (boton) boton.addEventListener("click", accion);
+}
+
+// Muestra u oculta un grupo de nodos por id
+function alternarVisibles(ids, visibles) {
+  for (const id of ids) {
+    const elemento = document.getElementById(id);
+    if (elemento) elemento.hidden = !visibles;
+  }
+}
+
+// Los campos de objetivo solo se pueden rellenar en su modo
+function alternarCamposObjetivo(habilitados) {
+  for (const id of ["redes", "hosts"]) {
+    const campo = document.getElementById(id);
+    if (campo) campo.disabled = !habilitados;
+  }
+}
+
+// Ajusta campos, botones y ayuda al modo de cálculo elegido
+function aplicarModoSubneting(modo) {
+  const capacidad = modo !== "objetivo";
+  alternarCamposObjetivo(!capacidad);
+  alternarVisibles(["campos-objetivo"], !capacidad);
+  alternarVisibles(["btn-capacidad"], capacidad);
+  alternarVisibles(["btn-redes", "btn-hosts"], !capacidad);
+  const ayuda = document.getElementById("ayuda-subneting");
+  if (ayuda) ayuda.textContent = capacidad ? TEXTO_AYUDA_CAPACIDAD : TEXTO_AYUDA_OBJETIVO;
+}
+
+// Los dos radios del modo comparten comportamiento; al cargar se aplica el marcado
+function prepararModosSubneting() {
+  for (const id of ["modo-capacidad", "modo-objetivo"]) {
+    const radio = document.getElementById(id);
+    if (radio) radio.addEventListener("change", () => aplicarModoSubneting(radio.value));
+  }
+  const objetivo = document.getElementById("modo-objetivo");
+  aplicarModoSubneting(objetivo && objetivo.checked ? "objetivo" : "capacidad");
+}
+
+// subneting.html: selector de máscara, modos de cálculo y botones de la calculadora
 function iniciarSubneting() {
   const inputIP = document.getElementById("ip");
   if (!inputIP) return;
@@ -485,19 +626,11 @@ function iniciarSubneting() {
     selector.addEventListener("change", () => actualizarMascara(selector.value));
   }
 
-  const valor = (id) => {
-    const campo = document.getElementById(id);
-    return campo ? campo.value : "";
-  };
-  const enlazar = (id, accion) => {
-    const boton = document.getElementById(id);
-    if (boton) boton.addEventListener("click", accion);
-  };
-
-  enlazar("btn-clase", () => verClase(inputIP.value));
-  enlazar("btn-mascara", () => calculaConMascara(inputIP.value, valor("mascara")));
-  enlazar("btn-redes", () => calculaConRedes(inputIP.value, valor("redes")));
-  enlazar("btn-hosts", () => calculaConHosts(inputIP.value, valor("hosts")));
+  prepararModosSubneting();
+  enlazarBoton("btn-clase", () => verClase(inputIP.value));
+  enlazarBoton("btn-capacidad", () => calculaCapacidad(inputIP.value, valorDe("mascara")));
+  enlazarBoton("btn-redes", () => calculaConRedes(inputIP.value, valorDe("redes")));
+  enlazarBoton("btn-hosts", () => calculaConHosts(inputIP.value, valorDe("hosts")));
 }
 
 // Validación en vivo del campo de IP tras cargar cada fragmento

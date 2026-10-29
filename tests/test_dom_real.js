@@ -370,7 +370,7 @@ const leer = (rel) => fs.readFileSync(path.join(repo, rel), "utf8");
     cuerpo.querySelector("#result").textContent,
   );
 
-  // 14. iniciarSubneting: selector de máscara y botones de cálculo
+  // 14. iniciarSubneting: selector de máscara, modos de cálculo y botones
   window.cargarFragmento("subneting.html");
   await esperar();
   const selectorMask = cuerpo.querySelector("#maskSelect");
@@ -381,13 +381,40 @@ const leer = (rel) => fs.readFileSync(path.join(repo, rel), "utf8");
     cuerpo.querySelector("#mascara").value === "255.255.255.192",
     cuerpo.querySelector("#mascara").value,
   );
+  comprobar(
+    "iniciarSubneting: el modo capacidad arranca activo",
+    cuerpo.querySelector("#modo-capacidad").checked &&
+      cuerpo.querySelector("#campos-objetivo").hidden &&
+      cuerpo.querySelector("#redes").disabled,
+  );
   cuerpo.querySelector("#ip").value = "192.168.5.130";
   cuerpo
-    .querySelector("#btn-mascara")
+    .querySelector("#btn-capacidad")
     .dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
   comprobar(
-    "iniciarSubneting: el botón Máscara calcula",
-    cuerpo.querySelector("#direcciones").textContent.includes("192.168.5.192"),
+    "iniciarSubneting: Ver capacidad resume redes y hosts",
+    cuerpo.querySelector("#result").textContent.includes("4 subredes") &&
+      cuerpo.querySelector("#result").textContent.includes("62"),
+    cuerpo.querySelector("#result").textContent,
+  );
+  cuerpo.querySelector("#modo-objetivo").checked = true;
+  cuerpo
+    .querySelector("#modo-objetivo")
+    .dispatchEvent(new window.Event("change", { bubbles: true }));
+  comprobar(
+    "iniciarSubneting: el modo objetivo habilita sus campos",
+    !cuerpo.querySelector("#campos-objetivo").hidden &&
+      !cuerpo.querySelector("#redes").disabled &&
+      !cuerpo.querySelector("#btn-redes").hidden,
+  );
+  cuerpo.querySelector("#redes").value = "6";
+  cuerpo
+    .querySelector("#btn-redes")
+    .dispatchEvent(new window.MouseEvent("click", { bubbles: true }));
+  comprobar(
+    "iniciarSubneting: Redes calcula la máscara",
+    cuerpo.querySelector("#result").textContent.includes("255.255.255.224"),
+    cuerpo.querySelector("#result").textContent,
   );
   cuerpo
     .querySelector("#btn-clase")
