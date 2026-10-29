@@ -133,7 +133,7 @@
 }
 
 .chip-accent {
-  color: #05252e;
+  color: var(--red-on-accent);
   border-color: transparent;
   background: var(--red-gradient);
 }
@@ -224,7 +224,7 @@
   display: grid;
   place-items: center;
   font-size: 1.3rem;
-  color: #05252e;
+  color: var(--red-on-accent);
   background: var(--red-gradient);
   box-shadow: 0 0 16px var(--red-accent-soft);
 }
@@ -249,7 +249,7 @@
 
 .card-link:hover,
 .card-link:focus {
-  color: #67e8f9;
+  color: var(--bs-link-hover-color);
   text-decoration: underline;
 }
 
@@ -284,7 +284,7 @@
   place-items: center;
   font-weight: 700;
   font-size: 1.05rem;
-  color: #05252e;
+  color: var(--red-on-accent);
   background: var(--red-gradient);
 }
 

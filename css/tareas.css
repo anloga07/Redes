@@ -41,7 +41,7 @@
 
 .vista-tareas .toggle-button {
   background: var(--red-accent);
-  color: #05252e;
+  color: var(--red-on-accent);
 }
 
 .vista-tareas .edit-button {

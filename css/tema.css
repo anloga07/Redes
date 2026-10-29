@@ -15,6 +15,10 @@
   --red-accent: #22d3ee;
   --red-accent-2: #14b8a6;
   --red-accent-soft: rgb(34 211 238 / 12%);
+  --red-accent-hover: #0fb9d6;
+  --red-accent-active: #0aa6c2;
+  --red-accent-rgb: 34, 211, 238;
+  --red-on-accent: var(--red-on-accent);
   --red-text: #e2e8f0;
   --red-muted: #94a3b8;
   --red-success: #34d399;
@@ -44,7 +48,9 @@
   --bs-primary: var(--red-accent);
   --bs-primary-rgb: 34, 211, 238;
   --bs-link-color: var(--red-accent);
+  --bs-link-color-rgb: 34, 211, 238;
   --bs-link-hover-color: #67e8f9;
+  --bs-link-hover-color-rgb: 103, 232, 249;
   --bs-border-radius: var(--red-radius);
   --bs-border-radius-lg: var(--red-radius);
   --bs-font-monospace: var(--red-font-mono);
@@ -56,16 +62,20 @@
   --red-surface: #fff;
   --red-surface-2: #f1f5f9;
   --red-border: #cbd5e1;
-  --red-accent: #0891b2;
+  --red-accent: #0e7490;
   --red-accent-2: #0f766e;
-  --red-accent-soft: rgb(8 145 178 / 10%);
+  --red-accent-soft: rgb(14 116 144 / 10%);
+  --red-accent-hover: #0b6478;
+  --red-accent-active: #155e75;
+  --red-accent-rgb: 14, 116, 144;
+  --red-on-accent: #fff;
   --red-text: #0f172a;
   --red-muted: #475569;
   --red-success: #059669;
   --red-warning: #d97706;
   --red-danger: #dc2626;
   --red-shadow: 0 6px 22px rgb(15 23 42 / 8%);
-  --red-gradient: linear-gradient(135deg, #0891b2, #0f766e);
+  --red-gradient: linear-gradient(135deg, #0e7490, #0f766e);
 
   /* Variables de Bootstrap */
   --bs-body-bg: var(--red-bg);
@@ -79,9 +89,11 @@
   --bs-border-color: var(--red-border);
   --bs-border-color-translucent: rgb(148 163 184 / 40%);
   --bs-primary: var(--red-accent);
-  --bs-primary-rgb: 8, 145, 178;
+  --bs-primary-rgb: 14, 116, 144;
   --bs-link-color: var(--red-accent);
-  --bs-link-hover-color: #06b6d4;
+  --bs-link-color-rgb: 14, 116, 144;
+  --bs-link-hover-color: #155e75;
+  --bs-link-hover-color-rgb: 21, 94, 117;
   --bs-border-radius: var(--red-radius);
   --bs-border-radius-lg: var(--red-radius);
   --bs-font-monospace: var(--red-font-mono);
@@ -94,6 +106,10 @@ body {
   background-image: radial-gradient(900px 420px at 50% -8%, rgb(34 211 238 / 7%), transparent 60%);
   background-repeat: no-repeat;
   color: var(--bs-body-color);
+}
+
+[data-bs-theme="light"] body {
+  background-image: radial-gradient(900px 420px at 50% -8%, rgb(14 116 144 / 6%), transparent 60%);
 }
 
 /* Foco visible para navegación con teclado */
@@ -168,17 +184,17 @@ samp {
 .btn-primary {
   --bs-btn-bg: var(--red-accent);
   --bs-btn-border-color: var(--red-accent);
-  --bs-btn-color: #05252e;
-  --bs-btn-hover-bg: #0fb9d6;
-  --bs-btn-hover-border-color: #0fb9d6;
-  --bs-btn-hover-color: #05252e;
-  --bs-btn-active-bg: #0aa6c2;
-  --bs-btn-active-border-color: #0aa6c2;
-  --bs-btn-active-color: #05252e;
+  --bs-btn-color: var(--red-on-accent);
+  --bs-btn-hover-bg: var(--red-accent-hover);
+  --bs-btn-hover-border-color: var(--red-accent-hover);
+  --bs-btn-hover-color: var(--red-on-accent);
+  --bs-btn-active-bg: var(--red-accent-active);
+  --bs-btn-active-border-color: var(--red-accent-active);
+  --bs-btn-active-color: var(--red-on-accent);
   --bs-btn-disabled-bg: var(--red-accent);
   --bs-btn-disabled-border-color: var(--red-accent);
-  --bs-btn-disabled-color: #05252e;
-  --bs-btn-focus-shadow-rgb: 34, 211, 238;
+  --bs-btn-disabled-color: var(--red-on-accent);
+  --bs-btn-focus-shadow-rgb: var(--red-accent-rgb);
 }
 
 .btn-outline-accent {
@@ -186,11 +202,11 @@ samp {
   --bs-btn-border-color: var(--red-accent);
   --bs-btn-hover-bg: var(--red-accent);
   --bs-btn-hover-border-color: var(--red-accent);
-  --bs-btn-hover-color: #05252e;
-  --bs-btn-active-bg: #0aa6c2;
-  --bs-btn-active-border-color: #0aa6c2;
-  --bs-btn-active-color: #05252e;
-  --bs-btn-focus-shadow-rgb: 34, 211, 238;
+  --bs-btn-hover-color: var(--red-on-accent);
+  --bs-btn-active-bg: var(--red-accent-active);
+  --bs-btn-active-border-color: var(--red-accent-active);
+  --bs-btn-active-color: var(--red-on-accent);
+  --bs-btn-focus-shadow-rgb: var(--red-accent-rgb);
 }
 
 /* --------------------------------------------------------------------------

@@ -58,7 +58,7 @@
 
 .vista-pass .copiar:hover {
   background: var(--red-accent);
-  color: #05252e;
+  color: var(--red-on-accent);
 }
 
 .vista-pass .eliminar {
