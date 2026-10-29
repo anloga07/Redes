@@ -111,6 +111,11 @@ global.document = {
   },
 };
 global.window = global;
+// El tema claro/oscuro (redes.js) consulta documentElement al cargar.
+global.document.documentElement = {
+  setAttribute: () => undefined,
+  getAttribute: () => "dark",
+};
 global.alert = () => {};
 global.prompt = () => null;
 const almacen = {};

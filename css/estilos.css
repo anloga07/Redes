@@ -61,6 +61,7 @@
   padding: 1.4rem 1.4rem 1rem;
   max-width: 540px;
   margin-inline: auto;
+  color: var(--bs-body-color);
 }
 
 .hero-art svg {
@@ -168,7 +169,7 @@
   font-size: clamp(1.6rem, 4vw, 2.6rem);
   font-weight: 600;
   line-height: 1;
-  color: #fff;
+  color: var(--bs-emphasis-color);
 }
 
 .octeto-bin {

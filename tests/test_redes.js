@@ -31,6 +31,18 @@ function crearElemento() {
     e._partes = [];
     e.append(...nodos);
   };
+  e.addEventListener = () => undefined;
+  e.removeEventListener = () => undefined;
+  e.querySelector = () => null;
+  e.setAttribute = () => undefined;
+  e.removeAttribute = () => undefined;
+  e.getAttribute = () => null;
+  e.classList = {
+    add: () => undefined,
+    remove: () => undefined,
+    toggle: () => undefined,
+    contains: () => false,
+  };
   return e;
 }
 global.document = {
@@ -57,6 +69,13 @@ global.document = {
 };
 const alertas = [];
 global.alert = (msg) => alertas.push(msg);
+
+// El tema claro/oscuro (redes.js) consulta localStorage y documentElement al cargar.
+global.document.documentElement = {
+  setAttribute: () => undefined,
+  getAttribute: () => "dark",
+};
+global.localStorage = { getItem: () => null, setItem: () => undefined };
 
 function reset() {
   for (const k of Object.keys(elementos)) elementos[k].replaceChildren();

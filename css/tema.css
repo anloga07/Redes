@@ -50,12 +50,50 @@
   --bs-font-monospace: var(--red-font-mono);
 }
 
+[data-bs-theme="light"] {
+  /* Paleta propia modo claro */
+  --red-bg: #f8fafc;
+  --red-surface: #fff;
+  --red-surface-2: #f1f5f9;
+  --red-border: #cbd5e1;
+  --red-accent: #0891b2;
+  --red-accent-2: #0f766e;
+  --red-accent-soft: rgb(8 145 178 / 10%);
+  --red-text: #0f172a;
+  --red-muted: #475569;
+  --red-success: #059669;
+  --red-warning: #d97706;
+  --red-danger: #dc2626;
+  --red-shadow: 0 6px 22px rgb(15 23 42 / 8%);
+  --red-gradient: linear-gradient(135deg, #0891b2, #0f766e);
+
+  /* Variables de Bootstrap */
+  --bs-body-bg: var(--red-bg);
+  --bs-body-color: var(--red-text);
+  --bs-body-color-rgb: 15, 23, 42;
+  --bs-body-font-family: var(--red-font-body);
+  --bs-emphasis-color: #000;
+  --bs-secondary-color: var(--red-muted);
+  --bs-secondary-bg: var(--red-surface);
+  --bs-tertiary-bg: var(--red-surface-2);
+  --bs-border-color: var(--red-border);
+  --bs-border-color-translucent: rgb(148 163 184 / 40%);
+  --bs-primary: var(--red-accent);
+  --bs-primary-rgb: 8, 145, 178;
+  --bs-link-color: var(--red-accent);
+  --bs-link-hover-color: #06b6d4;
+  --bs-border-radius: var(--red-radius);
+  --bs-border-radius-lg: var(--red-radius);
+  --bs-font-monospace: var(--red-font-mono);
+}
+
 /* Fondo limpio con un resplandor superior muy tenue */
 body {
   min-height: 100vh;
   background-color: var(--red-bg);
   background-image: radial-gradient(900px 420px at 50% -8%, rgb(34 211 238 / 7%), transparent 60%);
   background-repeat: no-repeat;
+  color: var(--bs-body-color);
 }
 
 /* Foco visible para navegación con teclado */
@@ -86,7 +124,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: #fff;
+  color: var(--bs-emphasis-color);
   font-weight: 600;
   letter-spacing: 0.2px;
 }
@@ -139,6 +177,7 @@ samp {
   --bs-btn-active-color: #05252e;
   --bs-btn-disabled-bg: var(--red-accent);
   --bs-btn-disabled-border-color: var(--red-accent);
+  --bs-btn-disabled-color: #05252e;
   --bs-btn-focus-shadow-rgb: 34, 211, 238;
 }
 
@@ -210,6 +249,20 @@ samp {
   border-bottom: 1px solid var(--red-border);
 }
 
+[data-bs-theme="light"] .navbar {
+  background: rgb(255 255 255 / 95%);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--red-border);
+}
+
+[data-bs-theme="light"] .navbar-toggler {
+  border-color: var(--red-border);
+}
+
+[data-bs-theme="light"] .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%2815, 23, 42, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
 .navbar .nav-link {
   position: relative;
   color: var(--red-muted);
@@ -217,7 +270,7 @@ samp {
 
 .navbar .nav-link:hover,
 .navbar .nav-link:focus {
-  color: #fff;
+  color: var(--bs-emphasis-color);
 }
 
 .navbar .nav-link.active {
@@ -248,7 +301,7 @@ samp {
 .dropdown-item:hover,
 .dropdown-item:focus {
   background: var(--red-accent-soft);
-  color: #fff;
+  color: var(--bs-emphasis-color);
 }
 
 /* --------------------------------------------------------------------------
@@ -261,12 +314,14 @@ samp {
   border: 1px solid var(--red-border);
   border-radius: var(--red-radius);
   box-shadow: var(--red-shadow);
+  color: var(--bs-body-color);
 }
 
 .field {
   background: var(--red-surface);
   border: 1px solid var(--red-border);
   border-radius: var(--red-radius);
+  color: var(--bs-body-color);
 }
 
 .panel-tutor {
@@ -320,7 +375,8 @@ samp {
    Tablas
    -------------------------------------------------------------------------- */
 .table {
-  --bs-table-color: var(--red-text);
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-bg: transparent;
   --bs-table-border-color: var(--red-border);
 }
 

@@ -525,7 +525,51 @@ function prepararValidacionIP() {
   });
 }
 
+// ===== TEMA CLARO/OSCURO =====
+
+function actualizarBotonTema() {
+  const tema = document.documentElement.getAttribute("data-bs-theme");
+  const btn = document.getElementById("themeToggle");
+  const icono = btn?.querySelector("i");
+  if (!btn || !icono) return;
+  if (tema === "light") {
+    btn.setAttribute("aria-label", "Cambiar a modo oscuro");
+    icono.classList.remove("bi-sun-fill");
+    icono.classList.add("bi-moon-fill");
+  } else {
+    btn.setAttribute("aria-label", "Cambiar a modo claro");
+    icono.classList.remove("bi-moon-fill");
+    icono.classList.add("bi-sun-fill");
+  }
+}
+
+function alternarTema() {
+  const temaActual = document.documentElement.getAttribute("data-bs-theme");
+  const nuevoTema = temaActual === "light" ? "dark" : "light";
+  document.documentElement.setAttribute("data-bs-theme", nuevoTema);
+  localStorage.setItem("tema", nuevoTema);
+  actualizarBotonTema();
+}
+
+function prepararBotonTema() {
+  const btn = document.getElementById("themeToggle");
+  if (!btn) return;
+  btn.addEventListener("click", alternarTema);
+}
+
+function inicializarTema() {
+  const temaGuardado = localStorage.getItem("tema");
+  if (temaGuardado === "light" || temaGuardado === "dark") {
+    document.documentElement.setAttribute("data-bs-theme", temaGuardado);
+  } else {
+    document.documentElement.setAttribute("data-bs-theme", "dark");
+  }
+  prepararBotonTema();
+  actualizarBotonTema();
+}
+
 // Registro del listener delegado de navegación. Se hace una sola vez, al cargar
 // la página (redes.js se declara al final del body), y sigue valiendo para todos
 // los fragmentos que se inyecten después.
 prepararNavegacion();
+inicializarTema();
