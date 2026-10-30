@@ -1,8 +1,8 @@
 <div class="col-12 vista-pass">
   <div class="panel p-4 mx-auto narrow-panel">
-    <h2 class="section-title">
+    <h1 class="section-title h2">
       <i class="bi bi-shield-lock" aria-hidden="true"></i> Generador de contraseñas
-    </h2>
+    </h1>
     <hr />
 
     <!-- Controles -->
@@ -28,7 +28,7 @@
       <i class="bi bi-arrow-repeat me-1" aria-hidden="true"></i>Generar contraseña
     </button>
     <div class="result-row">
-      <div class="result" id="passwordResult">Aquí aparecerá tu contraseña</div>
+      <div class="result" id="passwordResult" aria-live="polite">Aquí aparecerá tu contraseña</div>
       <button id="copyBtn" class="btn btn-outline-accent btn-copy" type="button" hidden>
         <i class="bi bi-clipboard" aria-hidden="true"></i> Copiar
       </button>
@@ -43,7 +43,7 @@
 
     <!-- Tabla -->
     <div class="saved">
-      <h3 class="h5"><i class="bi bi-key me-1" aria-hidden="true"></i>Contraseñas guardadas</h3>
+      <h2 class="h5"><i class="bi bi-key me-1" aria-hidden="true"></i>Contraseñas guardadas</h2>
       <div class="table-responsive">
         <table id="savedTable" class="table table-hover align-middle">
           <thead>

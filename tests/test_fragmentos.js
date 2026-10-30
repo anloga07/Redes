@@ -195,5 +195,40 @@ for (const etiqueta of externos) {
   } else fallo("SRI: " + url + " sin integrity sha384 o sin crossorigin");
 }
 
+// --- 9. Un h1 por vista y sin saltos de nivel (HTML-01) ---
+// pintarHTML() reemplaza el contenido de #cuerpo, así que el h1 de la portada
+// desaparece al navegar: cada fragmento tiene que traer el suyo.
+for (const f of todos) {
+  const niveles = [...fs.readFileSync(f, "utf8").matchAll(/<h([1-6])[\s>]/g)].map((m) =>
+    Number(m[1]),
+  );
+  const cuantosH1 = niveles.filter((n) => n === 1).length;
+  let salto = "";
+  for (let i = 1; i < niveles.length; i++) {
+    if (niveles[i] - niveles[i - 1] > 1) salto = "h" + niveles[i - 1] + "->h" + niveles[i];
+  }
+  if (cuantosH1 === 1 && niveles[0] === 1 && !salto) ok(f + ": un h1 y sin saltos de nivel");
+  else {
+    fallo(
+      f + ": h1=" + cuantosH1 + ", primer nivel=h" + niveles[0] + (salto ? ", salto " + salto : ""),
+    );
+  }
+}
+
+// --- 10. Los contenedores que rellena el JS se anuncian (aria-live) ---
+const contenedores = [
+  ["clases.html", "result"],
+  ["pass.html", "passwordResult"],
+  ["tareas.html", "taskList"],
+];
+for (const [f, id] of contenedores) {
+  const etiqueta = new RegExp('<[^>]*\\sid="' + id + '"[^>]*>').exec(fs.readFileSync(f, "utf8"));
+  if (etiqueta && /aria-live="polite"/.test(etiqueta[0])) {
+    ok(f + ": #" + id + ' es aria-live="polite"');
+  } else {
+    fallo(f + ": #" + id + ' sin aria-live="polite"');
+  }
+}
+
 console.log(fallos === 0 ? "\nTODO OK" : "\n" + fallos + " FALLOS");
 process.exit(fallos ? 1 : 0);

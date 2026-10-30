@@ -33,6 +33,7 @@ const suites = [
   { nombre: "copia al portapapeles con reserva", script: "test_copia_fallback.js" },
   { nombre: "DOM real (jsdom)", script: "test_dom_real.js" },
   { nombre: "conversor de bases", script: "test_conversor.js" },
+  { nombre: "asistente de chat", script: "test_chat.js" },
   // index.html sí lleva doctype/head/link, así que allí solo se mira el balance.
   ...htmls.map((f) => ({
     nombre: "balance del marcado de " + f,
