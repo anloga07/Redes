@@ -31,6 +31,7 @@
     <link rel="stylesheet" type="text/css" href="./css/tareas.css" />
     <link rel="stylesheet" type="text/css" href="./css/notas.css" />
     <link rel="stylesheet" type="text/css" href="./css/conversor.css" />
+    <link rel="stylesheet" type="text/css" href="./css/chat.css" />
     <title>Redes IP</title>
   </head>
   <body>
@@ -411,6 +412,52 @@
         >
       </footer>
     </div>
+    <!-- Asistente de chat: vive fuera de #cuerpo para sobrevivir a cada fragmento -->
+    <div class="chat-widget" id="chatWidget">
+      <section class="chat-panel" id="chatPanel" role="dialog" aria-labelledby="chatTitulo" hidden>
+        <header class="chat-cabecera">
+          <h2 class="chat-titulo" id="chatTitulo">
+            <i class="bi bi-robot" aria-hidden="true"></i> Asistente de Redes IP
+          </h2>
+          <button
+            class="chat-boton-icono"
+            id="chatLimpiar"
+            type="button"
+            aria-label="Borrar conversación"
+          >
+            <i class="bi bi-trash" aria-hidden="true"></i>
+          </button>
+          <button class="chat-boton-icono" id="chatCerrar" type="button" aria-label="Cerrar chat">
+            <i class="bi bi-x-lg" aria-hidden="true"></i>
+          </button>
+        </header>
+        <div class="chat-registro" id="chatRegistro" role="log" aria-live="polite"></div>
+        <form class="chat-formulario" id="chatFormulario">
+          <label class="visually-hidden" for="chatEntrada">Escribe tu duda</label>
+          <input
+            class="form-control chat-entrada"
+            id="chatEntrada"
+            type="text"
+            maxlength="500"
+            autocomplete="off"
+            placeholder="¿Qué quieres saber?"
+          />
+          <button class="btn btn-primary" type="submit" aria-label="Enviar mensaje">
+            <i class="bi bi-send" aria-hidden="true"></i>
+          </button>
+        </form>
+      </section>
+      <button
+        class="chat-lanzador"
+        id="chatLanzador"
+        type="button"
+        aria-expanded="false"
+        aria-controls="chatPanel"
+        aria-label="Abrir chat de ayuda"
+      >
+        <i class="bi bi-chat-dots-fill" aria-hidden="true"></i>
+      </button>
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
@@ -421,5 +468,7 @@
     <script src="./scripts/scriptTareas.js"></script>
     <script src="./scripts/notas.js"></script>
     <script src="./scripts/scriptConversor.js"></script>
+    <script src="./scripts/chatDatos.js"></script>
+    <script src="./scripts/chat.js"></script>
   </body>
 </html>

@@ -1,21 +1,21 @@
 <div class="col-sm-12 col-md-3 col-lg-3 mb-4 mb-md-0">
   <div class="panel p-4 h-100">
-    <h3 class="h5 section-title"><i class="bi bi-diagram-2" aria-hidden="true"></i> Subneting</h3>
+    <h1 class="h5 section-title"><i class="bi bi-diagram-2" aria-hidden="true"></i> Subneting</h1>
     <hr />
-    <h6 class="text-info">¿Qué es Subneting?</h6>
+    <h2 class="h6 text-info">¿Qué es Subneting?</h2>
     <p class="text-justify">
       Subneting es una técnica de red que se utiliza para dividir una red grande en varias redes más
       pequeñas, conocidas como subredes. Esto se hace para mejorar la eficiencia de la red, reducir
       el tráfico y mejorar la seguridad de la red.
     </p>
-    <h6 class="text-info">¿Cómo funciona Subneting?</h6>
+    <h2 class="h6 text-info">¿Cómo funciona Subneting?</h2>
     <p class="text-justify">
       Subneting se basa en la asignación de direcciones IP a cada subred. Para hacer esto, se
       utiliza una máscara de subred, que es una dirección IP que se utiliza para identificar la
       subred. La máscara de subred se utiliza para determinar la cantidad de direcciones IP que se
       pueden asignar a cada subred.
     </p>
-    <h6 class="text-info">¿Cuándo se utiliza Subneting?</h6>
+    <h2 class="h6 text-info">¿Cuándo se utiliza Subneting?</h2>
     <p class="text-justify mb-0">
       Subneting se utiliza en una amplia variedad de aplicaciones, desde la comunicación en línea
       hasta el envío de correo electrónico y la transferencia de archivos. También se utiliza en las
@@ -29,7 +29,7 @@
     <label for="ip" class="form-label">Dirección IP de la red</label>
     <input type="text" class="form-control ip-out mb-3" id="ip" placeholder="192.168.0.0" />
     <label for="maskSelect" class="form-label">Máscara en formato /n</label>
-    <select class="form-select" aria-label="Selector de máscara" id="maskSelect">
+    <select class="form-select" id="maskSelect">
       <option selected value="Máscaras">Máscaras</option>
       <option value="8">/8</option>
       <option value="9">/9</option>
@@ -108,7 +108,7 @@
         disabled
       />
     </div>
-    <h6 class="mt-3">¿Qué necesitas obtener?</h6>
+    <h2 class="h6 mt-3">¿Qué necesitas obtener?</h2>
     <div id="botones" class="d-flex flex-wrap gap-2 justify-content-center">
       <button type="button" class="btn btn-primary" id="btn-clase">Clase</button>
       <button type="button" class="btn btn-primary" id="btn-capacidad">Ver capacidad</button>
@@ -123,9 +123,9 @@
 </div>
 <div class="col-sm-12 col-md-5 col-lg-5">
   <div class="panel p-4 h-100">
-    <h6>Resultado</h6>
+    <h2 class="h6">Resultado</h2>
     <div id="result" class="result-box ip-out mb-3" aria-live="polite">Resultado.</div>
-    <h6>Direcciones</h6>
+    <h2 class="h6">Direcciones</h2>
     <div id="direcciones" class="result-box ip-out mb-0">Direcciones.</div>
   </div>
 </div>

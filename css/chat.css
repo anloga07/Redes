@@ -1,0 +1,188 @@
+/* Asistente de chat (scope .chat-widget).
+   El widget se inyecta desde index.html fuera de #cuerpo, así que sobrevive a
+   cada fragmento cargado. Usa solo tokens del tema: se ve igual en modo claro
+   y en modo oscuro. */
+
+.chat-widget {
+  position: fixed;
+  right: 1.25rem;
+  bottom: calc(1.25rem + env(safe-area-inset-bottom));
+  z-index: 1030;
+  font-family: var(--red-font-body);
+}
+
+.chat-lanzador {
+  display: grid;
+  place-items: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  padding: 0;
+  font-size: 1.35rem;
+  color: var(--red-on-accent);
+  background: var(--red-gradient);
+  border: 1px solid var(--red-accent);
+  border-radius: 50%;
+  box-shadow: var(--red-shadow);
+}
+
+.chat-lanzador:hover {
+  filter: brightness(1.08);
+}
+
+.chat-panel {
+  position: absolute;
+  right: 0;
+  bottom: 4.5rem;
+  display: flex;
+  flex-direction: column;
+  width: min(21rem, calc(100vw - 2.5rem));
+  height: min(28rem, 70vh);
+  overflow: hidden;
+  color: var(--bs-body-color);
+  background: var(--red-surface);
+  border: 1px solid var(--red-border);
+  border-radius: var(--red-radius);
+  box-shadow: var(--red-shadow);
+  animation: chat-aparecer 160ms ease-out;
+}
+
+/* El atributo hidden debe ganar al display: flex del panel. */
+.chat-panel[hidden] {
+  display: none;
+}
+
+.chat-cabecera {
+  display: flex;
+  gap: 0.25rem;
+  align-items: center;
+  padding: 0.7rem 0.85rem;
+  background: var(--red-surface-2);
+  border-bottom: 1px solid var(--red-border);
+}
+
+.chat-titulo {
+  margin: 0;
+  margin-right: auto;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--bs-emphasis-color);
+}
+
+.chat-boton-icono {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  color: var(--red-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--red-radius);
+}
+
+.chat-boton-icono:hover {
+  color: var(--red-accent);
+  border-color: var(--red-border);
+}
+
+.chat-registro {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.85rem;
+  overflow-y: auto;
+}
+
+.chat-mensaje {
+  max-width: 85%;
+  padding: 0.55rem 0.7rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  border: 1px solid var(--red-border);
+  border-radius: var(--red-radius);
+}
+
+.chat-mensaje-bot {
+  align-self: flex-start;
+  background: var(--red-surface-2);
+}
+
+.chat-mensaje-usuario {
+  align-self: flex-end;
+  background: var(--red-accent-soft);
+  border-color: var(--red-accent);
+}
+
+.chat-texto {
+  margin: 0;
+}
+
+.chat-accion {
+  display: inline-block;
+  margin-top: 0.55rem;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--red-accent);
+  text-decoration: none;
+  border: 1px solid var(--red-accent);
+  border-radius: 999px;
+}
+
+.chat-accion:hover {
+  color: var(--red-on-accent);
+  background: var(--red-accent);
+}
+
+.chat-sugerencias {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: flex-start;
+  margin-top: 0.55rem;
+}
+
+.chat-sugerencia {
+  padding: 0.3rem 0.65rem;
+  font-size: 0.82rem;
+  color: var(--red-text);
+  text-align: left;
+  background: transparent;
+  border: 1px dashed var(--red-border);
+  border-radius: var(--red-radius);
+}
+
+.chat-sugerencia:hover {
+  color: var(--red-accent);
+  border-color: var(--red-accent);
+}
+
+.chat-formulario {
+  display: flex;
+  gap: 0.4rem;
+  padding: 0.7rem;
+  border-top: 1px solid var(--red-border);
+}
+
+.chat-entrada {
+  flex: 1;
+}
+
+@keyframes chat-aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(0.4rem);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chat-panel {
+    animation: none;
+  }
+}
