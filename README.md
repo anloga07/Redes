@@ -63,9 +63,8 @@ Redes/
 ├── css/
 │   ├── tema.css         # Tema oscuro: tokens y variables de Bootstrap
 │   ├── estilos.css      # Layout del sitio (navbar, inicio, pie, agenda)
-│   ├── stylepass.css    # Estilos del generador de contraseñas
-│   ├── tareas.css       # Estilos del gestor de tareas
-│   └── notas.css        # Estilos del gestor de notas
+│   ├── herramientas.css # Estilos de las herramientas de aula (pass, tareas, notas, conversor)
+│   └── chat.css         # Estilos del asistente de chat
 ├── img/                 # Imágenes del proyecto
 ├── AGENTS.md            # Documentación técnica
 ├── MEMORY.md            # Notas del proyecto
@@ -83,7 +82,7 @@ Cargadas desde CDN:
 
 Locales:
 
-- `css/tema.css` (tema y tokens), `css/estilos.css` (layout) y los CSS de cada herramienta (con scope para no afectar al resto del sitio)
+- `css/tema.css` (tema y tokens), `css/estilos.css` (layout), `css/herramientas.css` (las cuatro herramientas de aula, cada bloque con su scope) y `css/chat.css` (widget del asistente)
 
 ## Licencia
 

@@ -1,0 +1,292 @@
+/* stylelint-disable no-descending-specificity --
+   Los cuatro bloques están scopeados bajo la clase de su fragmento
+   (.vista-pass, .vista-tareas, .vista-notas, .vista-conversor) y nunca comparten
+   elementos, pero al vivir en la misma hoja la regla compara sus selectores
+   entre sí y marca como descendente un orden que no lo es. */
+
+/* Estilos de las herramientas de aula, agrupados en una sola hoja para reducir
+   peticiones bloqueantes. Cada bloque sigue scopeado bajo la clase de su
+   fragmento (.vista-pass, .vista-tareas, .vista-notas, .vista-conversor);
+   el panel, los botones y los formularios vienen del tema (css/tema.css). */
+
+/* ===== Generador de contraseñas (.vista-pass) ===== */
+
+/* Estilos del Generador de Contraseñas (scope .vista-pass)
+   El panel, botones y formularios vienen del tema (css/tema.css). */
+.vista-pass .result {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  font-family: var(--red-font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--red-accent);
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-radius: var(--red-radius);
+  word-break: break-all;
+}
+
+/* Contraseña generada + botón "Copiar" a su derecha */
+.vista-pass .result-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: flex-start;
+  margin-top: 1rem;
+}
+
+.vista-pass .result-row .result {
+  flex: 1;
+  min-width: 0;
+  margin-top: 0;
+}
+
+.vista-pass .btn-copy {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.vista-pass .saved {
+  margin-top: 2rem;
+}
+
+/* Acciones de cada fila: Copiar + Eliminar */
+.vista-pass .acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.vista-pass .copiar {
+  background: transparent;
+  color: var(--red-accent);
+  border: 1px solid var(--red-accent);
+  border-radius: 0.45rem;
+  padding: 0.25rem 0.7rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vista-pass .copiar:hover {
+  background: var(--red-accent);
+  color: var(--red-on-accent);
+}
+
+.vista-pass .eliminar {
+  background: var(--red-danger);
+  color: #2a0b0b;
+  border: none;
+  border-radius: 0.45rem;
+  padding: 0.25rem 0.7rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vista-pass .eliminar:hover {
+  filter: brightness(1.08);
+}
+
+/* ===== Gestor de tareas (.vista-tareas) ===== */
+
+/* Estilos del Gestor de Tareas (scope .vista-tareas)
+   El panel y el formulario vienen del tema (css/tema.css). */
+.vista-tareas .task-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 0.6rem;
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-left: 3px solid var(--red-accent);
+  border-radius: var(--red-radius);
+}
+
+.vista-tareas .task-text {
+  flex: 1 1 100%;
+}
+
+.vista-tareas .task-item.completed {
+  border-left-color: var(--red-success);
+  opacity: 0.85;
+}
+
+.vista-tareas .completed .task-text {
+  text-decoration: line-through;
+  color: var(--red-muted);
+}
+
+.vista-tareas .toggle-button,
+.vista-tareas .edit-button,
+.vista-tareas .delete-button {
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 0.45rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.vista-tareas .toggle-button {
+  background: var(--red-accent);
+  color: var(--red-on-accent);
+}
+
+.vista-tareas .edit-button {
+  background: var(--red-warning);
+  color: #2a1a00;
+}
+
+.vista-tareas .delete-button {
+  background: var(--red-danger);
+  color: #2a0b0b;
+}
+
+.vista-tareas .toggle-button:hover,
+.vista-tareas .edit-button:hover,
+.vista-tareas .delete-button:hover {
+  filter: brightness(1.08);
+}
+
+/* ===== Gestor de notas (.vista-notas) ===== */
+
+/* Estilos del Gestor de Notas (scope .vista-notas)
+   El panel, botones y formularios vienen del tema (css/tema.css). */
+.vista-notas .nota {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: var(--red-surface-2);
+  border: 1px solid var(--red-border);
+  border-left: 3px solid var(--red-accent);
+  border-radius: var(--red-radius);
+}
+
+.vista-notas .nota-info {
+  flex: 1 1 320px;
+  min-width: 0;
+}
+
+.vista-notas .nota-info h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.35rem;
+}
+
+.vista-notas .nota-info p {
+  margin-bottom: 0.35rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.vista-notas .nota-info small {
+  display: block;
+  color: var(--red-muted);
+  font-size: 0.8rem;
+}
+
+.vista-notas .nota-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.vista-notas .nota-edicion {
+  flex: 1 1 100%;
+}
+
+.vista-notas .editar,
+.vista-notas .guardar,
+.vista-notas .cancelar,
+.vista-notas .eliminar {
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  padding: 0.3rem 0.8rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.vista-notas .editar {
+  background: var(--red-warning);
+  color: #2a1a00;
+}
+
+.vista-notas .guardar {
+  background: var(--red-accent);
+  color: var(--red-on-accent);
+}
+
+.vista-notas .cancelar {
+  background: var(--red-surface);
+  color: var(--red-text);
+  border-color: var(--red-border);
+}
+
+.vista-notas .eliminar {
+  background: var(--red-danger);
+  color: #2a0b0b;
+}
+
+.vista-notas .editar:hover,
+.vista-notas .guardar:hover,
+.vista-notas .cancelar:hover,
+.vista-notas .eliminar:hover {
+  filter: brightness(1.08);
+}
+
+/* ===== Conversor de bases (.vista-conversor) ===== */
+
+/* Estilos del Conversor de bases (scope .vista-conversor).
+   El panel, el formulario y la caja de resultados vienen del tema (css/tema.css). */
+.vista-conversor .conversor-resultado {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: 7.5rem;
+}
+
+.vista-conversor .conversor-fila {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--red-border);
+}
+
+.vista-conversor .conversor-fila:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.vista-conversor .conversor-etiqueta {
+  font-family: var(--red-font-body);
+  font-size: 0.85rem;
+  color: var(--red-muted);
+}
+
+.vista-conversor .conversor-valor {
+  font-weight: 600;
+  color: var(--red-accent);
+  overflow-wrap: anywhere;
+}
+
+.vista-conversor .conversor-aviso {
+  color: var(--red-muted);
+}
+
+.vista-conversor .conversor-aviso-error {
+  color: var(--red-warning);
+}

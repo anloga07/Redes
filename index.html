@@ -7,6 +7,18 @@
       name="description"
       content="Teoría y herramientas interactivas de redes IP: clases de direcciones, subneting, calculadora de máscaras y generador de contraseñas."
     />
+    <!-- Único script en línea del sitio: fija el tema guardado antes de que el CSS
+         pinte la página (si no, quien usa modo claro ve un destello oscuro). -->
+    <script>
+      try {
+        const temaGuardado = localStorage.getItem("tema");
+        if (temaGuardado === "light" || temaGuardado === "dark") {
+          document.documentElement.setAttribute("data-bs-theme", temaGuardado);
+        }
+      } catch {
+        // localStorage puede fallar (modo privado): se queda el tema por defecto.
+      }
+    </script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -22,15 +34,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="./css/tema.css" />
     <link rel="stylesheet" type="text/css" href="./css/estilos.css" />
-    <link rel="stylesheet" type="text/css" href="./css/stylepass.css" />
-    <link rel="stylesheet" type="text/css" href="./css/tareas.css" />
-    <link rel="stylesheet" type="text/css" href="./css/notas.css" />
-    <link rel="stylesheet" type="text/css" href="./css/conversor.css" />
+    <link rel="stylesheet" type="text/css" href="./css/herramientas.css" />
     <link rel="stylesheet" type="text/css" href="./css/chat.css" />
     <title>Redes IP</title>
   </head>
@@ -43,7 +52,7 @@
           <nav class="navbar navbar-expand-lg sticky-top">
             <div class="container-fluid">
               <a class="navbar-brand" href="#" data-vista="inicio">
-                <img src="img/logo.jpg" alt="Redes IP" width="200" height="200" />
+                <img src="img/logo.jpg" alt="" width="42" height="42" />
                 <span>Redes IP</span>
               </a>
               <button
@@ -133,7 +142,9 @@
         </header>
       </div>
       <!-- Contenido inicial: se sustituye por los fragmentos (inicio, teoria, clases, subneting y herramientas) -->
-      <main class="row py-4" id="cuerpo" tabindex="-1">
+      <!-- mx-0: #cuerpo es un .row dentro de otro .row; sin anular el gutter exterior
+           se duplican los márgenes negativos y el contenido desborda el viewport. -->
+      <main class="row py-4 mx-0" id="cuerpo" tabindex="-1">
         <div class="col-12 hero-redes">
           <div class="field field-hero p-4 p-lg-5">
             <div class="row align-items-center g-4 g-lg-5">
@@ -405,7 +416,7 @@
           </div>
         </div>
       </main>
-      <footer class="site-footer text-center">
+      <footer class="col-12 site-footer text-center">
         <p class="mb-1">
           <i class="bi bi-hdd-network me-1" aria-hidden="true"></i>Redes IP · Proyecto educativo
         </p>
